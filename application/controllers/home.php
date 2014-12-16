@@ -59,7 +59,14 @@ class Home extends CI_Controller {
 	public function index(){
 		$this->parts['active'] = 'inicio';
 		$this->parts['title_table'] = 'Pactos de transparencia';
-		$this->parts['table'] = 'Pacto de Información de Proveedores en Licitaciones Públicas';
+		$logo_junar = $this->config->item('base_url')."static/img/logo-junar-cuad.jpg";
+		$logo_icda = $this->config->item('base_url')."static/img/Logo_ICDA_b.jpg";
+		$logo_harvard = $this->config->item('base_url')."static/img/logo-hardvard-2.jpg";
+		$style = "style='max-height:150px; padding:10px;'";
+
+		$this->parts['table'] = "Pacto de Información de Proveedores en Licitaciones Públicas
+			<br/>
+			<img src='$logo_icda' $style/><img src='$logo_harvard' $style/><img src='$logo_junar' $style/>";
 		$this->load_all();
 	}
 

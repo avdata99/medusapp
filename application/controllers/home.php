@@ -64,7 +64,7 @@ class Home extends CI_Controller {
 		$logo_harvard = $this->config->item('base_url')."static/img/logo-hardvard-2.jpg";
 		$style = "style='max-height:150px; padding:10px;'";
 
-		$this->parts['table'] = "Pacto de Información de Proveedores en Licitaciones Públicas
+		$this->parts['table'] = "Sistema de Transparencia en Compras Públicas basado en Acuerdos Prácticos
 			<br/>
 			<img src='$logo_icda' $style/><img src='$logo_harvard' $style/><img src='$logo_junar' $style/>";
 		$this->load_all();

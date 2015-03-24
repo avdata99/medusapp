@@ -48,10 +48,19 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = 'junar';
-$db['default']['database'] = 'pactointegridad';
+if (ENVIRONMENT == 'development'){
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'root';
+	$db['default']['password'] = 'junar';
+	$db['default']['database'] = 'pactointegridad';
+	}
+ if (ENVIRONMENT == 'production'){
+	$db['default']['hostname'] = 'localhost';
+	$db['default']['username'] = 'pin2_user';
+	$db['default']['password'] = 'ic*DA_134';
+	$db['default']['database'] = 'pin2_db';
+	}
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

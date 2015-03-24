@@ -6,7 +6,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><?=$title?></a>
+                <a class="navbar-brand" href="<?=$my_base_url?>"><?=$title?></a>
             </div>
             
             <? /*=$notifications_bar */ ?>

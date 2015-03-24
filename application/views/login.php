@@ -61,7 +61,7 @@
                     </div>
 
 <img src='<?=$this->config->item('base_url')?>static/img/Logo_ICDA_b.jpg' style='max-height:50px; padding:10px;'/>
-<img src='<?=$this->config->item('base_url')?>static/img/logo-junar-cuad.jpg' style='max-height:50px; padding:10px;'/>
+<!-- <img src='<?=$this->config->item('base_url')?>static/img/logo-junar-cuad.jpg' style='max-height:50px; padding:10px;'/> -->
 <img src='<?=$this->config->item('base_url')?>static/img/logo-hardvard-2.jpg' style='max-height:50px; padding:10px;' />
 
                 </div>

@@ -32,16 +32,46 @@ class User_model extends CI_Model
 
         $res = $query->row();
         $sess = array('user_name'=>$res->nombre, 'user_login'=>$res->login, 'user_id'=>$res->id);
-        #TODO set role and permissions
-        $sess['permission'] = array();
+        #set roles -------------------------------
+        $sess['roles'] = $this->readRoles($res->id);
+        
+        # set permissions ------------------------
+        $sess['permission'] = $this->readPermissions($res->id);
+
+        # --------------------------------------
         $this->session->set_userdata($sess);
         return true;
 
         }
 
-        function logout(){
-            $sess = array('user_name'=>'', 'user_login'=>'', 'user_id'=>0);
-            $this->session->set_userdata($sess);
-        }
+    public function logout(){
+        $sess = array('user_name'=>'', 'user_login'=>'', 'user_id'=>0);
+        $this->session->set_userdata($sess);
+    }
 
+    public function readRoles($user_id){
+        $q = 'SELECT r.* FROM rol r
+                join usuario_rol ur on r.id = ur.id_rol
+                where ur.id_usuario = ' . $user_id;
+        $query = $this->db->query($q);
+        $roles = array();
+        foreach ($query->result() as $rol) {
+            $roles[] = $rol->nombre;
+        }
+        return $roles;
+    }
+
+    public function readPermissions($user_id){
+        $q = 'SELECT p.* FROM permiso p
+                join permiso_rol pr on pr.id_permiso = p.id
+                join rol r on pr.id_rol = r.id
+                join usuario_rol ur on r.id = ur.id_rol
+                where ur.id_usuario = ' . $user_id;
+        $query = $this->db->query($q);
+        $permissions = array();
+        foreach ($query->result() as $permission) {
+            $permissions[] = $permission->nombre;
+        }
+        return $permissions;
+    }
     }

@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	if (file_exists('/home/junar/')) 
+	if (file_exists('/home/junar/') or file_exists('/home/saul')) 
 		define('ENVIRONMENT', 'development');
 	else 
 		define('ENVIRONMENT', 'production');

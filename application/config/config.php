@@ -19,7 +19,13 @@ $config['app_name_short'] = 'Pin APP';
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+if (ENVIRONMENT == 'development') {
+	$config['base_url']	= 'http://medusapp/';
+}
+
+if (ENVIRONMENT == 'production') {
+	$config['base_url']	= '';	
+}
 #$config['base_url']	= 'http://localhost/andres/devs/pin2.data99.com.ar/index.php/';
 
 

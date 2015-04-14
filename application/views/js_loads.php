@@ -13,10 +13,9 @@ foreach($js_files as $file): ?>
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<?=$this->config->item('base_url')?>static/js/plugins/metisMenu/metisMenu.min.js"></script>
 
-<!-- Morris Charts JavaScript 
+<!-- Morris Charts JavaScript -->
 <script src="<?=$this->config->item('base_url')?>static/js/plugins/morris/raphael.min.js"></script>
 <script src="<?=$this->config->item('base_url')?>static/js/plugins/morris/morris.min.js"></script>
--->
 
 <!-- Custom Theme JavaScript -->
 <script src="<?=$this->config->item('base_url')?>static/js/sb-admin-2.js"></script>

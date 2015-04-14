@@ -51,14 +51,14 @@ $active_record = TRUE;
 if (ENVIRONMENT == 'development'){
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'junar';
+	$db['default']['password'] = 'gnu5454';
 	$db['default']['database'] = 'pactointegridad';
 	}
  if (ENVIRONMENT == 'production'){
 	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'pin2_user';
-	$db['default']['password'] = 'ic*DA_134';
-	$db['default']['database'] = 'pin2_db';
+	$db['default']['username'] = 'remote';
+	$db['default']['password'] = 'remote';
+	$db['default']['database'] = 'pactointegridad';
 	}
 
 $db['default']['dbdriver'] = 'mysql';

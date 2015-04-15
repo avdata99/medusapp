@@ -2,4 +2,5 @@ application/config/database.php
 simulacion
 logins
 static/documents/*
+lasterror.html
 

@@ -36,7 +36,7 @@ class User_model extends CI_Model
         $sess['roles'] = $this->readRoles($res->id);
         
         # set permissions ------------------------
-        $sess['permission'] = $this->readPermissions($res->id);
+        $sess['permissions'] = $this->readPermissions($res->id);
 
         # --------------------------------------
         $this->session->set_userdata($sess);

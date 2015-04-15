@@ -18,7 +18,7 @@ class Home extends CI_Controller {
 		}
 
 	private function load_all(){
-		if (!$this->session->userdata('user_id')) redirect($this->parts['my_base_url'].'home/show_login');
+		if (!$this->session->userdata('user_id')) $this->redirecToLogin();
 		$this->parts['session'] = $this->session->userdata;
 
 		$this->parts['title'] = $this->config->item('app_name_short');
@@ -46,13 +46,13 @@ class Home extends CI_Controller {
 
 	public function logout(){
 		$this->user_model->logout();
-		$this->parts['title'] = 'PIN App Logout';
+		$this->parts['title'] = $this->config->item('app_name_short') . ' Logout';
 		$this->parts['error'] = "DESCONECTADO";
 		$this->load->view('login', $this->parts);
 	}
 
 	public function show_login(){
-		$this->parts['title'] = 'PIN App login';
+		$this->parts['title'] = $this->config->item('app_name_short') . ' login';
 		$this->load->view('login', $this->parts);
 	}
 
@@ -70,7 +70,32 @@ class Home extends CI_Controller {
 		$this->load_all();
 	}
 
+	public function redirecToLogin(){
+		redirect($this->parts['my_base_url'].'home/show_login');
+	}
+
+	public function redirecToUnauthorized(){
+		redirect($this->parts['my_base_url'].'home/unauthorized');
+	}
+
+	public function unauthorized(){
+		$this->parts['active'] = 'No autorizado';
+		$this->parts['title_table'] = 'No autorizado';
+		
+		if (ENVIRONMENT == 'development'){
+			$sess = $this->session->all_userdata();
+			$this->parts['table'] = '<pre>' . print_r($sess, TRUE) . '</pre>';}
+		else 
+			{$this->parts['table'] = 'No tiene permiso para ingresar a esta seccion';}
+
+		$this->load_all();
+	}
+
 	public function licitaciones(){
+		$sess = $this->session->all_userdata();
+		if (!in_array('VIEW_LICITACION', $sess['permissions']))
+			{$this->redirecToUnauthorized();}
+
 		$this->parts['active'] = 'licitaciones';
 		$this->parts['title_table'] = 'Licitaciones';
 		

@@ -1,10 +1,4 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
-/* my config values */
-
-$config['app_name_short'] = 'Pin APP';
-
-
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

@@ -92,8 +92,7 @@ class Home extends CI_Controller {
 	}
 
 	public function licitaciones(){
-		$sess = $this->session->all_userdata();
-		if (!in_array('VIEW_LICITACION', $sess['permissions']))
+		if (!$this->user_model->can('VIEW_LICITACION'))
 			{$this->redirecToUnauthorized();}
 
 		$this->parts['active'] = 'licitaciones';
@@ -114,6 +113,9 @@ class Home extends CI_Controller {
 	}
 
 	public function gobiernos(){
+		if (!$this->user_model->can('VIEW_GOVS'))
+			{$this->redirecToUnauthorized();}
+
 		$this->parts['active'] = 'gobiernos';
 		$this->parts['title_table'] = 'Gobiernos';
 		
@@ -128,6 +130,9 @@ class Home extends CI_Controller {
 
 
 	public function empresas(){
+		if (!$this->user_model->can('VIEW_EMPRESAS'))
+			{$this->redirecToUnauthorized();}
+
 		$this->parts['active'] = 'empresas';
 		$this->parts['title_table'] = 'Empresas';
 		
@@ -142,6 +147,9 @@ class Home extends CI_Controller {
 
 
 	public function observadores(){
+		if (!$this->user_model->can('VIEW_OBSERVADORES'))
+			{$this->redirecToUnauthorized();}
+
 		$this->parts['active'] = 'observadores';
 		$this->parts['title_table'] = 'Observadores';
 		
@@ -156,6 +164,9 @@ class Home extends CI_Controller {
 
 
 	public function ciudadanos(){
+		if (!$this->user_model->can('VIEW_CIUDADANOS'))
+			{$this->redirecToUnauthorized();}
+		
 		$this->parts['active'] = 'ciudadanos';
 		$this->parts['title_table'] = 'Ciudadanos';
 		
@@ -169,6 +180,9 @@ class Home extends CI_Controller {
 	}
 
 	public function usuarios(){
+		if (!$this->user_model->can('VIEW_USUARIOS'))
+			{$this->redirecToUnauthorized();}
+		
 		$this->parts['active'] = 'usuarios';
 		$this->parts['title_table'] = 'Usuarios';
 		

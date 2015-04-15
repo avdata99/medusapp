@@ -74,4 +74,18 @@ class User_model extends CI_Model
         }
         return $permissions;
     }
+
+    /**
+    Ver si un usuario puede acceder a algo en particular
+    id2 es el ID de empresa, gobierno
+    */
+    public function can($permission, $id2 = 0){
+        $sess = $this->session->all_userdata();
+
+        // pide un permiso general
+        if ($id2 == 0){ 
+            return in_array($permission, $sess['permissions']);
+        }
+        
     }
+}

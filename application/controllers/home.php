@@ -106,6 +106,10 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
 		$crud->unset_delete();
+		$where_in = $this->user_model->getWhereIn('GOVS');
+		if ($where_in){
+			$crud->where("gobierno_id in ($where_in)");
+		}
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -127,7 +131,10 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
 		$crud->unset_delete();
-
+		$where_in = $this->user_model->getWhereIn('GOVS');
+		if ($where_in){
+			$crud->where("id in ($where_in)");
+		}
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

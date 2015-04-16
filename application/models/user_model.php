@@ -35,7 +35,9 @@ class User_model extends CI_Model
         
         # set permissions ------------------------
         $sess['permissions'] = $this->readPermissions($res->id);
-
+        $govs = $this->readUserGovs($res->id);
+        $sess['govs'] = $govs;
+        $sess['govs_in'] = implode(',', $govs); // para consultas WHERE x IN (STR)
         # --------------------------------------
         $this->session->set_userdata($sess);
         return true;
@@ -74,6 +76,19 @@ class User_model extends CI_Model
     }
 
     /**
+    Ver que sobre que gobiernos tiene permisos el usuario
+    */
+    public function readUserGovs($user_id){
+        $q = 'SELECT id_gobierno from usuario_gobierno where id_usuario=' . $user_id;
+        $query = $this->db->query($q);
+        $govs = array();
+        foreach ($query->result() as $gov) {
+            $govs[] = $gov->id_gobierno;
+        }
+        return $govs;   
+    }
+
+    /**
     Ver si un usuario puede acceder a algo en particular
     id2 es el ID de empresa, gobierno, etc (no implementado)
     */
@@ -86,6 +101,29 @@ class User_model extends CI_Model
         if ($id2 == 0){ 
             return in_array($permission, $sess['permissions']);
         }
+
+        if ($id2 > 0){
+            // el usuario que puede editar una licitacion es solo sobre los gobiernos a los que esta conectado
+            if ($permission == 'EDIT_GOVS'){
+                return in_array($id2, $sess['govs']);
+            }
+            elseif ($permission == 'EDIT_LICITACION'){
+                //TODO buscar el ID del gobierno para saber si este usuario puede tocar
+            }
+        }
         
+    }
+
+    /**
+    Indicar si corresponde un where in para las listas de objetos de una clase
+    Return False si no es necesario
+    */
+    public function getWhereIn($class){
+        $sess = $this->session->all_userdata();
+        if (in_array('FULL_ADMIN', $sess['roles'])) 
+            return false;
+
+        // el usuario que puede editar una licitacion es solo sobre los gobiernos a los que esta conectado
+        if ($class == 'GOVS' or $class == 'LICITACIONES'){return $sess['govs_in'];}
     }
 }

@@ -103,6 +103,9 @@ class Home extends CI_Controller {
 		#TODO municipio_id is just for add time, not edit
 		$crud->set_relation('gobierno_id', 'gobierno', '{nombre}');
 		$crud->set_field_upload('documento',$this->config->item('upload_documents'));
+		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
+		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -121,6 +124,10 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('gobierno');
+		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
+		$crud->unset_delete();
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -138,6 +145,7 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('empresa');
+		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -155,6 +163,7 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('observador');
+		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -172,6 +181,7 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('ciudadano');
+		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -189,6 +199,7 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('usuario');
 		$crud->unset_columns('password');
+		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

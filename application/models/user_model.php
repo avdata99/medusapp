@@ -2,8 +2,6 @@
 
 class User_model extends CI_Model
     {
-    
-
     function login($user, $pass)
         {
         
@@ -77,10 +75,12 @@ class User_model extends CI_Model
 
     /**
     Ver si un usuario puede acceder a algo en particular
-    id2 es el ID de empresa, gobierno
+    id2 es el ID de empresa, gobierno, etc (no implementado)
     */
     public function can($permission, $id2 = 0){
         $sess = $this->session->all_userdata();
+        # el usuario full_admin puede hacer todo
+        if (in_array('FULL_ADMIN', $sess['roles'])) return true;
 
         // pide un permiso general
         if ($id2 == 0){ 

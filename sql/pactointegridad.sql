@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-04-2015 a las 23:02:01
+-- Tiempo de generación: 15-04-2015 a las 23:55:08
 -- Versión del servidor: 5.5.41-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.7
 
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
   `documento` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `website_licitacion_7a0809aa` (`gobierno_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `licitacion`
@@ -119,7 +119,9 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
 
 INSERT INTO `licitacion` (`id`, `gobierno_id`, `nombre`, `detalle`, `documento`) VALUES
 (2, 1, 'Licitacion de algo que vale mucho', '<p>\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\n', '02723-license.txt'),
-(3, 2, 'Probando ando', '<p>\n	asd asd asd <strong>asd</strong> asd</p>\n', '');
+(3, 2, 'Probando ando', '<p>\n	asd asd asd <strong>asd</strong> asd</p>\n', ''),
+(4, 3, 'Licita la villa', 'sdf ksdfljsdf', ''),
+(5, 2, 'Licita Unquillo 2', 'aoijdm ad masd a', '');
 
 -- --------------------------------------------------------
 
@@ -244,6 +246,28 @@ INSERT INTO `usuario` (`id`, `nombre`, `login`, `password`) VALUES
 (1, 'Andres Vazquez', 'andres', '17e16b3561906388389cb18adcfd5b0b'),
 (2, 'Mariano Mosquera', 'mariano', '814b87db965e1640a4e82d7cadb8ea92'),
 (3, 'Gov Test', 'gov', '552360015f23b99978d5f1a6bd2b9c7d');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_gobierno`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_gobierno` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_gobierno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`,`id_gobierno`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `usuario_gobierno`
+--
+
+INSERT INTO `usuario_gobierno` (`id`, `id_usuario`, `id_gobierno`) VALUES
+(1, 3, 1),
+(2, 3, 3);
 
 -- --------------------------------------------------------
 

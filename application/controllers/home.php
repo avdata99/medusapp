@@ -106,7 +106,8 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
 		$crud->unset_delete();
-		$where_in = $this->user_model->getWhereIn('GOVS');
+		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
+		$where_in = $this->user_model->getWhereIn('GOVS'); 
 		if ($where_in){
 			$crud->where("gobierno_id in ($where_in)");
 		}

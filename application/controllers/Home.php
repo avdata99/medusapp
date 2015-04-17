@@ -10,7 +10,7 @@ class Home extends CI_Controller {
 
 		$this->load->database();
 		$this->load->helper('url');
-		$this->load->library('Grocery_CRUD');
+		$this->load->library('grocery_CRUD');
 		$this->parts['js_files'] = array(); // for grocery crud static files
 		$this->parts['css_files'] = array(); // for grocery crud static files
 		$this->parts['my_base_url'] = $this->config->item('base_url') . 'index.php/';

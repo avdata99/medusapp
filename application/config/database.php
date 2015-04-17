@@ -87,7 +87,7 @@ $db['default'] = array(
 if (ENVIRONMENT == 'development'){
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'gnu5454';
+	$db['default']['password'] = 'junar';
 	$db['default']['database'] = 'pactointegridad';
 	}
  if (ENVIRONMENT == 'production'){

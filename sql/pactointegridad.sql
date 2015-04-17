@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-04-2015 a las 23:55:08
+-- Tiempo de generación: 16-04-2015 a las 22:29:53
 -- Versión del servidor: 5.5.41-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.7
 
@@ -39,6 +39,21 @@ CREATE TABLE IF NOT EXISTS `ciudadano` (
 INSERT INTO `ciudadano` (`id`, `nombre`) VALUES
 (1, 'Ciudadano 001'),
 (2, 'ciudadano 002');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ci_sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `ci_sessions` (
+  `id` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `timestamp` int(10) unsigned NOT NULL DEFAULT '0',
+  `data` blob NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ci_sessions_timestamp` (`timestamp`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -109,6 +124,8 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
   `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
   `detalle` longtext CHARACTER SET latin1 NOT NULL,
   `documento` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `website_licitacion_7a0809aa` (`gobierno_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=6 ;
@@ -117,11 +134,11 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
 -- Volcado de datos para la tabla `licitacion`
 --
 
-INSERT INTO `licitacion` (`id`, `gobierno_id`, `nombre`, `detalle`, `documento`) VALUES
-(2, 1, 'Licitacion de algo que vale mucho', '<p>\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\n', '02723-license.txt'),
-(3, 2, 'Probando ando', '<p>\n	asd asd asd <strong>asd</strong> asd</p>\n', ''),
-(4, 3, 'Licita la villa', 'sdf ksdfljsdf', ''),
-(5, 2, 'Licita Unquillo 2', 'aoijdm ad masd a', '');
+INSERT INTO `licitacion` (`id`, `gobierno_id`, `nombre`, `detalle`, `documento`, `fecha_inicio`, `fecha_fin`) VALUES
+(2, 1, 'Licitacion de algo que vale mucho', '<p>\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\n', '88a56-license.txt', '2015-04-25', '2015-04-30'),
+(3, 2, 'Probando ando', '<div>\n	Llamado a Licitaci&oacute;n para la adquisici&oacute;n de un Cami&oacute;n, con equipo elevador, autocargador, Roll Off Sistema Cable y dos contenedores.</div>\n', 'e5d56-llamado-16-12-2014.pdf', '2015-04-17', '2015-04-30'),
+(4, 3, 'Licita la villa', '<p>\n	sdf <strong>ksdfljsdf</strong></p>\n', '10475-logo_icda_b.jpg', '0000-00-00', '0000-00-00'),
+(5, 2, 'Licita Unquillo 2', '<p>\n	aoijdm ad <strong>masd</strong> a</p>\n', '77980-logo-hardvard.png', '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.2
+-- version 4.1.9
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-04-2015 a las 22:29:53
--- Versión del servidor: 5.5.41-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4.7
+-- Tiempo de generación: 16-04-2015 a las 23:15:07
+-- Versión del servidor: 5.5.41-0ubuntu0.12.04.1
+-- Versión de PHP: 5.3.10-1ubuntu3.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -54,6 +54,14 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
   PRIMARY KEY (`id`),
   KEY `ci_sessions_timestamp` (`timestamp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ci_sessions`
+--
+
+INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
+('06e6c9c8ed240f17b80611952a4884ac7f0b3dc0', '127.0.0.1', 1429236397, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393233363130353b757365725f6e616d657c733a31343a22416e647265732056617a7175657a223b757365725f6c6f67696e7c733a363a22616e64726573223b757365725f69647c733a313a2231223b726f6c65737c613a313a7b693a303b733a31303a2246554c4c5f41444d494e223b7d7065726d697373696f6e737c613a31303a7b693a303b733a393a22564945575f474f5653223b693a313b733a31353a22564945575f4c494349544143494f4e223b693a323b733a31373a22564945575f4f425345525641444f524553223b693a333b733a31333a22564945575f454d505245534153223b693a343b733a31353a22564945575f434955444144414e4f53223b693a353b733a31333a22564945575f5553554152494f53223b693a363b733a383a224144445f474f5653223b693a373b733a393a22454449545f474f5653223b693a383b733a31343a224144445f4c494349544143494f4e223b693a393b733a31353a22454449545f4c494349544143494f4e223b7d676f76737c613a303a7b7d676f76735f696e7c733a303a22223b),
+('abc111b1459b072014646ee2c18fe1d2da02b3a1', '127.0.0.1', 1429235924, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393233353734363b757365725f6e616d657c733a31343a22416e647265732056617a7175657a223b757365725f6c6f67696e7c733a363a22616e64726573223b757365725f69647c733a313a2231223b726f6c65737c613a313a7b693a303b733a31303a2246554c4c5f41444d494e223b7d7065726d697373696f6e737c613a31303a7b693a303b733a393a22564945575f474f5653223b693a313b733a31353a22564945575f4c494349544143494f4e223b693a323b733a31373a22564945575f4f425345525641444f524553223b693a333b733a31333a22564945575f454d505245534153223b693a343b733a31353a22564945575f434955444144414e4f53223b693a353b733a31333a22564945575f5553554152494f53223b693a363b733a383a224144445f474f5653223b693a373b733a393a22454449545f474f5653223b693a383b733a31343a224144445f4c494349544143494f4e223b693a393b733a31353a22454449545f4c494349544143494f4e223b7d676f76737c613a303a7b7d676f76735f696e7c733a303a22223b);
 
 -- --------------------------------------------------------
 
@@ -135,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
 --
 
 INSERT INTO `licitacion` (`id`, `gobierno_id`, `nombre`, `detalle`, `documento`, `fecha_inicio`, `fecha_fin`) VALUES
-(2, 1, 'Licitacion de algo que vale mucho', '<p>\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\n', '88a56-license.txt', '2015-04-25', '2015-04-30'),
+(2, 1, 'Licitacion de algo que vale mucho', '<p>\r\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\r\n', 'd89d5-artesanos.jpg', '2015-04-25', '2015-04-30'),
 (3, 2, 'Probando ando', '<div>\n	Llamado a Licitaci&oacute;n para la adquisici&oacute;n de un Cami&oacute;n, con equipo elevador, autocargador, Roll Off Sistema Cable y dos contenedores.</div>\n', 'e5d56-llamado-16-12-2014.pdf', '2015-04-17', '2015-04-30'),
 (4, 3, 'Licita la villa', '<p>\n	sdf <strong>ksdfljsdf</strong></p>\n', '10475-logo_icda_b.jpg', '0000-00-00', '0000-00-00'),
 (5, 2, 'Licita Unquillo 2', '<p>\n	aoijdm ad <strong>masd</strong> a</p>\n', '77980-logo-hardvard.png', '0000-00-00', '0000-00-00');

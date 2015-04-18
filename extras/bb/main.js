@@ -6,7 +6,7 @@
     Collections: {},
     Views: {},
     Router: {},
-    Configuration: {Api: 'http://medusapp/ci.php/api', UAnalitycs: 'UA-nnnnnnnnn-2'},
+    Configuration: {Api: 'http://medusapp/api', UAnalitycs: 'UA-nnnnnnnnn-2'},
     Logs: ''
   };
 

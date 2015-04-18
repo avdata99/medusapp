@@ -27,7 +27,7 @@ class Licitaciones extends REST_Controller{
         	}
         else
         	{
-            $this->response(array('error' => 'Couldn\'t find any users!'), 404);
+            $this->response(array('error' => 'Error'), 404);
         	}
 	}
 }

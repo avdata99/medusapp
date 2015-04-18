@@ -4,6 +4,7 @@ var licitacionModel = Backbone.Model.extend({
         titulo: 'Titulo licitacion',
         descripcion: 'Descripcion licitacion',
         gobierno: 'Gobierno',
+        uid: '',
         id: 0
     }
 });
@@ -32,8 +33,7 @@ var licitacionesModel = Backbone.Model.extend({
                     titulo: licitacion.titulo,
                     descripcion: licitacion.descripcion,
                     gobierno: licitacion.gobierno,
-                    id: licitacion.id 
-                    url: '#licitacion/' + licitacion.id
+                    url: '#licitacion/' + licitacion.uid
                     }));
         });
         self.set('panels', panels);

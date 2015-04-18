@@ -35,7 +35,7 @@ if (ENVIRONMENT == 'production') {
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = 'ci.php';
 # $config['index_page'] = '';
 
 /*

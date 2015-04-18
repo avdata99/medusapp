@@ -31,7 +31,7 @@ var licitacionesCollection = Backbone.Collection.extend({
                     descripcion: licitacion.descripcion,
                     gobierno: licitacion.gobierno,
                     documento: licitacion.documento,
-                    imagen: licitacion.imagen,
+                    imagen: (licitacion.imagen) ? licitacion.imagen : 'licitaciones-default.jpg',
                     url: '#licitacion/' + licitacion.uid
                     });
         });

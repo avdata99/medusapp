@@ -1,4 +1,4 @@
-<IfModule mod_rewrite.cs> 
+<IfModule mod_rewrite.c> 
 	RewriteEngine on
 	RewriteCond $1 !^(ci\.php|assets|robots\.txt|static|licitaciones|extras|index\.html)
 	RewriteCond %{REQUEST_FILENAME} !-f

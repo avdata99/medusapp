@@ -19,7 +19,7 @@ require APPPATH.'/libraries/REST_Controller.php';
 class Licitaciones extends REST_Controller{
 	public function index_get(){
 		$this->load->model('licitaciones_model');
-		$lic = $this->licitaciones_model->all();
+		$lic = $this->licitaciones_model->lista();
 
 		if($lic)
         	{

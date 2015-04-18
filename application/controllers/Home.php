@@ -208,11 +208,18 @@ class Home extends CI_Controller {
 		$crud->set_table('usuario');
 		$crud->unset_columns('password');
 		$crud->unset_delete();
+		$crud->callback_before_insert(array($this,'_encrypt_password_callback'));
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
 		$this->parts['js_files'] = $crud_table->js_files;
 		$this->load_all();	
+	}
+
+	private function _encrypt_password_callback(){
+		$post_array['password'] = $this->encrypt->encode($post_array['password'], $key);
+		 
+		return $post_array;
 	}
 }
 

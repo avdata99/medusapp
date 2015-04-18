@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-04-2015 a las 11:28:46
+-- Tiempo de generación: 18-04-2015 a las 14:02:30
 -- Versión del servidor: 5.5.41-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.7
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `api_logs` (
   `authorized` tinyint(1) NOT NULL,
   `response_code` smallint(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Volcado de datos para la tabla `api_logs`
@@ -60,7 +60,17 @@ INSERT INTO `api_logs` (`id`, `uri`, `method`, `params`, `api_key`, `ip_address`
 (13, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429322173, 0.134183, 1, 0),
 (14, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429322253, 0.254704, 1, 0),
 (15, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429322273, 0.167818, 1, 200),
-(16, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429365861, 0.20875, 1, 200);
+(16, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429365861, 0.20875, 1, 200),
+(17, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429372374, 0.173571, 1, 200),
+(18, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429375378, 0.493474, 1, 200),
+(19, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429375426, 0.292835, 1, 200),
+(20, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429375485, 0.208628, 1, 200),
+(21, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429375589, 0.266657, 1, 200),
+(22, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429375997, 0.189668, 1, 200),
+(23, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429376204, 0.228909, 1, 200),
+(24, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429376217, 0.22, 1, 200),
+(25, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429376303, 0.170211, 1, 200),
+(26, 'api/licitaciones', 'get', NULL, '', '127.0.0.1', 1429376339, 0.2195, 1, 200);
 
 -- --------------------------------------------------------
 
@@ -105,9 +115,12 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('0676828c606c02711bd06ca313cc709292bb17ba', '127.0.0.1', 1429321772, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393332313637363b),
 ('1356d1d0ac67bbf67e886cff0e58201399a6073d', '127.0.0.1', 1429365861, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393336353836313b),
 ('48762e89eebbdab614892805f016b99cef5e3bcd', '127.0.0.1', 1429314221, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393331343232303b),
+('62bb2ce201948bc0a70b4e5e34f58a764f4e0daf', '127.0.0.1', 1429375976, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393337353637383b757365725f6e616d657c733a31343a22416e647265732056617a7175657a223b757365725f6c6f67696e7c733a363a22616e64726573223b757365725f69647c733a313a2231223b726f6c65737c613a313a7b693a303b733a31303a2246554c4c5f41444d494e223b7d7065726d697373696f6e737c613a31303a7b693a303b733a393a22564945575f474f5653223b693a313b733a31353a22564945575f4c494349544143494f4e223b693a323b733a31373a22564945575f4f425345525641444f524553223b693a333b733a31333a22564945575f454d505245534153223b693a343b733a31353a22564945575f434955444144414e4f53223b693a353b733a31333a22564945575f5553554152494f53223b693a363b733a383a224144445f474f5653223b693a373b733a393a22454449545f474f5653223b693a383b733a31343a224144445f4c494349544143494f4e223b693a393b733a31353a22454449545f4c494349544143494f4e223b7d676f76737c613a303a7b7d676f76735f696e7c733a303a22223b),
 ('7db09fdb4ae59c20921d8ca06bd6208823e02ffb', '127.0.0.1', 1429269175, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393236393130313b757365725f6e616d657c733a31343a22416e647265732056617a7175657a223b757365725f6c6f67696e7c733a363a22616e64726573223b757365725f69647c733a313a2231223b726f6c65737c613a313a7b693a303b733a31303a2246554c4c5f41444d494e223b7d7065726d697373696f6e737c613a31303a7b693a303b733a393a22564945575f474f5653223b693a313b733a31353a22564945575f4c494349544143494f4e223b693a323b733a31373a22564945575f4f425345525641444f524553223b693a333b733a31333a22564945575f454d505245534153223b693a343b733a31353a22564945575f434955444144414e4f53223b693a353b733a31333a22564945575f5553554152494f53223b693a363b733a383a224144445f474f5653223b693a373b733a393a22454449545f474f5653223b693a383b733a31343a224144445f4c494349544143494f4e223b693a393b733a31353a22454449545f4c494349544143494f4e223b7d676f76737c613a303a7b7d676f76735f696e7c733a303a22223b),
 ('a4b4d2ac58a9a3a3189cd62fdb78f5c971809da1', '127.0.0.1', 1429320779, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393332303737393b),
+('b1031190eadebc3e5d3267571137c0c62253427f', '127.0.0.1', 1429376339, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393337353938313b757365725f6e616d657c733a31343a22416e647265732056617a7175657a223b757365725f6c6f67696e7c733a363a22616e64726573223b757365725f69647c733a313a2231223b726f6c65737c613a313a7b693a303b733a31303a2246554c4c5f41444d494e223b7d7065726d697373696f6e737c613a31303a7b693a303b733a393a22564945575f474f5653223b693a313b733a31353a22564945575f4c494349544143494f4e223b693a323b733a31373a22564945575f4f425345525641444f524553223b693a333b733a31333a22564945575f454d505245534153223b693a343b733a31353a22564945575f434955444144414e4f53223b693a353b733a31333a22564945575f5553554152494f53223b693a363b733a383a224144445f474f5653223b693a373b733a393a22454449545f474f5653223b693a383b733a31343a224144445f4c494349544143494f4e223b693a393b733a31353a22454449545f4c494349544143494f4e223b7d676f76737c613a303a7b7d676f76735f696e7c733a303a22223b),
 ('c68662fcb477ed5c5be3cc5d60f5c9eff8a80bf7', '127.0.0.1', 1429321559, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393332313333373b),
+('c7668efc1aeb16b4cb151ad66d409e10de4d0dd3', '127.0.0.1', 1429375589, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393337323337343b),
 ('f26e5dfaf33d87db2224ee776ed175fb650c7e22', '127.0.0.1', 1429322273, 0x5f5f63695f6c6173745f726567656e65726174657c693a313432393332323135373b);
 
 -- --------------------------------------------------------
@@ -180,6 +193,7 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
   `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
   `detalle` longtext CHARACTER SET latin1 NOT NULL,
   `documento` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
+  `imagen` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   PRIMARY KEY (`id`),
@@ -191,11 +205,11 @@ CREATE TABLE IF NOT EXISTS `licitacion` (
 -- Volcado de datos para la tabla `licitacion`
 --
 
-INSERT INTO `licitacion` (`id`, `uid`, `gobierno_id`, `nombre`, `detalle`, `documento`, `fecha_inicio`, `fecha_fin`) VALUES
-(2, 'algo-que-vale-mucho', 1, 'Licitacion de algo que vale mucho', '<p>\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\n', '88a56-license.txt', '2015-04-25', '2015-04-30'),
-(3, 'otra-cosa', 2, 'Probando ando', '<div>\r\n	Llamado a Licitaci&oacute;n para la adquisici&oacute;n de un Cami&oacute;n, con equipo elevador, autocargador, Roll Off Sistema Cable y dos contenedores.</div>\r\n', 'e5d56-llamado-16-12-2014.pdf', '2015-04-18', '2015-04-30'),
-(4, 'la-cuarta', 3, 'Licita la villa', '<p>\r\n	sdf <strong>ksdfljsdf</strong></p>\r\n', '10475-logo_icda_b.jpg', '2015-04-30', '2015-08-19'),
-(5, 'la-dos', 2, 'Licita Unquillo 2', '<p>\r\n	aoijdm ad <strong>masd</strong> a</p>\r\n', '77980-logo-hardvard.png', '2015-04-01', '2015-04-30');
+INSERT INTO `licitacion` (`id`, `uid`, `gobierno_id`, `nombre`, `detalle`, `documento`, `imagen`, `fecha_inicio`, `fecha_fin`) VALUES
+(2, 'algo-que-vale-mucho', 1, 'Licitacion de algo que vale mucho', '<p>\r\n	Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba dewe jo 98e ww we9f wjefj wej w9ejf 9w efjwefjwefueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo Prueba de algo</p>\r\n', '88a56-license.txt', 'c8113-saqueos.png', '2015-04-25', '2015-04-30'),
+(3, 'otra-cosa', 2, 'Probando ando', '<div>\r\n	Llamado a Licitaci&oacute;n para la adquisici&oacute;n de un Cami&oacute;n, con equipo elevador, autocargador, Roll Off Sistema Cable y dos contenedores.</div>\r\n', 'e5d56-llamado-16-12-2014.pdf', 'eb8f5-captura-de-pantalla-de-2014-05-10-20:57:06.png', '2015-04-18', '2015-04-30'),
+(4, 'la-cuarta', 3, 'Licita la villa', '<p>\r\n	sdf <strong>ksdfljsdf</strong></p>\r\n', '10475-logo_icda_b.jpg', '', '2015-04-30', '2015-08-19'),
+(5, 'la-dos', 2, 'Licita Unquillo 2', '<p>\r\n	aoijdm ad <strong>masd</strong> a</p>\r\n', '77980-logo-hardvard.png', '', '2015-04-01', '2015-04-30');
 
 -- --------------------------------------------------------
 

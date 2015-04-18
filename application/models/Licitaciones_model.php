@@ -9,7 +9,7 @@ class Licitaciones_model extends CI_Model {
 
     public function lista(){
     	$query = $this->db->query("SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
-    			li.detalle descripcion, li.documento, li.fecha_inicio, li.fecha_fin 
+    			li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 
 				FROM licitacion li join gobierno g on li.gobierno_id=g.id
 				order by fecha_inicio");
 

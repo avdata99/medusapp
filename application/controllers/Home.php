@@ -103,6 +103,7 @@ class Home extends CI_Controller {
 		#TODO municipio_id is just for add time, not edit
 		$crud->set_relation('gobierno_id', 'gobierno', '{nombre}');
 		$crud->set_field_upload('documento',$this->config->item('upload_documents'));
+		$crud->set_field_upload('imagen',$this->config->item('upload_images'));
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
 		$crud->unset_delete();

@@ -1,10 +1,11 @@
 /** cada licitacion*/
 var licitacionModel = Backbone.Model.extend({
     defaults: {
-        titulo: 'Titulo licitacion',
-        descripcion: 'Descripcion licitacion',
-        gobierno: 'Gobierno',
-        img_licitacion: '',
+        titulo: null,
+        descripcion: null,
+        gobierno: null,
+        documento: null,
+        imagen: null,
         uid: '',
         id: 0,     
     }
@@ -29,6 +30,8 @@ var licitacionesCollection = Backbone.Collection.extend({
                     titulo: licitacion.titulo,
                     descripcion: licitacion.descripcion,
                     gobierno: licitacion.gobierno,
+                    documento: licitacion.documento,
+                    imagen: licitacion.imagen,
                     url: '#licitacion/' + licitacion.uid
                     });
         });

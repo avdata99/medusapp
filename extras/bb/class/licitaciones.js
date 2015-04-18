@@ -1,19 +1,18 @@
-/** cada una de las licitaciones */
+/** cada licitacion*/
 var licitacionModel = Backbone.Model.extend({
     defaults: {
         titulo: 'Titulo licitacion',
         descripcion: 'Descripcion licitacion',
         gobierno: 'Gobierno',
+        img_licitacion: '',
         uid: '',
-        id: 0
+        id: 0,     
     }
 });
 
-/** el conjunto de las licitaciones */
-var licitacionesModel = Backbone.Model.extend({
-    defaults: {
-        panels=[]
-        },
+var licitacionesCollection = Backbone.Collection.extend({
+    
+    model: licitacionModel,
 
     getLicitaciones: function(){
         self = this;
@@ -26,24 +25,14 @@ var licitacionesModel = Backbone.Model.extend({
       xhr.done(function(data){ // get extra info
         var panels = []; //clear
         _.each(data, function(licitacion){
-            byStates[doms.estado] = doms.total;
-            total = total + parseInt(doms.total);
-            panels.push( 
-                new licitacionModel({
+            self.add({
                     titulo: licitacion.titulo,
                     descripcion: licitacion.descripcion,
                     gobierno: licitacion.gobierno,
                     url: '#licitacion/' + licitacion.uid
-                    }));
+                    });
         });
-        self.set('panels', panels);
-        self.set('domainByStates', byStates);
-        self.set('totalDomains', total);
-        self.set('panelTotal', new panelPrimaryModel({
-            color: 'panel-red', //panel-primary, panel-green, panel-yellow
-            icon: 'fa-tasks', value: total, title: 'Dominios', url: '#'
-            }));
-
+        
         });
       xhr.fail(function(data){
         console.log("failed on getLicitaciones");
@@ -52,12 +41,30 @@ var licitacionesModel = Backbone.Model.extend({
     });
 
 
-var licitacionesView = Backbone.View.extend({
-    el: '#panelPrimary',
-    template: template('panelTable'),
+var licitacionView = Backbone.View.extend({
+    tagName: 'div',
+    template: template('licitacion'),
     render: function(){
         var tpl = this.template(this.model.toJSON());
         this.$el.html(tpl);
         return this;
         },
     });
+
+var licitacionesCollectionView = Backbone.View.extend({
+    el: '#lista_licitaciones',
+    initialize: function(){
+        this.render();
+    },
+    
+    render: function() {
+        this.$el.html("");
+        this.collection.each(function(licitacion) {
+            var liView = new licitacionView({ model: licitacion });
+            this.$el.append(liView.render().el);
+        }, this);
+
+        return this;
+    }
+    });
+

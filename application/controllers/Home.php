@@ -112,7 +112,7 @@ class Home extends CI_Controller {
 			$crud->where("gobierno_id in ($where_in)");
 		}
 		$crud->change_field_type('uid','invisible');
-		$crud->callback_before_insert(array($this,'_slug_title'));
+		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

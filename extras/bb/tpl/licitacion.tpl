@@ -1,14 +1,14 @@
 <li class="span4">
   <div class="thumbnail">
-    <img src="<%= img_licitacion %>" alt="product name">
+    <img src="<%= img_licitacion %>" alt="Licitacion <%= gobierno %> - <%= titulo%>">
     <div class="caption">
-      <h3><%= title %></h3>
-      <p><%= description %></p>
+      <h3><%= gobierno %> | <%= titulo %></h3>
+      <p><%= descripcion %></p>
     </div>
     <div class="widget-footer">
       <p>
-        <a href="#" class="btn btn-primary">Comprar pliego</a>&nbsp;
-        <a href="licitacion/computadoras" class="btn">Más informacion</a>
+        <a href="<%= url %>" class="btn btn-primary">Comprar pliego</a>&nbsp;
+        <a href="<%= url %>" class="btn">Más informacion</a>
       </p>
     </div>
   </div>

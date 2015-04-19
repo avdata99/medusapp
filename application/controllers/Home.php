@@ -177,6 +177,25 @@ class Home extends CI_Controller {
 		$this->load_all();	
 	}
 
+	public function textos(){
+		if (!$this->user_model->can('EDIT_WEBPAGE')) # no existe el permiso por lo tanto solo full admin podra
+			{$this->redirecToUnauthorized();}
+
+		$this->parts['active'] = 'textos';
+		$this->parts['title_table'] = 'Textos Web';
+		
+		$crud = new grocery_CRUD();
+		$crud->set_table('textos');
+		if (!$this->user_model->can('EDIT_WEBPAGE')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_WEBPAGE')) $crud->unset_edit();
+		$crud->unset_delete();
+		$crud->unset_columns('code');
+		$crud_table = $crud->render();
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		$this->load_all();	
+	}
 
 	public function empresas(){
 		if (!$this->user_model->can('VIEW_EMPRESAS'))

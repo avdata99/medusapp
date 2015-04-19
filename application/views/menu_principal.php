@@ -8,6 +8,9 @@
         <? if ($this->user_model->can('VIEW_GOVS')) { ?>
             <li><a <? if ($active=='gobiernos'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/gobiernos"><i class="fa fa-map-marker fa-fw"></i> Gobiernos</a></li>
         <? } ?>
+        <? if ($this->user_model->can('EDIT_WEBPAGE')) { ?>
+            <li><a <? if ($active=='textos'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/textos"><i class="fa fa-map-marker fa-fw"></i> Textos</a></li>
+        <? } ?>
         <? if ($this->user_model->can('VIEW_LICITACION')) { ?>
             <li><a <? if ($active=='licitaciones'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/licitaciones"><i class="fa fa-paperclip fa-fw"></i> Licitaciones</a></li>
         <? } ?>

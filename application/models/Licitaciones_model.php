@@ -16,4 +16,13 @@ class Licitaciones_model extends CI_Model {
     	return $query->result();
 
     }
+
+    function load($uid){
+        $query = $this->db->query("SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
+                li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 
+                FROM licitacion li join gobierno g on li.gobierno_id=g.id
+                where li.uid='$uid'");
+
+        return $query->row();        
+    }
 }

@@ -49,41 +49,8 @@
       <!-- End: PRODUCT LIST -->
     </div>
 
-        <footer>
-      <div class="container">
-        <div class="row">
-          <div class="span3">
-            <h4>Medusapp en las redes</h4>
-            <div class="social-icons-row">
-              <a target='_blank' href="https://twitter.com/@medusapp"><i class="icon-twitter"></i></a>
-              <a target='_blank' href="https://www.facebook.com/medusaapp"><i class="icon-facebook"></i></a>
-              <a href="mailto:info@medusapp.org"><i class="icon-envelope"></i></a>
-            </div>
-          </div>
-          <div class="span6">
-            <h4 style='text-align:center'>Nosotros</h4>
-            <div>
-               Desarrollado por el <a href='http://www.ucc.edu.ar/portalnuevo/paginaspopup/fichaProyectosSivPublica.php?hash=ba97718297fae089e297ec7f0e6353f4'>Observatorio de Políticas Públicas</a> de la Universidad Católica de Córdoba.
-            </div>
-          </div>
-             
-          <div class="span3">
-            <h4>Recibe novedades por email</h4>
-            <form>
-              <input type="text" name="email" placeholder="Email address">
-              <input type="submit" class="btn btn-primary" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-      <!--
-      <hr class="footer-divider">
-      <div class="container">
-        <p>
-            Desarrollado por el <a href='http://www.ucc.edu.ar/portalnuevo/paginaspopup/fichaProyectosSivPublica.php?hash=ba97718297fae089e297ec7f0e6353f4'>Observatorio de Políticas Públicas</a> de la Universidad Católica de Córdoba.
-        </p>
-      </div>
-    -->
+    <footer id='footer'>
+      
     </footer>
     <!-- End: FOOTER -->
     <script type="text/javascript" src="/extras/bb/underscore-min.js"></script>
@@ -100,8 +67,16 @@
     <script type="text/javascript" src="/extras/bb/class/navbar_principal.js"></script>
     <script type="text/javascript">
       App.Models.navbar_principal = new navbar_principalModel(); // datos generales sobre dominios, autoinicializado
-      App.Views.navbar_principalView = new navbar_principalView({model: App.Models.navbar_principal}).render();
+      App.Views.navbar_principal = new navbar_principalView({model: App.Models.navbar_principal}).render();
     </script>
+
+    <!-- footer -->
+    <script type="text/javascript" src="/extras/bb/class/footer.js"></script>
+    <script type="text/javascript">
+      App.Models.footer = new footerModel(); // datos generales sobre dominios, autoinicializado
+      App.Views.footer = new footerView({model: App.Models.footer}).render();
+    </script>
+
 
     <!-- licitaciones-->
     <script type="text/javascript" src="/extras/bb/class/licitaciones.js"></script>

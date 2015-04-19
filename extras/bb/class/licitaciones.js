@@ -62,9 +62,16 @@ var licitacionesCollectionView = Backbone.View.extend({
     
     render: function() {
         this.$el.html("");
+        c = 0;
         this.collection.each(function(licitacion) {
+            if (c == 3){
+                //#TODO ugly
+                this.$el.append("</ul></div><div class='row-fluid'><ul class='thumbnails'>");
+                c = 0;
+            }
             var liView = new licitacionView({ model: licitacion });
             this.$el.append(liView.render().el);
+            c = c + 1;
         }, this);
 
         return this;

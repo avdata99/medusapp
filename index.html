@@ -58,7 +58,7 @@
     
     <!-- about app -->
     <script type="text/javascript" src="/extras/bb/main.js"></script>
-    
+
     <!-- Menu principal -->
     <script type="text/javascript" src="/extras/bb/class/navbar_principal.js"></script>
     <script type="text/javascript">
@@ -76,13 +76,8 @@
 
     <!-- licitaciones-->
     <script type="text/javascript" src="/extras/bb/class/licitaciones.js"></script>
-    <script type="text/javascript">
-      App.Models.licitaciones = new licitacionesCollection(); // datos generales sobre dominios, autoinicializado
-      App.Models.licitaciones.getLicitaciones(); // carga todas las licitaciones
 
-      // cargar las licitaciones leidas en la home
-      App.Collections.licitacionesView = new licitacionesCollectionView({collection: App.Models.licitaciones})
-      
-    </script>
-  </body>
+
+    <script type="text/javascript" src="/routes.js"></script>
+    </body>
 </html>

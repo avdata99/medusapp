@@ -45,11 +45,13 @@ var licitacionesCollection = Backbone.Collection.extend({
 
 
 var licitacionView = Backbone.View.extend({
-    tagName: 'div',
+    tagName: 'li',
     template: template('licitacion'),
     render: function(){
         var tpl = this.template(this.model.toJSON());
+        this.$el.addClass('span4');
         this.$el.html(tpl);
+
         return this;
         },
     });
@@ -60,17 +62,27 @@ var licitacionesCollectionView = Backbone.View.extend({
         this.render();
     },
     
+    addRow: function(append){
+        $row = $('<div class="row-fluid"></div>');
+        $rowul = $("<ul class='thumbnails'></ul>");
+        $row.append($rowul);
+
+        if (append){ this.$el.append($row); }
+
+        return $rowul;
+    },
+
     render: function() {
         this.$el.html("");
+        $row = this.addRow(true);
         c = 0;
         this.collection.each(function(licitacion) {
             if (c == 3){
-                //#TODO ugly
-                this.$el.append("</ul></div><div class='row-fluid'><ul class='thumbnails'>");
+                $row = this.addRow(true);
                 c = 0;
             }
             var liView = new licitacionView({ model: licitacion });
-            this.$el.append(liView.render().el);
+            $row.append(liView.render().el);
             c = c + 1;
         }, this);
 

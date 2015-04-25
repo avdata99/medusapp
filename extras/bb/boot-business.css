@@ -87,7 +87,7 @@
   background: url('../img/content.png');
 }
 .thumbnail img {
-  width: 100%;
+  width: 80%;
 }
 .active-link {
   background-color: #2E3436;

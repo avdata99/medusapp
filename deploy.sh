@@ -14,4 +14,4 @@ echo "Fix folder's permissions"
 ssh -p 987 pin2@medusapp.org "find /home/pin2/www/ -type f -exec chmod 644 {} \;"
 
 # database 
-# ssh -p 987 pin2@medusapp.org "mysql -u "
+ssh -p 987 pin2@medusapp.org "mysql -u pin2_user -ppin*2_99 pactointegridad < /home/pin2/www/sql/updateDB.sql"

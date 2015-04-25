@@ -22,12 +22,18 @@ class Licitaciones extends REST_Controller{
 		$lic = $this->licitaciones_model->lista();
 
 		if($lic)
-        	{
-            $this->response($lic, 200); // 200 being the HTTP response code
-        	}
+        	{$this->response($lic, 200);}
         else
-        	{
-            $this->response(array('error' => 'Error'), 404);
-        	}
+        	{$this->response(array('error' => 'Error'), 404);}
 	}
+
+    public function load_get($uid){
+        $this->load->model('licitaciones_model');
+        $lic = $this->licitaciones_model->load($uid);
+
+        if($lic)
+            {$this->response($lic, 200);}
+        else
+            {$this->response(array('error' => 'Error'), 404);}
+    }
 }

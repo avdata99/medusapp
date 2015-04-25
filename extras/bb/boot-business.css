@@ -143,6 +143,12 @@
 .product-snap {
   display: inline;
 }
+.float-30 {
+  max-width:30%; 
+  float:left; 
+  padding:5px; 
+  margin:5px;
+}
 .article {
   font-size: 15px;
   line-height: 22px;

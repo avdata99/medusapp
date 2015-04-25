@@ -9,12 +9,13 @@ App.Router = Backbone.Router.extend({
   /** mostrar pagina principal con las licitaciones */
   index: function() {
     touchAnalytics('/index.html', 'Home');
-    $('#main_title').html('Licitaciones disponibles (DEMO)');
+    clearHome();
+    $('#main_title').html('Licitaciones disponibles <small>(DEMO)</small>');
     App.Models.licitaciones = new licitacionesCollection();
     App.Models.licitaciones.getLicitaciones(); // carga todas las licitaciones
 
     // cargar las licitaciones leidas en la home
-    App.Collections.licitacionesView = new licitacionesCollectionView({collection: App.Models.licitaciones})
+    App.Collections.licitacionesView = new licitacionesCollectionView({collection: App.Models.licitaciones});
     },
 
   /*
@@ -26,7 +27,13 @@ App.Router = Backbone.Router.extend({
  */
 
   licitacion: function(slug){
+    clearHome();
+    App.Models.licitacion = new licitacionModel();
+    App.Models.licitacion.getLicitacion(slug); // carga todas las licitaciones
 
+    // cargar las licitaciones leidas en la home
+    App.Views.licitacionLandingView = new licitacionLandingView({model: App.Models.licitacion});
+    App.Views.licitacionLandingView.render();
   },
 
   fail404: function() {

@@ -31,6 +31,9 @@
     ga('send', 'pageview', {'page': page,'title': title});
   };
 
+  window.clearHome = function(){
+    $('#main_container').html('');
+  }
   appEvents = _.extend({}, Backbone.Events);
 
   })();

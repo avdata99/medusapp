@@ -2,7 +2,7 @@
   <img src="/static/images/<%= imagen %>" alt="Licitacion <%= gobierno %> - <%= titulo%>">
   <div class="caption">
     <h3><%= gobierno %> | <%= titulo %></h3>
-    <p><%= descripcion %></p>
+    <!-- <p><%= descripcion %></p> -->
   </div>
   <div class="widget-footer">
     <p>

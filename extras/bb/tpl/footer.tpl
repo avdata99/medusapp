@@ -4,7 +4,7 @@
       <h4>Medusapp en las redes</h4>
       <div class="social-icons-row">
         <a target='_blank' href="https://twitter.com/<%= twitter %>"><i class="icon-twitter"></i></a>
-        <a target='_blank' href="https://www.facebook.com/<% facebook %>"><i class="icon-facebook"></i></a>
+        <a target='_blank' href="https://www.facebook.com/<%= facebook %>"><i class="icon-facebook"></i></a>
         <a href="mailto:<%= email %>"><i class="icon-envelope"></i></a>
       </div>
     </div>

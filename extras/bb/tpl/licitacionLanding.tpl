@@ -6,6 +6,5 @@
     <div class="span3">
         <a target='_blank' class="btn btn-large btn-block" href="/static/documents/<%= documento %>">Descargar PDF</a>
     </div>
-
 </div>
 

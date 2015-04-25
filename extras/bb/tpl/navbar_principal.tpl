@@ -10,6 +10,11 @@
     <!-- Start: Primary navigation -->
     <div class="nav-collapse collapse">        
       <ul class="nav pull-right">
+
+        <li><a href="/">Licitaciones</a></li>
+        <li><a href="/#MedusApp/que-es">El proyecto</a></li>
+        <li><a href="/#MedusApp/ventajas">Ventajas</a></li>  
+        <!-- 
         <li class="dropdown">    
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Empresas<b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -35,6 +40,7 @@
             <li><a href="product.html">Modificar mis datos</a></li>
           </ul>
         </li>
+      -->
       </ul>
     </div>
   </div>

@@ -3,6 +3,7 @@ App.Router = Backbone.Router.extend({
     '': 'index',
     // 'withParams/:param1/:param2': 'funcWithParams',
     'licitacion/:slug': 'licitacion',
+    'MedusApp/:slug': 'section',
     '*other': 'fail404',
   },
 
@@ -18,15 +19,8 @@ App.Router = Backbone.Router.extend({
     App.Collections.licitacionesView = new licitacionesCollectionView({collection: App.Models.licitaciones});
     },
 
-  /*
-  funcWithParams: function(param1, param2){
-    
-    touchAnalytics('/func.html', 'Func.' + param1 + '.' + param2);
-        
-  },
- */
-
   licitacion: function(slug){
+    touchAnalytics('/licitacion/' + slug, 'Licitacion ' + slug);
     clearHome();
     App.Models.licitacion = new licitacionModel();
     App.Models.licitacion.getLicitacion(slug); // carga todas las licitaciones
@@ -34,6 +28,17 @@ App.Router = Backbone.Router.extend({
     // cargar las licitaciones leidas en la home
     App.Views.licitacionLandingView = new licitacionLandingView({model: App.Models.licitacion});
     App.Views.licitacionLandingView.render();
+  },
+
+  section: function(slug){
+    touchAnalytics('/section/' + slug, 'Seccion ' + slug);
+    clearHome();
+    App.Models.section = new sectionModel();
+    App.Models.section.getSection(slug); // carga todas las licitaciones
+
+    // cargar las licitaciones leidas en la home
+    App.Views.sectionView = new sectionView({model: App.Models.section});
+    App.Views.sectionView.render();
   },
 
   fail404: function() {

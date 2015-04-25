@@ -7,7 +7,7 @@
     </div>
     <div class="widget-footer">
       <p>
-        <a href="<%= url %>" class="btn btn-primary">Comprar pliego</a>&nbsp;
+        <a href="<%= url %>" class="btn btn-primary">Más información</a>&nbsp;
         <a target='_blank' href="/static/documents/<%= documento %>" class="btn">Descargar PDF</a>
       </p>
     </div>

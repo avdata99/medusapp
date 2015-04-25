@@ -8,8 +8,8 @@ App.Router = Backbone.Router.extend({
 
   /** mostrar pagina principal con las licitaciones */
   index: function() {
-    
     touchAnalytics('/index.html', 'Home');
+    $('#main_title').html('Licitaciones disponibles (DEMO)');
     App.Models.licitaciones = new licitacionesCollection();
     App.Models.licitaciones.getLicitaciones(); // carga todas las licitaciones
 

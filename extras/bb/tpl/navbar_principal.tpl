@@ -12,7 +12,7 @@
     <div class="nav-collapse collapse">        
       <ul class="nav pull-right">
 
-        <li><a href="/">Licitaciones</a></li>
+        <li><a href="/#licitaciones">Licitaciones</a></li>
          
         <li class="dropdown">    
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">MedusApp<b class="caret"></b></a>

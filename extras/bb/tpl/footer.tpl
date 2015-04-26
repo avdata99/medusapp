@@ -20,7 +20,7 @@
     <div class="span3">
       <h4>Recibir novedades</h4>
       <!-- <a target='_blank' href='http://eepurl.com/bkYNLb'>Registrarse</a> -->
-      <a target='_blank' href='/#suscribe'>Registrarse</a>
+      <a href='/#suscribe'>Registrarse</a>
       <!-- 
       <form>
         <input type="text" name="email" placeholder="Email address">

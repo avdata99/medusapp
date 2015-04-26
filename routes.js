@@ -4,6 +4,10 @@ App.Router = Backbone.Router.extend({
     // 'withParams/:param1/:param2': 'funcWithParams',
     'licitacion/:slug': 'licitacion',
     'MedusApp/:slug': 'section',
+    'suscribe': 'suscribe',
+    'registrar-empresa': 'notyet',
+    'registrar-municipio': 'notyet',
+    'registrar-ciudadano': 'notyet',
     '*other': 'fail404',
   },
 
@@ -39,6 +43,20 @@ App.Router = Backbone.Router.extend({
     // cargar las licitaciones leidas en la home
     App.Views.sectionView = new sectionView({model: App.Models.section});
     App.Views.sectionView.render();
+  },
+
+  suscribe: function(){
+    touchAnalytics('/suscribe', 'suscribe ');
+    clearHome();
+    App.Views.mailChimp = new mailChimpView();
+    App.Views.mailChimp.render();
+  },
+
+  notyet: function() {
+    touchAnalytics('/notyet', 'No implementado');
+    $('#main_title').html('No implementado');
+    $('#main_container').html('En desarrollo');
+    
   },
 
   fail404: function() {

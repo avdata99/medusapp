@@ -230,11 +230,13 @@
   text-decoration: none;
 }
 .form-signin-signup input[type="text"],
+.form-signin-signup select,
 .form-signin-signup input[type="password"] {
   width: 70%;
   height: 30px;
 }
-.form-signin-signup input {
+.form-signin-signup input,
+.form-signin-signup select {
   margin-bottom: 15px;
 }
 .remember-me {

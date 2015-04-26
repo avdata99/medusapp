@@ -12,21 +12,22 @@
       <ul class="nav pull-right">
 
         <li><a href="/">Licitaciones</a></li>
-        <li><a href="/#MedusApp/que-es">El proyecto</a></li>
-        <li><a href="/#MedusApp/ventajas">Ventajas</a></li>  
-        <!-- 
+         
         <li class="dropdown">    
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Empresas<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">MedusApp<b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="nav-header">Informacion</li>
-            <li><a href="que-es-MedusApp.html">¿Que es MedusApp?</a></li>
-            <li><a href="quienes-somos.html">¿Quenes somos?</a></li>
+            <li><a href="/#MedusApp/que-es">El proyecto</a></li>
+            <li><a href="/#MedusApp/ventajas">Ventajas</a></li>  
             <li class="divider"></li>
             <li class="nav-header">Registro</li>
-            <li><a href="product.html">Registrar mi empresa</a></li>
-            <li><a href="product.html">Modificar mis datos</a></li>
+            <li><a href="/#suscribe">Suscribirme a las novedades</a></li>
+            <li><a href="/#registrar-empresa">Registrar mi empresa</a></li>
+            <li><a href="/#registrar-municipio">Registrar municipio</a></li>
+            <li><a href="/#registrar-ciudadano">Registrarme como ciudadano</a></li>
           </ul>                  
         </li>
+        <!--
         <li><a href="/">Ciudadanos</a></li>
         <li class="dropdown">  
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Municipios<b class="caret"></b></a>

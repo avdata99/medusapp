@@ -1,5 +1,6 @@
 <div class="navbar-inner">
   <div class="container">
+    <img src='/static/img/medusapp-logo.png' class='header-logo'/>
     <a href="/" class="brand brand-bootbus"><%= titulo %></a>
     <!-- Below button used for responsive navigation -->
     <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

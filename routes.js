@@ -5,9 +5,9 @@ App.Router = Backbone.Router.extend({
     'licitacion/:slug': 'licitacion',
     'MedusApp/:slug': 'section',
     'suscribe': 'suscribe',
-    'registrar-empresa': 'notyet',
-    'registrar-municipio': 'notyet',
-    'registrar-ciudadano': 'notyet',
+    'registrar-empresa': 'registrarEmpresa',
+    'registrar-municipio': 'registrarMunicipio',
+    'registrar-ciudadano': 'registrarCiudadano',
     '*other': 'fail404',
   },
 
@@ -50,6 +50,22 @@ App.Router = Backbone.Router.extend({
     setPage('/suscribe', 'suscribe', 'Suscribirse a las novedades de MedusApp');
     App.Views.mailChimp = new mailChimpView();
     App.Views.mailChimp.render();
+  },
+
+  registrarEmpresa: function() {
+    setPage('/registrar-empresa', 'Registrar empresa', 'Registrar empresa para aplicar a licitaciones públicas vía MedusApp');
+    $('#main_title').html('Registrar empresa');
+    $('#main_container').html('Aún no es posible registrar empresas al sistema. <br/><a href="/#suscribe">Suscríbase</a> para recibir novedades');
+  },
+  registrarMunicipio: function() {
+    setPage('/registrar-municipio', 'Registrar municipio', 'Registrar municipio para administrar licitaciones públicas vía MedusApp');
+    $('#main_title').html('Registrar empresa');
+    $('#main_container').html('Aún no es posible registrar municipios al sistema. <br/><a href="/#suscribe">Suscríbase</a> para recibir novedades');
+  },
+  registrarCiudadano: function() {
+    setPage('/registrar-ciudadano', 'Registrar ciudadano', 'Registrar ciudadano para conocer licitaciones públicas vía MedusApp');
+    $('#main_title').html('Registrar empresa');
+    $('#main_container').html('Aún no es posible registrarse como ciudadano al sistema.<br/> <a href="/#suscribe">Suscríbase</a> para recibir novedades');
   },
 
   notyet: function() {

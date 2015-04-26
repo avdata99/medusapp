@@ -1,7 +1,7 @@
 App.Router = Backbone.Router.extend({
   routes: {
-    '': 'index',
-    // 'withParams/:param1/:param2': 'funcWithParams',
+    '': 'home',
+    'licitaciones': 'licitaciones',
     'licitacion/:slug': 'licitacion',
     'MedusApp/:slug': 'section',
     'suscribe': 'suscribe',
@@ -11,8 +11,12 @@ App.Router = Backbone.Router.extend({
     '*other': 'fail404',
   },
 
+  home: function(){
+    this.navigate('/MedusApp/que-es', { trigger: true });
+  },
+
   /** mostrar pagina principal con las licitaciones */
-  index: function() {
+  licitaciones: function() {
     touchAnalytics('/index.html', 'Home');
     clearHome();
     $('#main_title').html('Licitaciones disponibles <small>(DEMO)</small>');

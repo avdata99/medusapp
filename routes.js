@@ -17,8 +17,7 @@ App.Router = Backbone.Router.extend({
 
   /** mostrar pagina principal con las licitaciones */
   licitaciones: function() {
-    touchAnalytics('/index.html', 'Home');
-    clearHome();
+    setPage('/licitaciones', 'Licitaciones', 'Licitaciones disponibles en MedusApp');
     $('#main_title').html('Licitaciones disponibles <small>(DEMO)</small>');
     App.Models.licitaciones = new licitacionesCollection();
     App.Models.licitaciones.getLicitaciones(); // carga todas las licitaciones
@@ -28,8 +27,7 @@ App.Router = Backbone.Router.extend({
     },
 
   licitacion: function(slug){
-    touchAnalytics('/licitacion/' + slug, 'Licitacion ' + slug);
-    clearHome();
+    setPage('/licitacion/' + slug, 'Licitacion ' + slug, 'Licitacion '+slug+' en MedusApp');
     App.Models.licitacion = new licitacionModel();
     App.Models.licitacion.getLicitacion(slug); // carga todas las licitaciones
 
@@ -39,8 +37,7 @@ App.Router = Backbone.Router.extend({
   },
 
   section: function(slug){
-    touchAnalytics('/section/' + slug, 'Seccion ' + slug);
-    clearHome();
+    setPage('/section/' + slug, 'Seccion ' + slug, 'MedusApp ' + slug);
     App.Models.section = new sectionModel();
     App.Models.section.getSection(slug); // carga todas las licitaciones
 
@@ -50,21 +47,20 @@ App.Router = Backbone.Router.extend({
   },
 
   suscribe: function(){
-    touchAnalytics('/suscribe', 'suscribe ');
-    clearHome();
+    setPage('/suscribe', 'suscribe', 'Suscribirse a las novedades de MedusApp');
     App.Views.mailChimp = new mailChimpView();
     App.Views.mailChimp.render();
   },
 
   notyet: function() {
-    touchAnalytics('/notyet', 'No implementado');
+    setPage('/notyet', 'No implementado', 'No implementado');
     $('#main_title').html('No implementado');
     $('#main_container').html('En desarrollo');
     
   },
 
   fail404: function() {
-    touchAnalytics('/404', 'Error 404');
+    setPage('/404', 'Error 404', 'Error 404');
     alert("404");
     
   }

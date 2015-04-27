@@ -9,7 +9,7 @@
     <h4 class="widget-header"><i class="icon-form"></i> Formulario de registro</h4>
     <div class="widget-body">
       <div class="center-align" >
-        <form action="" method="post" class="validate form-horizontal form-signin-signup">
+        <form action="" method="post" class="validate form-horizontal form-signin-signup" id='registrarEmpresa'>
 
           <input type="text" placeholder='Razon Social' value="" name="razonsocial" class="required">
 
@@ -42,3 +42,10 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+	// mantener configurable la ubicacion del API para carga de datos
+	$('#registrarEmpresa').attr('action', App.Configuration.Api + '/regsitrarEmpresa');
+</script>
+
+

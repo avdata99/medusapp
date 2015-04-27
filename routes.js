@@ -54,8 +54,10 @@ App.Router = Backbone.Router.extend({
 
   registrarEmpresa: function() {
     setPage('/registrar-empresa', 'Registrar empresa', 'Registrar empresa para aplicar a licitaciones públicas vía MedusApp');
-    $('#main_title').html('Registrar empresa');
-    $('#main_container').html('Aún no es posible registrar empresas al sistema. <br/><a href="/#suscribe">Suscríbase</a> para recibir novedades');
+    App.Models.empresasModel = new empresasModel();
+    App.Models.empresasModel.getTextosRegistro();
+    App.Views.registroEmpresaView = new registroEmpresaView({model: App.Models.empresasModel});
+    App.Views.registroEmpresaView.render();
   },
   registrarMunicipio: function() {
     setPage('/registrar-municipio', 'Registrar municipio', 'Registrar municipio para administrar licitaciones públicas vía MedusApp');
@@ -77,8 +79,8 @@ App.Router = Backbone.Router.extend({
 
   fail404: function() {
     setPage('/404', 'Error 404', 'Error 404');
-    alert("404");
-    
+    $('#main_title').html('UPS <small>no tenemos nada que mostrar aqui</small>');
+    $('#main_container').html('Prueba regresar a la <a href="/">home</a>.');
   }
 
 });

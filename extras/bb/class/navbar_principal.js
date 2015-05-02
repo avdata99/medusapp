@@ -1,7 +1,7 @@
 /** cada licitacion*/
 var navbar_principalModel = Backbone.Model.extend({
     defaults: {
-        titulo: 'Pactos de información',
+        titulo: 'MedusApp',
     }
 });
 

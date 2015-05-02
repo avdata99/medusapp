@@ -26,16 +26,16 @@
         <? if ($this->user_model->can('VIEW_USUARIOS')) { ?>
             <li><a <? if ($active=='usuarios'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/usuarios"><i class="fa fa-sign-in fa-fw"></i> Usuarios</a></li>
         <? } ?>
-            
+            <!--
             <li>
                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> A cerca de ..<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a <? if ($active=='inicio'){ ?>class="quienes"<? } ?>href="#">Quienes somos</a></li>
                     <li><a <? if ($active=='inicio'){ ?>class="about"<? } ?>href="#">Sobre <?=$this->config->item('app_name_short')?></a></li>
                 </ul>
-                <!-- /.nav-second-level -->
+                
             </li>
-
+            -->
             <li><a title='Usuario <?=$session['user_name']?>' href="<?=$my_base_url?>home/logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a></li>
             
         </ul>

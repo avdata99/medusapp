@@ -11,6 +11,10 @@ INSERT INTO `textos` (`code`, `descripcion`, `texto`) VALUES
 ('MedusApp-para-Municipios', 'MedusApp para Municipios', '<p>\r\n	Explicaci&oacute;n de&nbsp;<strong>MedusApp</strong> para Municipios.</p>\r\n<p>\r\n	Se pueden usar formatos a gusto</p>\r\n');
 */ 
 
+-- 2015-04-27 (aprox)
 INSERT INTO `textos` (`code`, `descripcion`, `texto`) VALUES
 ('invitacion-registro-empresas', 'Registro de empresas', 
 	'<p>\r\n	Registrar su empresa en MedusApp la habilita para la presentaci&oacute;n en las licitaciones p&uacute;blicas que este sistema administre.</p>\r\n<p>\r\n	Este registro es obligatorio y requiere una validaci&oacute;n externa a este sistema para la aceptaci&oacute;n formal en este sistema.&nbsp;</p>\r\n');
+
+-- 2015-05-02
+ALTER TABLE `empresa` ADD `status` INT(5) NOT NULL , ADD INDEX (`status`) ;

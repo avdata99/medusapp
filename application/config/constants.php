@@ -84,3 +84,11 @@ define('EXIT_USER_INPUT', 7); // invalid user input
 define('EXIT_DATABASE', 8); // database error
 define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+
+// ---------------- MEDUSAPP Constants
+
+define('EMPRESA_STATUS_NEW', 0); // nueva, no tiene permisos aun
+define('EMPRESA_STATUS_SUSPENDED', 1); // la cuenta ha sido suspendida temporalmente
+define('EMPRESA_STATUS_ACTIVA', 2); // la empresa esta activa y funcional
+

@@ -45,7 +45,16 @@
 
 <script type="text/javascript">
 	// mantener configurable la ubicacion del API para carga de datos
-	$('#registrarEmpresa').attr('action', App.Configuration.Api + '/regsitrarEmpresa');
+  var url = App.Configuration.Api + '/empresas/registrar';
+  xhr = $.post(url);
+
+  xhr.done(function(data){
+
+  });
+
+  xhr.fail(function(data){
+
+  });  
 </script>
 
 

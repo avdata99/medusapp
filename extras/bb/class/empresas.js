@@ -1,3 +1,4 @@
+/** sobre el formulario de registro de empresas */
 var empresasModel = Backbone.Model.extend({
 	defaults: {
 		registroTitulo: '',

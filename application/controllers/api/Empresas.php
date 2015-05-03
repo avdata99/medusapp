@@ -18,8 +18,25 @@ require APPPATH.'/libraries/REST_Controller.php';
 
 class Empresas extends REST_Controller{
 	public function registrar_post(){
-		$this->load->model('Empresas_model');
-		$ret = $this->empresas_model->add($this->post);
-		$this->response($ret, 200);
+		$this->load->model('empresas_model');
+		$ret = $this->empresas_model->add($this->input->post());
+		if ($ret['result']){
+			$this->response($ret, 200);
+		}
+		else {
+			$this->response(array('error' => 'Error'), 500);
+		}
+	}
+
+	public function registrar_get(){
+		$this->load->model('empresas_model');
+		$ret = $this->empresas_model->add($this->input->get());
+		if ($ret['result']){
+			$this->response($ret, 200);
+		}
+		else {
+			$this->response(array('error' => 'Error'), 500);
+		}
+
 	}
 }

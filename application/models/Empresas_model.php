@@ -5,19 +5,30 @@ class Empresas_model extends CI_Model {
     public function add($fields){
     	//validate
     	$errors = [];
-    	if ($fields['razonsocial'] == '') {$errors[] = 'La razón soacial no puede estar vacia';}
+    	if ($fields['razonsocial'] == '') {$errors[] = 'La razón social no puede estar vacia';}
+        if ($fields['cuit'] == '') {$errors[] = 'El CUIT no puede estar vacio';}
+        if ($fields['email'] == '') {$errors[] = 'El email no puede estar vacia';}
+
 
     	//#TODO check for duplicated emails
 
     	if (count($errors) > 0 ) {return array('result'=> FALSE, 'errors'=> $errors);}
 
-    	$q = 'INSERT INTO empresa (nombre, status) 
-    				VALUES ("'.$fields['razonsocial'].'", ' . EMPRESA_STATUS_NEW. '); ';
+    	$q = 'INSERT INTO empresa (nombre, status, cuit, email, responsable_nombre, responsable_apellido, pais) 
+    				VALUES ("'.$fields['razonsocial'].'", ' . EMPRESA_STATUS_NEW. ', 
+                        "'.$fields['cuit'].'","'.$fields['email'].'",
+                        "'.$fields['nombre'].'","'.$fields['apellido'].'","'.$fields['pais'].'"); ';
+
     	
         $query = $this->db->query($q);
 
         if ( !$query ) 
-        	{return array('result'=> FALSE, 'errors'=> array("Error al insertar la empresa"));}
+        	{
+            $txt = "Error al grabar empresa [$q]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 5);
+            return array('result'=> FALSE, 'errors'=> array("Error al insertar la empresa"));
+            }
 
         return array('result'=> TRUE, 'errors'=> array());
     }

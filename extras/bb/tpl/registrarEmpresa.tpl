@@ -6,12 +6,12 @@
 
 <div class="row">
   <div class="span6 offset3">
-    <h4 class="widget-header"><i class="icon-form"></i> Formulario de registro</h4>
+    <h4 class="widget-header"><i class="icon-form"></i> Formulario de registro de empresas</h4>
     <div class="widget-body">
-      <div class="center-align" >
-        <div class="validate form-horizontal form-signin-signup">
+      <div class="center-align" id='registrarEmpresaFormContainer'>
+        <form class="form-horizontal form-signin-signup" id='registrarEmpresaForm'>
 
-          <input type="text" placeholder='Razon Social' name="razonsocial" id="razonsocial" class="required">
+          <input type="text" placeholder='Razon Social' name="razonsocial" id="razonsocial" required>
 
           <div class="mc-field-group">
             <label for="pais">País</label>
@@ -25,16 +25,17 @@
             </select>
           </div>
 
-          <input type="text" placeholder='CUIT o identificador tributario' name="cuit" id="cuit" class="required">
+          <input type="text" placeholder='CUIT o identificador tributario' name="cuit" id="cuit" required>
           
-          <input type="text" placeholder='Nombre del responsable' name="nombre" id="nombre" class="">
-          <input type="text" placeholder='Apellido del responsable' id="apellido" name="apellido" class="">
-          <input type="text" placeholder='email' id="email" name="email" class="required email">
+          <input type="text" placeholder='Nombre del responsable' name="nombre" id="nombre" required>
+          <input type="text" placeholder='Apellido del responsable' id="apellido" name="apellido" required>
+          <input type="text" placeholder='email' id="email" name="email" class="email" required>
           
-          <div>
-            <button class="btn btn-primary btn-large" id='registrar'>Registrarse</button>
-          </div>
-
+        
+      </form>
+        
+        <div>
+          <button class="btn btn-primary btn-large" id='registrar'>Registrarse</button>
         </div>
 
       </div>        

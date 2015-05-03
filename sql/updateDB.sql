@@ -18,3 +18,16 @@ INSERT INTO `textos` (`code`, `descripcion`, `texto`) VALUES
 
 -- 2015-05-02
 ALTER TABLE `empresa` ADD `status` INT(5) NOT NULL , ADD INDEX (`status`) ;
+
+-- 2015-05-03
+TRUNCATE TABLE `empresa`; -- prepare for non duplicated keys
+ALTER TABLE `empresa`  ADD `cuit` VARCHAR(90) NOT NULL ,  ADD `email` VARCHAR(90) NOT NULL ,  
+	ADD `responsable_nombre` VARCHAR(90) NOT NULL ,  
+	ADD `responsable_apellido` VARCHAR(90) NOT NULL ,  
+	ADD   UNIQUE  (`cuit`, `email`) ;
+
+ALTER TABLE `empresa` ADD `pais` VARCHAR(90) NOT NULL ;
+
+INSERT INTO empresa (nombre, status, cuit, email, responsable_nombre, responsable_apellido, pais) 
+	VALUES ('empresa 1', '0', '2387e2387e782', 'jijis@gmail.com', 'juan', 'perez', 'Argentina');
+

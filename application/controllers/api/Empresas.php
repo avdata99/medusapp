@@ -24,19 +24,7 @@ class Empresas extends REST_Controller{
 			$this->response($ret, 200);
 		}
 		else {
-			$this->response(array('error' => 'Error'), 500);
+			$this->response(array('result': FALSE, 'errors' => array('General Error')), 200);
 		}
-	}
-
-	public function registrar_get(){
-		$this->load->model('empresas_model');
-		$ret = $this->empresas_model->add($this->input->get());
-		if ($ret['result']){
-			$this->response($ret, 200);
-		}
-		else {
-			$this->response(array('error' => 'Error'), 500);
-		}
-
 	}
 }

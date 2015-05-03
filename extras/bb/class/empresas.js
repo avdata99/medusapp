@@ -18,21 +18,34 @@ var empresasModel = Backbone.Model.extend({
       xhr.fail(function(data){console.log("failed on getEmpresa");});
     },
 
-    /** registrar empresa */
+    /** registrar empresa vía formulario */
     registrarEmpresa: function(){
-    // mantener configurable la ubicacion del API para carga de datos
+        if (!$('#registrarEmpresaForm').valid()){
+            addLog('Empresa invalida');
+            return false;
+        }
+            
+        // mantener configurable la ubicacion del API para carga de datos
         var url = App.Configuration.Api + '/empresas/registrar';
-        // var postData = $('#registrarEmpresa').serializeArray();
-        postData = {'razonsocial': $('#razonsocial').val()};
+        var postData = $('#registrarEmpresaForm').serializeArray();
+        /* 
+        var postData = {
+            'razonsocial': $('#razonsocial').val(),
+            'pais': $('#pais').val(),
+            'email': $('#email').val(),
+            'nombre': $('#nombre').val(),
+            'apellido': $('#apellido').val(),
+            'cuit': $('#cuit').val(),
+            };
+        */
         var xhr = $.ajax({
             method: 'POST',
             url: url,
             data: postData});
 
         xhr.done(function(data){
-            console.log(data);
             addLog('Empresa registrada Ok');
-            alert('Ok');
+            $('#registrarEmpresaFormContainer').html('OK'); 
         });
 
         xhr.fail(function(data){
@@ -47,17 +60,39 @@ var empresasModel = Backbone.Model.extend({
 var registroEmpresaView = Backbone.View.extend({
     template: template('registrarEmpresa'),
     render: function(){
+        var self = this;
         section = this.model.attributes;
         $('#main_title').html(section.registroTitulo);
         var tpl = this.template(this.model.toJSON());
         $('#main_container').append(tpl);
-        $('#registrar').on('click', this.model.registrarEmpresa);
+        $('#registrarEmpresaForm').submit(function(event){
+            event.preventDefault();
+            // self.model.registrarEmpresa();
+            return false;
+        });
+        var validator = $('#registrarEmpresaForm').validate({
+            rules: {
+                    razonsocial: "required",
+                    email: { required: true, email: true }
+                  },
+            messages: {
+                    razonsocial: "La razón social es obligatoria",
+                    nombre: 'El responsable de la cuenta con Nombre y Apellido es requerido',
+                    apellido: 'El responsable de la cuenta con Nombre y Apellido es requerido',
+                    cuit: 'El código de identificación tributario es requerido',
+                    email: {
+                      required: "El email es requerido",
+                      email: "El email esta mal escrito, es inválido"
+                    }
+                  }
+              });
+
+        $('#registrar').on('click', function(){
+            validator.showErrors();
+            //this.model.registrarEmpresa();
+        });
+        
 
         return this;
         },
     });
-
-
-  
-
-  

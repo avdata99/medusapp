@@ -38,3 +38,7 @@
   </p>
 </div>
 -->
+<hr class="footer-divider">
+<div class="container" id='medusalogs'>
+  
+</div>

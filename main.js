@@ -7,7 +7,8 @@
     Views: {},
     Router: {},
     Configuration: {Api: '/api', UAnalitycs: 'UA-62272059-1'},
-    Logs: ''
+    Logs: '',
+    isDevelop: (window.location.href.search('medusapp.org') < 0)
   };
 
   ga('create', App.Configuration.UAnalitycs, 'auto');
@@ -28,6 +29,11 @@
   /** agregar registro al log interno javascript*/
   window.addLog = function(txt){
     App.Logs = App.Logs + '<br/>' + txt;
+    if (App.isDevelop){
+      console.log(txt);
+      $('#medusalogs').append('<p>'+txt+'</p>');
+    }
+    
   };
   
   /** marcar visita en google analytics */
@@ -42,6 +48,7 @@
 
   /** para cada cambio de pagina en el router de backbone*/
   window.setPage = function(url, title, description){
+    addLog('Goto ' + url + ' (title: ' + title + ' description: ' + description + ')');
     document.title = title;
     document.description = description;
     touchAnalytics(url, title);

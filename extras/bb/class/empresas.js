@@ -27,8 +27,8 @@ var empresasModel = Backbone.Model.extend({
            
         // mantener configurable la ubicacion del API para carga de datos
         var url = App.Configuration.Api + '/empresas/registrar';
-        // var postData = $('#registrarEmpresaForm').serializeArray();
-        
+        var postData = $('#registrarEmpresaForm').serializeArray();
+        /*
         var postData = {
             razonsocial: $('#razonsocial').val(),
             pais: $('#pais').val(),
@@ -37,7 +37,7 @@ var empresasModel = Backbone.Model.extend({
             apellido: $('#apellido').val(),
             cuit: $('#cuit').val(),
             };
-        
+        */
         var xhr = $.ajax({
             type: 'POST',
             url: url,
@@ -65,28 +65,23 @@ var registroEmpresaView = Backbone.View.extend({
         $('#main_title').html(section.registroTitulo);
         var tpl = this.template(this.model.toJSON());
         $('#main_container').append(tpl);
-        /*$("#registrarEmpresaForm").submit(function(e){
-            e.preventDefault();
-        });*/
+        
         var validator = $('#registrarEmpresaForm').validate({
             rules: {
-                    razonsocial: "required",
-                    email: { required: true, email: true }
-                  },
+                razonsocial: "required",
+                email: { required: true, email: true }
+                },
             messages: {
-                    razonsocial: "La razón social es obligatoria",
-                    nombre: 'El responsable de la cuenta con Nombre y Apellido es requerido',
-                    apellido: 'El responsable de la cuenta con Nombre y Apellido es requerido',
-                    cuit: 'El código de identificación tributario es requerido',
-                    email: {
-                      required: "El email es requerido",
-                      email: "El email esta mal escrito, es inválido"
-                    }
-                  },
-            /*submitHandler: function(form) { 
-                return false;  //This doesn't prevent the form from submitting.
-                }*/
-              });
+                razonsocial: "La razón social es obligatoria",
+                nombre: 'El responsable de la cuenta con Nombre y Apellido es requerido',
+                apellido: 'El responsable de la cuenta con Nombre y Apellido es requerido',
+                cuit: 'El código de identificación tributario es requerido',
+                email: {
+                required: "El email es requerido",
+                email: "El email esta mal escrito, es inválido"
+                }
+            }
+        });
         
         $('#registrar').on('click', function(){    
             if ($('#registrarEmpresaForm').valid()){

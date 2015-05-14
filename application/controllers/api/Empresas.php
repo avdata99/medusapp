@@ -24,7 +24,7 @@ class Empresas extends REST_Controller{
 			$this->response($ret, 200);
 		}
 		else {
-			$this->response(array('result': FALSE, 'errors' => array('General Error')), 200);
+			$this->response(array('result'=> FALSE, 'errors' => array('General Error')), 200);
 		}
 	}
 }

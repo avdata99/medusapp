@@ -24,22 +24,22 @@ var empresasModel = Backbone.Model.extend({
             addLog('Empresa invalida');
             return false;
         }
-            
+           
         // mantener configurable la ubicacion del API para carga de datos
         var url = App.Configuration.Api + '/empresas/registrar';
-        var postData = $('#registrarEmpresaForm').serializeArray();
-        /* 
+        // var postData = $('#registrarEmpresaForm').serializeArray();
+        
         var postData = {
-            'razonsocial': $('#razonsocial').val(),
-            'pais': $('#pais').val(),
-            'email': $('#email').val(),
-            'nombre': $('#nombre').val(),
-            'apellido': $('#apellido').val(),
-            'cuit': $('#cuit').val(),
+            razonsocial: $('#razonsocial').val(),
+            pais: $('#pais').val(),
+            email: $('#email').val(),
+            nombre: $('#nombre').val(),
+            apellido: $('#apellido').val(),
+            cuit: $('#cuit').val(),
             };
-        */
+        
         var xhr = $.ajax({
-            method: 'POST',
+            type: 'POST',
             url: url,
             data: postData});
 
@@ -65,11 +65,9 @@ var registroEmpresaView = Backbone.View.extend({
         $('#main_title').html(section.registroTitulo);
         var tpl = this.template(this.model.toJSON());
         $('#main_container').append(tpl);
-        $('#registrarEmpresaForm').submit(function(event){
-            event.preventDefault();
-            // self.model.registrarEmpresa();
-            return false;
-        });
+        /*$("#registrarEmpresaForm").submit(function(e){
+            e.preventDefault();
+        });*/
         var validator = $('#registrarEmpresaForm').validate({
             rules: {
                     razonsocial: "required",
@@ -84,12 +82,16 @@ var registroEmpresaView = Backbone.View.extend({
                       required: "El email es requerido",
                       email: "El email esta mal escrito, es inválido"
                     }
-                  }
+                  },
+            /*submitHandler: function(form) { 
+                return false;  //This doesn't prevent the form from submitting.
+                }*/
               });
-
-        $('#registrar').on('click', function(){
-            validator.showErrors();
-            //this.model.registrarEmpresa();
+        
+        $('#registrar').on('click', function(){    
+            if ($('#registrarEmpresaForm').valid()){
+                self.model.registrarEmpresa();    
+            }
         });
         
 

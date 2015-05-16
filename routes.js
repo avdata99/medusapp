@@ -61,12 +61,12 @@ App.Router = Backbone.Router.extend({
   },
   registrarMunicipio: function() {
     setPage('/registrar-municipio', 'Registrar municipio', 'Registrar municipio para administrar licitaciones públicas vía MedusApp');
-    $('#main_title').html('Registrar empresa');
+    $('#main_title').html('Registrar Municipio');
     $('#main_container').html('Aún no es posible registrar municipios al sistema. <br/><a href="/#suscribe">Suscríbase</a> para recibir novedades');
   },
   registrarCiudadano: function() {
     setPage('/registrar-ciudadano', 'Registrar ciudadano', 'Registrar ciudadano para conocer licitaciones públicas vía MedusApp');
-    $('#main_title').html('Registrar empresa');
+    $('#main_title').html('Registrar Ciudadano');
     $('#main_container').html('Aún no es posible registrarse como ciudadano al sistema.<br/> <a href="/#suscribe">Suscríbase</a> para recibir novedades');
   },
 

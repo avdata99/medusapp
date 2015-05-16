@@ -45,7 +45,10 @@ var empresasModel = Backbone.Model.extend({
 
         xhr.done(function(data){
             addLog('Empresa registrada Ok');
-            $('#registrarEmpresaFormContainer').html('OK'); 
+            msg = 'Su empresa ha sido registrada correctamente.<br/>Los datos serán \
+                revisados.<br/>Recibirá una notificacion por email para comenzar a \
+                postularse a licitaciones públicas';
+            $('#registrarEmpresaFormContainer').html(msg); 
         });
 
         xhr.fail(function(data){

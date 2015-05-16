@@ -31,3 +31,16 @@ ALTER TABLE `empresa` ADD `pais` VARCHAR(90) NOT NULL ;
 INSERT INTO empresa (nombre, status, cuit, email, responsable_nombre, responsable_apellido, pais) 
 	VALUES ('empresa 1', '0', '2387e2387e782', 'jijis@gmail.com', 'juan', 'perez', 'Argentina');
 
+CREATE TABLE `datos_publicar` (`id` int(11) NOT NULL AUTO_INCREMENT,
+ `titulo` varchar(120) NOT NULL, `descripcion` text NOT NULL,  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+INSERT INTO `pactointegridad`.`datos_publicar` (`id`, `titulo`, `descripcion`) 
+	VALUES 
+	(NULL, 'Ultimo balance Anual', 'Fichero adjunto en formato PDF con el ultimo balance aprobado completo'), 
+	(NULL, 'Estatuto social', 'Archivo PDF adjunto con los estatutos de la sociedad'),
+	(NULL, 'Ultimo informe de auditores', 'Archivo adjunto en PDF con el último informe de auditores'), 
+	(NULL, 'Organo de administración', 'Archivo adjunto PDF con la nómina actual de los miembros del órgano de administracion');
+
+
+

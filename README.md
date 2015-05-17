@@ -1,5 +1,6 @@
 # MedusApp
 Aplicación para la gestion de licitaciones públicas y concursos de precios.  
+En activo desarrollo, producto no finalizado a cargo del Observatorio de Políticas Públicas de Universidad Católica de Córdoba.  
   
 # Componentes
 MedusApp esta compuesta por dos aplicaciones.  

@@ -48,7 +48,8 @@ App.Router = Backbone.Router.extend({
 
   suscribe: function(){
     setPage('/suscribe', 'suscribe', 'Suscribirse a las novedades de MedusApp');
-    App.Views.mailChimp = new mailChimpView();
+    App.Models.mailChimp = new mailChimpModel();
+    App.Views.mailChimp = new mailChimpView({model: App.Models.mailChimp});
     App.Views.mailChimp.render();
   },
 

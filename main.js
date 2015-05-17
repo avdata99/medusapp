@@ -8,7 +8,8 @@
     Router: {},
     Configuration: {Api: '/api', UAnalitycs: 'UA-62272059-1'},
     Logs: '',
-    isDevelop: (window.location.href.search('medusapp.org') < 0)
+    isDevelop: (window.location.href.search('medusapp.org') < 0),
+    social_values: {},
   };
 
   ga('create', App.Configuration.UAnalitycs, 'auto');
@@ -44,7 +45,7 @@
   /**Limpiar la parte central de la web para cargar contenido */
   window.clearHome = function(){
     $('#main_container').html('');
-  }
+  };
 
   /** para cada cambio de pagina en el router de backbone*/
   window.setPage = function(url, title, description){
@@ -53,7 +54,22 @@
     document.description = description;
     touchAnalytics(url, title);
     clearHome();
-  }
+  };
+
+  /** get default values for social accounts and tools (twitter, facebook, mailchimp, etc)*/
+  window.getSocialValues = function(){
+    var url = App.Configuration.Api + '/info/social';
+    var xhr = $.ajax({url: url, type: 'GET', async: false});
+    
+    xhr.done(function(data){ // get social info
+      _.each(data, function(social){
+          App.social_values[social.social_name] = social.social_value;
+          });
+      });
+    xhr.fail(function(data){console.log("failed on get social values");});
+  };
+
+  getSocialValues();
 
   appEvents = _.extend({}, Backbone.Events);
 

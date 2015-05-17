@@ -28,16 +28,7 @@ var empresasModel = Backbone.Model.extend({
         // mantener configurable la ubicacion del API para carga de datos
         var url = App.Configuration.Api + '/empresas/registrar';
         var postData = $('#registrarEmpresaForm').serializeArray();
-        /*
-        var postData = {
-            razonsocial: $('#razonsocial').val(),
-            pais: $('#pais').val(),
-            email: $('#email').val(),
-            nombre: $('#nombre').val(),
-            apellido: $('#apellido').val(),
-            cuit: $('#cuit').val(),
-            };
-        */
+        
         var xhr = $.ajax({
             type: 'POST',
             url: url,

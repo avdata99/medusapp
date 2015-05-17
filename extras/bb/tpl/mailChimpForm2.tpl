@@ -5,7 +5,7 @@
     <div class="widget-body">
       <div class="center-align" id="mc_embed_signup">
         <form 
-        action="//medusapp.us10.list-manage.com/subscribe/post?u=7f72f6878941580f6affb71a0&amp;id=2d22ce24ef" 
+        action="<%= mailchimp_action_url %>" 
         method="post" 
         id="mc-embedded-subscribe-form" 
         name="mc-embedded-subscribe-form" 

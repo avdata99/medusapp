@@ -2,10 +2,6 @@ INSERT INTO `ciudadano` (`id`, `nombre`) VALUES
 (1, 'Ciudadano 001'),
 (2, 'ciudadano 002');
 
-INSERT INTO `empresa` (`id`, `nombre`) VALUES
-(1, 'Empresa uno'),
-(2, 'Empresa segunda');
-
 INSERT INTO `gobierno` (`id`, `nombre`) VALUES
 (1, 'Govierno test 1'),
 (2, 'Govierno test 2'),

@@ -71,12 +71,19 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 -- Estructura de tabla para la tabla `empresa`
 --
 
-CREATE TABLE IF NOT EXISTS `empresa` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
-
+CREATE TABLE `empresa` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
+ `status` int(5) NOT NULL,
+ `cuit` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ `email` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ `responsable_nombre` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ `responsable_apellido` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ `pais` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `cuit` (`cuit`,`email`),
+ KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci
 
 -- --------------------------------------------------------
 
@@ -282,6 +289,17 @@ CREATE TABLE IF NOT EXISTS `usuario_rol` (
 --
 ALTER TABLE `licitacion`
   ADD CONSTRAINT `licitacion_ibfk_1` FOREIGN KEY (`gobierno_id`) REFERENCES `gobierno` (`id`);
+
+CREATE TABLE `datos_publicar` (`id` int(11) NOT NULL AUTO_INCREMENT,
+ `titulo` varchar(120) NOT NULL, `descripcion` text NOT NULL,  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+INSERT INTO `pactointegridad`.`datos_publicar` (`id`, `titulo`, `descripcion`) 
+  VALUES 
+  (NULL, 'Ultimo balance Anual', 'Fichero adjunto en formato PDF con el ultimo balance aprobado completo'), 
+  (NULL, 'Estatuto social', 'Archivo PDF adjunto con los estatutos de la sociedad'),
+  (NULL, 'Ultimo informe de auditores', 'Archivo adjunto en PDF con el último informe de auditores'), 
+  (NULL, 'Organo de administración', 'Archivo adjunto PDF con la nómina actual de los miembros del órgano de administracion');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

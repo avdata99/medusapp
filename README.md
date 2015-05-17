@@ -21,3 +21,33 @@ $db['default'] = array(
   
 Cargar a la base de datos el contenido de **sql/pactointegridad.sql** e **sql/initial.sql**  
 
+# Preparar host de trabajo
+Por cuestion de paths internos es necesario tener un dominio interno para pruebas  
+Para este ejemplo se usa un host hacia la url *http://medusapp*  
+Agregar al archivo */etc/hosts* la linea
+```bash
+127.0.0.1	medusapp  
+```  
+
+**Host de apache** (se podría *nginx* u otros)  
+```bash
+<VirtualHost *:80>
+	ServerName medusapp
+
+	ServerAdmin andres@data99.com.ar
+	DocumentRoot /home/casa/dev/medusapp
+
+	LogLevel info ssl:warn
+
+	ErrorLog ${APACHE_LOG_DIR}/medusapp-error.log
+	CustomLog ${APACHE_LOG_DIR}/medusapp-access.log combined
+
+	<Directory /home/casa/dev/medusapp/>
+
+        	Options Indexes FollowSymLinks
+		Require all granted
+		AllowOverride All
+	</Directory>
+
+</VirtualHost>
+```  

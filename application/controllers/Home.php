@@ -53,6 +53,7 @@ class Home extends CI_Controller {
 
 	public function show_login(){
 		$this->parts['title'] = $this->config->item('app_name_short') . ' login';
+		$this->parts['error'] = '';
 		$this->load->view('login', $this->parts);
 	}
 

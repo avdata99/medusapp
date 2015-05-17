@@ -25,12 +25,12 @@ Cargar a la base de datos el contenido de **sql/pactointegridad.sql** e **sql/in
 Por cuestion de paths internos es necesario tener un dominio interno para pruebas  
 Para este ejemplo se usa un host hacia la url *http://medusapp*  
 Agregar al archivo */etc/hosts* la linea
-```bash
+```
 127.0.0.1	medusapp  
 ```  
 
 **Host de apache** (se podría *nginx* u otros)  
-```bash
+```
 <VirtualHost *:80>
 	ServerName medusapp
 
@@ -54,4 +54,6 @@ Asegurarse de activar el modulo *rewrite*
 ```
 sudo a2enmod rewrite
 ```
- 
+
+Luego de reiniciar apache la url [http://medusapp/home](http://medusapp/home) ya debe funcionar  
+El usuario y clave prederteminados es *admin* + *admin*  

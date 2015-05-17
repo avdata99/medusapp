@@ -14,9 +14,10 @@ Asignarle permisos a un usuario en MySql e indicarlo en el archico application/c
 $db['default'] = array(  
 	'dsn'	=> '',  
 	'hostname' => 'localhost',  
-	'username' => 'youuser',  
-	'password' => 'yourpass',  
+	'username' => 'your-user',  
+	'password' => 'your-pass',  
 	'database' => 'pactointegridad',  
 ```  
   
-Cargar la base de datos en sql/pactointegridad.sql  
+Cargar a la base de datos el contenido de **sql/pactointegridad.sql** e **sql/initial.sql**  
+

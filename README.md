@@ -34,20 +34,24 @@ Agregar al archivo */etc/hosts* la linea
 <VirtualHost *:80>
 	ServerName medusapp
 
-	ServerAdmin andres@data99.com.ar
-	DocumentRoot /home/casa/dev/medusapp
+	ServerAdmin you@domain.com
+	DocumentRoot /path/to/medusapp
 
-	LogLevel info ssl:warn
+	LogLevel info 
 
 	ErrorLog ${APACHE_LOG_DIR}/medusapp-error.log
 	CustomLog ${APACHE_LOG_DIR}/medusapp-access.log combined
 
-	<Directory /home/casa/dev/medusapp/>
-
-        	Options Indexes FollowSymLinks
+	<Directory /path/to/medusapp/>
+        Options Indexes FollowSymLinks
 		Require all granted
 		AllowOverride All
 	</Directory>
 
 </VirtualHost>
 ```  
+Asegurarse de activar el modulo *rewrite*  
+```
+sudo a2enmod rewrite
+```
+ 

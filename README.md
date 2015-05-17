@@ -4,9 +4,15 @@ Medusa App
 # Componentes
 MedusApp esta compuesta por dos aplicaciones  
 **Backend**  
-Hecho con Codeigniter (PHP 5) con las librerías  
+Este incluye la carga de datos del sistema: licitaciones, gobiernos, usuarios, etc  
+
+Hecho con Codeigniter 3 (PHP 5) con las librerías  
 - [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API  
 - [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos  
+  
+**Web site**  
+Aplicacion HTML5 + Backbone para publicación de datos  
+Consume vía API todos los datos necesarios para poder embeberse como aplicación mobile Phonegap  
 
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

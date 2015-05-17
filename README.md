@@ -35,7 +35,7 @@ $db['default'] = array(
 Cargar a la base de datos el contenido de **sql/pactointegridad.sql** e **sql/initial.sql**  
 
 # Preparar host de trabajo
-Por cuestion de paths internos es necesario tener un dominio interno para pruebas  
+Por cuestion de paths internos es necesario tener un dominio local para pruebas  
 Para este ejemplo se usa un host hacia la url *http://medusapp*  
 Agregar al archivo */etc/hosts* la linea
 ```

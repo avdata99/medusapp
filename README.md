@@ -1,6 +1,12 @@
 # medusapp
 Medusa App
 
+# Componentes
+MedusApp esta compuesta por dos aplicaciones  
+**Backend**  
+Hecho con Codeigniter (PHP 5) con las librerías  
+ 
+
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo
 para Ubuntu. De todas formas es facilmente replicable en otro sistemas  

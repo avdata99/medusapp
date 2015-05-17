@@ -54,6 +54,6 @@ Asegurarse de activar el modulo *rewrite*
 ```
 sudo a2enmod rewrite
 ```
-
+Asegurese de tener activados los tags cortos de php (*<?* con *short_open_tag = On*)  
 Luego de reiniciar apache la url [http://medusapp/home](http://medusapp/home) ya debe funcionar  
 El usuario y clave prederteminados es *admin* + *admin*  

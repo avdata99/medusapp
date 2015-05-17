@@ -92,4 +92,3 @@ define('EMPRESA_STATUS_NEW', 0); // nueva, no tiene permisos aun
 define('EMPRESA_STATUS_SUSPENDED', 1); // la cuenta ha sido suspendida temporalmente
 define('EMPRESA_STATUS_UNABLE', 2); // la empresa no cumple los requisitos y se descarto
 define('EMPRESA_STATUS_ACTIVE', 3); // la empresa esta activa y funcional
-

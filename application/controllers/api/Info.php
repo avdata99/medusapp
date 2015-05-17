@@ -26,4 +26,12 @@ class Info extends REST_Controller{
         else
         	{$this->response(array('error' => 'Error'), 404);}
 	}
+
+	/** all data for publish */
+	public function social_get(){
+		$this->load->model('social_model');
+		$social = $this->social_model->all();
+
+		$this->response($social, 200);
+	}
 }

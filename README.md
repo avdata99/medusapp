@@ -13,7 +13,8 @@ Hecho con Codeigniter 3 (PHP 5) con las librerías:
 **Web site**  
 Aplicacion HTML5 + Backbone para publicación de datos.  
 Consume vía API todos los datos necesarios para poder embeberse como aplicación mobile Phonegap.  
-
+Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusiness/contact_us.html)  
+  
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo
 para Ubuntu. De todas formas es facilmente replicable en otro sistemas.  

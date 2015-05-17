@@ -19,7 +19,7 @@ Aplicacion HTML5 + Backbone para publicación de datos.
 Consume vía API todos los datos necesarios para poder embeberse como aplicación mobile Phonegap.  
 Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusiness/contact_us.html)  
   
-Esta aplicación comienda en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
+Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

@@ -11,6 +11,7 @@ Hecho con Codeigniter 3 (PHP 5) con las librerías:
 - [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos.  
   
 Esta aplicación esta contenida en el directorio *application* y esta inicializada con el archivo **ci.php** (al que se dirigen lo llamados vía *.htaccess*).  
+Para la parte gráfica se usa el template [SB Admin 2](http://startbootstrap.com/template-overviews/sb-admin-2/).  
   
 **Web site**  
 Aplicacion HTML5 + Backbone para publicación de datos.  

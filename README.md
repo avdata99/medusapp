@@ -5,8 +5,8 @@ Medusa App
 MedusApp esta compuesta por dos aplicaciones  
 **Backend**  
 Hecho con Codeigniter (PHP 5) con las librerías  
-- [ ] [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API  
-- [ ] [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos  
+- [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API  
+- [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos  
 
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

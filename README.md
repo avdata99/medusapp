@@ -10,10 +10,14 @@ Hecho con Codeigniter 3 (PHP 5) con las librerías:
 - [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API.  
 - [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos.  
   
+Esta aplicación esta contenida en el directorio *application* y esta inicializada con el archivo **ci.php** (al que se dirigen lo llamados vía *.htaccess*).  
+  
 **Web site**  
 Aplicacion HTML5 + Backbone para publicación de datos.  
 Consume vía API todos los datos necesarios para poder embeberse como aplicación mobile Phonegap.  
 Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusiness/contact_us.html)  
+  
+Esta aplicación comienda en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

@@ -33,3 +33,24 @@ INSERT INTO social (`social_name`, `social_value`) VALUES
 ('twitter_account', '@medusapp');
 
 */
+
+CREATE TABLE `licitacion_datos_pedidos` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `id_licitacion` int(11) NOT NULL,
+ `id_dato_pedido` int(11) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id_licitacion` (`id_licitacion`,`id_dato_pedido`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `licitacion_datos_entregados` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `id_licitacion` int(11) NOT NULL,
+ `id_dato_pedido` int(11) NOT NULL,
+ `id_empresa` int(11) NOT NULL,
+ `status` int(11) NOT NULL DEFAULT '0',
+ `url` varchar(220) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id_licitacion` (`id_licitacion`,`id_dato_pedido`,`id_empresa`),
+ KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

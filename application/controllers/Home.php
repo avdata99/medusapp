@@ -102,7 +102,10 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('licitacion');
 		#TODO municipio_id is just for add time, not edit
-		$crud->set_relation('gobierno_id', 'gobierno', '{nombre}');
+		$crud->set_relation('gobierno_id', 'gobierno', 'nombre');
+		$crud->set_relation('observador_id','observador','nombre');
+		$crud->set_relation_n_n('datos', 'licitacion_datos_pedidos', 'datos_publicar', 
+			'id_licitacion', 'id_dato_pedido', 'titulo' );
 		$crud->set_field_upload('documento',$this->config->item('upload_documents'));
 		$crud->set_field_upload('imagen',$this->config->item('upload_images'));
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
@@ -115,6 +118,10 @@ class Home extends CI_Controller {
 		}
 		$crud->change_field_type('uid','invisible');
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
+		$crud->columns('nombre', 'gobierno_id', 'observador_id');
+		$crud->display_as('gobierno_id','Gobierno');
+		$crud->display_as('observador_id','Observador');
+		$crud->display_as('datos','Datos a solicitar a las empresas');
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

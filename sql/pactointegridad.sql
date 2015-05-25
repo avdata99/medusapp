@@ -119,21 +119,23 @@ CREATE TABLE IF NOT EXISTS `gobierno` (
 -- Estructura de tabla para la tabla `licitacion`
 --
 
-CREATE TABLE IF NOT EXISTS `licitacion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
-  `gobierno_id` int(11) NOT NULL,
-  `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
-  `detalle` longtext CHARACTER SET latin1 NOT NULL,
-  `documento` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
-  `imagen` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`),
-  KEY `website_licitacion_7a0809aa` (`gobierno_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=8 ;
-
+CREATE TABLE `licitacion` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uid` varchar(90) COLLATE utf8_spanish2_ci NOT NULL,
+ `gobierno_id` int(11) NOT NULL,
+ `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
+ `detalle` longtext CHARACTER SET latin1 NOT NULL,
+ `documento` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
+ `imagen` varchar(190) COLLATE utf8_spanish2_ci NOT NULL,
+ `fecha_inicio` date NOT NULL,
+ `fecha_fin` date NOT NULL,
+ `observador_id` int(11) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `uid` (`uid`),
+ KEY `website_licitacion_7a0809aa` (`gobierno_id`),
+ KEY `observador_id` (`observador_id`),
+ CONSTRAINT `licitacion_ibfk_1` FOREIGN KEY (`gobierno_id`) REFERENCES `gobierno` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 

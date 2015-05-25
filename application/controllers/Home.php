@@ -117,6 +117,9 @@ class Home extends CI_Controller {
 		}
 		$crud->change_field_type('uid','invisible');
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
+		$crud->columns('nombre', 'gobierno_id');
+		$crud->display_as('gobierno_id','Gobierno');
+		$crud->display_as('datos','Datos a solicitar a las empresas');
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

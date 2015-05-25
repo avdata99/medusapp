@@ -54,3 +54,6 @@ CREATE TABLE `licitacion_datos_entregados` (
  KEY `id_licitacion` (`id_licitacion`,`id_dato_pedido`,`id_empresa`),
  KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE  `licitacion` ADD  `observador_id` INT NOT NULL ,
+ADD INDEX (  `observador_id` ) ;

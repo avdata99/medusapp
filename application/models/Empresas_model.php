@@ -15,7 +15,7 @@ class Empresas_model extends CI_Model {
     	if (count($errors) > 0 ) {return array('result'=> FALSE, 'errors'=> $errors);}
 
     	$q = 'INSERT INTO empresa (nombre, status, cuit, email, responsable_nombre, responsable_apellido, pais) 
-    				VALUES ("'.$fields['razonsocial'].'", ' . EMPRESA_STATUS_NEW. ', 
+    				VALUES ("'.$fields['razonsocial'].'", 1, 
                         "'.$fields['cuit'].'","'.$fields['email'].'",
                         "'.$fields['nombre'].'","'.$fields['apellido'].'","'.$fields['pais'].'"); ';
 

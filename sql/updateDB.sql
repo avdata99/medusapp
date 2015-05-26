@@ -57,3 +57,19 @@ CREATE TABLE `licitacion_datos_entregados` (
 
 ALTER TABLE  `licitacion` ADD  `observador_id` INT NOT NULL ,
 ADD INDEX (  `observador_id` ) ;
+
+CREATE TABLE IF NOT EXISTS `empresa_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Volcado de datos para la tabla `empresa_status`
+--
+
+INSERT INTO `empresa_status` (`id`, `estado`) VALUES
+(1, 'Nueva'),
+(2, 'Suspendida'),
+(3, 'No aprobada'),
+(4, 'Activa');

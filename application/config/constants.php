@@ -88,11 +88,7 @@ define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 // ---------------- MEDUSAPP Constants
 
-define('EMPRESA_STATUS_NEW', 0); // nueva, no tiene permisos aun
-define('EMPRESA_STATUS_SUSPENDED', 1); // la cuenta ha sido suspendida temporalmente
-define('EMPRESA_STATUS_UNABLE', 2); // la empresa no cumple los requisitos y se descarto
-define('EMPRESA_STATUS_ACTIVE', 3); // la empresa esta activa y funcional
-
+// estados de los documentos solicitados en las licitaciones a las empresas
 define('DOC_STATUS_NEW', 0); // El documento fue solicitado pero entregado aun
 define('DOC_STATUS_REJECTED', 1); // la empresa rechaza la publicion
 define('DOC_STATUS_NOT_APPLICABLE', 2); // la empresaindica que no es aplicable o no existe el documento

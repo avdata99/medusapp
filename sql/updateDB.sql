@@ -4,7 +4,7 @@
 /* 
 CREATE TABLE datos_publicar (`id` int(11) NOT NULL AUTO_INCREMENT,
  `titulo` varchar(120) NOT NULL, `descripcion` text NOT NULL,  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO datos_publicar (`id`, `titulo`, `descripcion`) 
   VALUES 

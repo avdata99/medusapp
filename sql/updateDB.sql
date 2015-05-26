@@ -64,10 +64,6 @@ CREATE TABLE IF NOT EXISTS `empresa_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Volcado de datos para la tabla `empresa_status`
---
-
 INSERT INTO `empresa_status` (`id`, `estado`) VALUES
 (1, 'Nueva'),
 (2, 'Suspendida'),

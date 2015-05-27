@@ -303,6 +303,10 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('usuario');
+		$crud->set_relation_n_n('Gobierno', 'usuario_gobiernos', 'gobierno', 'id_usuario', 'id_gobierno', 'nombre');
+		$crud->set_relation_n_n('Observador', 'usuario_observadores', 'observador', 'id_usuario', 'id_observador','nombre');
+		$crud->set_relation_n_n('Empresa', 'usuario_empresas', 'empresa', 'id_usuario', 'id_empresa', 'nombre');
+		
 		$crud->unset_columns('password');
 		$crud->unset_delete();
 		$crud->change_field_type('password', 'password');
@@ -315,8 +319,8 @@ class Home extends CI_Controller {
 	}
 
 	public function encrypt_password_callback($post){
-		$post['password'] = md5($post['password']);
-		 
+		if ($post['password'] != '') $post['password'] = md5($post['password']);
+		else unset($post['password']);
 		return $post;
 	}
 }

@@ -35,9 +35,20 @@ class User_model extends CI_Model
         
         # set permissions ------------------------
         $sess['permissions'] = $this->readPermissions($res->id);
+        # get govs
         $govs = $this->readUserGovs($res->id);
         $sess['govs'] = $govs;
         $sess['govs_in'] = implode(',', $govs); // para consultas WHERE x IN (STR)
+        # --------------------------------------
+        # get obss
+        $obss = $this->readUserObs($res->id);
+        $sess['obss'] = $obss;
+        $sess['obss_in'] = implode(',', $obss); // para consultas WHERE x IN (STR)
+        # --------------------------------------
+        # get govs
+        $empresas = $this->readUserEmpresas($res->id);
+        $sess['empresas'] = $empresas;
+        $sess['empresas_in'] = implode(',', $empresas); // para consultas WHERE x IN (STR)
         # --------------------------------------
         $this->session->set_userdata($sess);
         return true;
@@ -79,7 +90,7 @@ class User_model extends CI_Model
     Ver que sobre que gobiernos tiene permisos el usuario
     */
     public function readUserGovs($user_id){
-        $q = 'SELECT id_gobierno from usuario_gobierno where id_usuario=' . $user_id;
+        $q = 'SELECT id_gobierno from usuario_gobiernos where id_usuario=' . $user_id;
         $query = $this->db->query($q);
         $govs = array();
         foreach ($query->result() as $gov) {
@@ -87,6 +98,33 @@ class User_model extends CI_Model
         }
         return $govs;   
     }
+
+    /**
+    Ver que sobre que observadores tiene permisos el usuario
+    */
+    public function readUserObs($user_id){
+        $q = 'SELECT id_observador from usuario_observadores where id_usuario=' . $user_id;
+        $query = $this->db->query($q);
+        $obss = array();
+        foreach ($query->result() as $obs) {
+            $obss[] = $obs->id_observador;
+        }
+        return $obss;   
+    }
+
+    /**
+    Ver que sobre que municipios tiene permisos el usuario
+    */
+    public function readUserEmpresas($user_id){
+        $q = 'SELECT id_empresa from usuario_empresas where id_usuario=' . $user_id;
+        $query = $this->db->query($q);
+        $empresas = array();
+        foreach ($query->result() as $empresa) {
+            $empresas[] = $empresas->id_empresa;
+        }
+        return $empresas;   
+    }
+
 
     /**
     Ver si un usuario puede acceder a algo en particular

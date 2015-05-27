@@ -108,6 +108,47 @@ INSERT INTO `licitacion_datos_entregados_status` (`id`, `estado`) VALUES
 INSERT INTO `pactointegridad`.`permiso` (`id`, `nombre`) VALUES 
 (NULL, 'VIEW_POSTULACIONES'), (NULL, 'EDIT_POSTULACIONES'), (NULL, 'ADD_POSTULACIONES');
 
+drop table `usuario_gobierno`;
+
+CREATE TABLE IF NOT EXISTS `usuario_empresas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_empresa` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_observador` (`id_empresa`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_gobiernos`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_gobiernos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_gobierno` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`,`id_gobierno`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Estructura de tabla para la tabla `usuario_observadores`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_observadores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_observador` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_observador` (`id_observador`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+
+
+
 
 
 

@@ -69,3 +69,24 @@ INSERT INTO `empresa_status` (`id`, `estado`) VALUES
 (2, 'Suspendida'),
 (3, 'No aprobada'),
 (4, 'Activa');
+
+CREATE TABLE IF NOT EXISTS `licitacion_postulacion_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+INSERT INTO `licitacion_postulacion_status` (`id`, `estado`) VALUES
+(1, 'Solcitado'),
+(2, 'Rechazado'),
+(3, 'Aceptado');
+
+	
+CREATE TABLE `licitacion_postulaciones` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `id_licitacion` int(11) NOT NULL,
+ `id_empresa` int(11) NOT NULL,
+ `status` int(11) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `id_licitacion` (`id_licitacion`,`id_empresa`,`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

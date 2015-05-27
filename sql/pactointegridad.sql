@@ -377,6 +377,23 @@ CREATE TABLE `licitacion_postulaciones` (
  KEY `id_licitacion` (`id_licitacion`,`id_empresa`,`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `licitacion_datos_entregados_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(35) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `licitacion_datos_entregados_status`
+--
+
+INSERT INTO `licitacion_datos_entregados_status` (`id`, `estado`) VALUES
+(1, 'Nuevo'),
+(2, 'Rechazado'),
+(3, 'No aplicable a la empresa'),
+(4, 'Aprovado'),
+(5, 'En estudio');
+
 
 
 

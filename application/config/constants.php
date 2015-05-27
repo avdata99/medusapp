@@ -87,11 +87,3 @@ define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
 
 // ---------------- MEDUSAPP Constants
-
-// estados de los documentos solicitados en las licitaciones a las empresas
-define('DOC_STATUS_NEW', 0); // El documento fue solicitado pero entregado aun
-define('DOC_STATUS_REJECTED', 1); // la empresa rechaza la publicion
-define('DOC_STATUS_NOT_APPLICABLE', 2); // la empresaindica que no es aplicable o no existe el documento
-define('DOC_STATUS_SENDED', 3); // la empresa libero el documento
-define('DOC_STATUS_APPROVED', 4); // el observador aprueba el documento
-

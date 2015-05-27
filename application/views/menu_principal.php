@@ -14,6 +14,9 @@
         <? if ($this->user_model->can('VIEW_LICITACION')) { ?>
             <li><a <? if ($active=='licitaciones'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/licitaciones"><i class="fa fa-paperclip fa-fw"></i> Licitaciones</a></li>
         <? } ?>
+        <? if ($this->user_model->can('VIEW_POSTULACIONES')) { ?>
+            <li><a <? if ($active=='postulaciones'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/postulaciones"><i class="fa fa-paperclip fa-fw"></i> Postulaciones</a></li>
+        <? } ?>
         <? if ($this->user_model->can('VIEW_OBSERVADORES')) { ?>
             <li><a <? if ($active=='observadores'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/observadores"><i class="fa fa-user fa-fw"></i> Observadores</a></li>
         <? } ?>

@@ -176,7 +176,10 @@ INSERT INTO `permiso` (`id`, `nombre`) VALUES
 (7, 'ADD_GOVS'),
 (8, 'EDIT_GOVS'),
 (9, 'ADD_LICITACION'),
-(10, 'EDIT_LICITACION');
+(10, 'EDIT_LICITACION'),
+(11, 'VIEW_POSTULACIONES'),
+(12, 'EDIT_POSTULACIONES'),
+(13, 'ADD_POSTULACIONES');
 
 -- --------------------------------------------------------
 

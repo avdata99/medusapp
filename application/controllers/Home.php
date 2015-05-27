@@ -185,6 +185,40 @@ class Home extends CI_Controller {
 		$this->load_all();	
 	}
 
+	/** Postulaciones de empresas a licitaciones */
+	public function postulaciones(){
+		if (!$this->user_model->can('VIEW_POSTULACIONES'))
+			{$this->redirecToUnauthorized();}
+
+		$this->parts['active'] = 'licitaciones';
+		$this->parts['title_table'] = 'Licitaciones';
+		
+		$crud = new grocery_CRUD();
+		$crud->set_table('licitacion_postulaciones');
+		#TODO municipio_id is just for add time, not edit
+		$crud->set_relation('id_licitacion', 'licitacion', 'nombre');
+		$crud->set_relation('id_empresa','empresa','nombre');
+		$crud->set_relation('status', 'licitacion_postulacion_status', 'estado');
+		if (!$this->user_model->can('ADD_POSTULACIONES')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_POSTULACIONES')) $crud->unset_edit();
+		$crud->unset_delete();
+		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
+		$where_in = $this->user_model->getWhereIn('GOVS'); 
+		if ($where_in){
+			$crud->where("licitacion.gobierno_id in ($where_in)"); #TODO check this
+		}
+		$crud->display_as('id_licitacion','Licitacion');
+		$crud->display_as('id_empresa','Empresa');
+		
+		$crud_table = $crud->render();
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		
+		$this->load_all();
+			
+	}
+
 	public function textos(){
 		if (!$this->user_model->can('EDIT_WEBPAGE')) # no existe el permiso por lo tanto solo full admin podra
 			{$this->redirecToUnauthorized();}

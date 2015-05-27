@@ -105,7 +105,8 @@ INSERT INTO `licitacion_datos_entregados_status` (`id`, `estado`) VALUES
 (4, 'Aprovado'),
 (5, 'En estudio');
 
-
+INSERT INTO `pactointegridad`.`permiso` (`id`, `nombre`) VALUES 
+(NULL, 'VIEW_POSTULACIONES'), (NULL, 'EDIT_POSTULACIONES'), (NULL, 'ADD_POSTULACIONES');
 
 
 

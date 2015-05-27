@@ -146,6 +146,8 @@ CREATE TABLE IF NOT EXISTS `usuario_observadores` (
   KEY `id_observador` (`id_observador`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
+ALTER TABLE `observador` CHANGE `nombre` `nombre` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
 
 
 

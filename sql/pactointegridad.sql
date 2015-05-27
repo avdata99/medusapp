@@ -145,7 +145,7 @@ CREATE TABLE `licitacion` (
 
 CREATE TABLE IF NOT EXISTS `observador` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) CHARACTER SET latin1 NOT NULL,
+  `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
 

@@ -31,6 +31,7 @@ class Home extends CI_Controller {
 	}
 
 	public function login(){
+
 		$this->user_model->login($this->input->post('user'), $this->input->post('password'));
 		if ($this->session->userdata('user_id'))
 			{
@@ -58,6 +59,7 @@ class Home extends CI_Controller {
 	}
 
 	public function index(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		$this->parts['active'] = 'inicio';
 		$this->parts['title_table'] = 'Pactos de transparencia';
 		$logo_junar = $this->config->item('base_url')."static/img/logo-junar-cuad.jpg";
@@ -93,6 +95,7 @@ class Home extends CI_Controller {
 	}
 
 	public function licitaciones(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_LICITACION'))
 			{$this->redirecToUnauthorized();}
 
@@ -163,6 +166,7 @@ class Home extends CI_Controller {
 	}
 
 	public function gobiernos(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_GOVS'))
 			{$this->redirecToUnauthorized();}
 
@@ -187,6 +191,7 @@ class Home extends CI_Controller {
 
 	/** Postulaciones de empresas a licitaciones */
 	public function postulaciones(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_POSTULACIONES'))
 			{$this->redirecToUnauthorized();}
 
@@ -220,6 +225,7 @@ class Home extends CI_Controller {
 	}
 
 	public function textos(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('EDIT_WEBPAGE')) # no existe el permiso por lo tanto solo full admin podra
 			{$this->redirecToUnauthorized();}
 
@@ -240,6 +246,7 @@ class Home extends CI_Controller {
 	}
 
 	public function empresas(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_EMPRESAS'))
 			{$this->redirecToUnauthorized();}
 
@@ -260,6 +267,7 @@ class Home extends CI_Controller {
 
 
 	public function observadores(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_OBSERVADORES'))
 			{$this->redirecToUnauthorized();}
 
@@ -278,6 +286,7 @@ class Home extends CI_Controller {
 
 
 	public function ciudadanos(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_CIUDADANOS'))
 			{$this->redirecToUnauthorized();}
 		
@@ -295,6 +304,7 @@ class Home extends CI_Controller {
 	}
 
 	public function usuarios(){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_USUARIOS'))
 			{$this->redirecToUnauthorized();}
 		
@@ -309,9 +319,9 @@ class Home extends CI_Controller {
 		$crud->change_field_type('password', 'password');
 		$crud->callback_before_update(array($this,'encrypt_password_callback'));
 		
+		$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
+		$crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
 		$crud->set_relation_n_n('Observadores', 'usuario_observadores', 'observador', 'id_usuario', 'id_observador', 'nombre');
-		# $crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
-		# $crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
 		
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;

@@ -2137,8 +2137,13 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	 */
 	protected function _delete($table)
 	{
-		return 'DELETE FROM '.$table.$this->_compile_wh('qb_where')
+		$sql = 'DELETE FROM '.$table.$this->_compile_wh('qb_where')
 			.($this->qb_limit ? ' LIMIT '.$this->qb_limit : '');
+		# FAILS delete. Example:
+        # DELETE FROM `usuario_observadores` WHERE `id_usuario` = '1' AND id_observador `NOT` IN('3')    
+        $sql = str_replace('`NOT`', 'NOT', $sql);
+        
+		return $sql;
 	}
 
 	// --------------------------------------------------------------------

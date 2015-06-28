@@ -169,4 +169,18 @@ class User_model extends CI_Model
         if ($class == 'OBSS'){return $sess['obss_in'];}
 
     }
+
+    /** lista de id permitidos de una clase */
+    public function getWhere($class){
+        $sess = $this->session->all_userdata();
+        if (in_array('FULL_ADMIN', $sess['roles'])) 
+            return false;
+
+        // el usuario que puede editar una licitacion es solo sobre los gobiernos a los que esta conectado
+        // por lo tanto no uso class 'LICITACIONES', en estas uso GOVS
+        if ($class == 'GOVS'){return $sess['govs'];}
+        if ($class == 'EMPS'){return $sess['empresas'];}
+        if ($class == 'OBSS'){return $sess['obss'];}
+
+    }
 }

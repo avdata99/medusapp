@@ -105,7 +105,17 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('licitacion');
 		#TODO municipio_id is just for add time, not edit
-		$crud->set_relation('gobierno_id', 'gobierno', 'nombre');
+		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
+		$where_in = $this->user_model->getWhereIn('GOVS'); 
+		if ($where_in){
+			$crud->where("gobierno_id in ($where_in)");
+			// solo mostrar en la lista los minicipios que tengo permisos (para que no cree licitaciones a nombre de otros municipios)
+			$wh = "gobierno.id in ($where_in)"; // este texto es para el sql de listar la tabla anexa
+			}
+		else {
+			$wh = null; // no filtrar la lista a elegit
+		}
+		$crud->set_relation('gobierno_id', 'gobierno', 'nombre', $wh, 'gobierno.nombre'); 
 		$crud->set_relation('observador_id','observador','nombre');
 		$crud->set_relation_n_n('datos', 'licitacion_datos_pedidos', 'datos_publicar', 
 			'id_licitacion', 'id_dato_pedido', 'titulo' );
@@ -114,11 +124,6 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
 		$crud->unset_delete();
-		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
-		$where_in = $this->user_model->getWhereIn('GOVS'); 
-		if ($where_in){
-			$crud->where("gobierno_id in ($where_in)");
-		}
 		$crud->change_field_type('uid','invisible');
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
 		$crud->columns('nombre', 'gobierno_id', 'observador_id');
@@ -134,9 +139,7 @@ class Home extends CI_Controller {
 		
 	}
 
-	/**
-	Crear la URL slug solo la primera vez que se graba
-	*/
+	/** Crear la URL slug solo la primera vez que se graba */
 	public function _slug_title($post){
 
 		$post['uid'] = $this->slugify($post['nombre']);

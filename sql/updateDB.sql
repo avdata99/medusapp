@@ -152,7 +152,7 @@ INSERT INTO `rol` (`id`, `nombre`) VALUES (NULL, 'OBS_ADMIN'), (NULL, 'EMP_ADMIN
 INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '4', '4');
 INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '3', '3');
 
-*/
+
 
 CREATE TABLE IF NOT EXISTS `observador_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -174,3 +174,7 @@ INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '17', '3'
 INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('8',  '2');
 INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('9',  '2'); 
 INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('10',  '2'); 
+*/
+
+
+

@@ -260,11 +260,6 @@ class Home extends CI_Controller {
 		if ($where_in){
 			$crud->where("empresa.id in ($where_in)");
 		}
-		/*echo '<pre>';
-		print_r($this->session->all_userdata());
-		echo "</pre><br/>WI";
-		echo $where_in;
-		exit();*/
 		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
@@ -325,6 +320,11 @@ class Home extends CI_Controller {
 		$crud->unset_columns('password');
 		$crud->unset_delete();
 		$crud->change_field_type('password', 'password');
+		# para evitar que se aplique MD5 sobre algo que ya lo es
+		$crud->callback_edit_field('password',array($this,'set_password_input_to_empty'));
+    	$crud->callback_add_field('password',array($this,'set_password_input_to_empty'));
+ 
+		$crud->callback_before_insert(array($this,'encrypt_password_callback'));
 		$crud->callback_before_update(array($this,'encrypt_password_callback'));
 		
 		$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
@@ -343,6 +343,10 @@ class Home extends CI_Controller {
 		if ($post['password'] != '') $post['password'] = md5($post['password']);
 		else unset($post['password']);
 		return $post;
+	}
+
+	function set_password_input_to_empty() {
+	    return "<input type='password' name='password' value='' />";
 	}
 }
 

@@ -22,7 +22,7 @@ Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusi
 Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
 **Manual de uso**  
-Destinado a los usaurios por tipo (municipios, empresas, observadores, ciudadanos).  
+Destinado a los usuarios por tipo (municipios, empresas, observadores, ciudadanos o administradores).  
 Desarrollado con [Sphinx](http://sphinx-doc.org/). El directorio *docs/source* guarda los textos en *rst* y con el comando
 ``` bash
 sphinx-build -b html docs/source manual

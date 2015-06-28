@@ -144,11 +144,12 @@ CREATE TABLE `licitacion` (
 --
 
 CREATE TABLE IF NOT EXISTS `observador` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci AUTO_INCREMENT=3 ;
-
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `nombre` varchar(200) CHARACTER SET utf8 NOT NULL,
+ `status` int(11) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
 

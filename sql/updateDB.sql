@@ -166,3 +166,5 @@ INSERT INTO `observador_status` (`id`, `estado`) VALUES
 (2, 'Suspendido'),
 (3, 'No aprobado'),
 (4, 'Activo');
+
+ALTER TABLE `observador` ADD `status` INT NOT NULL , ADD INDEX (`status`) ;

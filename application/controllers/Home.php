@@ -279,6 +279,7 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('observador');
+		$crud->set_relation('status', 'observador_status', 'estado');
 		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;

@@ -27,7 +27,8 @@ Desarrollado con [Sphinx](http://sphinx-doc.org/). El directorio *docs/source* g
 ``` bash
 sphinx-build -b html docs/source manual
 ``` 
-se genera el manual en HTML. Estamos usando el template de [Read The Docs](https://readthedocs.org)
+se genera el manual en HTML. Estamos usando el template de [Read The Docs](https://readthedocs.org).  
+Esto permite que el directorio [manual](http://medusapp.org/manual) muestre al público todo el contenido.  
 
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

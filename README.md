@@ -21,6 +21,14 @@ Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusi
   
 Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
+**Manual de uso**  
+Destinado a los usaurios por tipo (municipios, empresas, observadores, ciudadanos).  
+Desarrollado con (Sphinx)[http://sphinx-doc.org/]. El directorio *docs/source* guarda los textos en *rst* y con el comando
+``` bash
+sphinx-build -b html docs/source manual
+``` 
+se genera el manual en HTML. Estamos usando el template de (Read The Docs)[https://readthedocs.org]
+
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo
 para Ubuntu. De todas formas es facilmente replicable en otro sistemas.  

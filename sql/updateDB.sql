@@ -32,7 +32,7 @@ INSERT INTO social (`social_name`, `social_value`) VALUES
 ('mail_show', 'info@medusapp.org'),
 ('twitter_account', '@medusapp');
 
-*/
+
 
 CREATE TABLE `licitacion_datos_pedidos` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -105,7 +105,7 @@ INSERT INTO `licitacion_datos_entregados_status` (`id`, `estado`) VALUES
 (4, 'Aprovado'),
 (5, 'En estudio');
 
-INSERT INTO `pactointegridad`.`permiso` (`id`, `nombre`) VALUES 
+INSERT INTO `permiso` (`id`, `nombre`) VALUES 
 (NULL, 'VIEW_POSTULACIONES'), (NULL, 'EDIT_POSTULACIONES'), (NULL, 'ADD_POSTULACIONES');
 
 drop table `usuario_gobierno`;
@@ -148,14 +148,8 @@ CREATE TABLE IF NOT EXISTS `usuario_observadores` (
 
 ALTER TABLE `observador` CHANGE `nombre` `nombre` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
-INSERT INTO `pactointegridad`.`rol` (`id`, `nombre`) VALUES (NULL, 'OBS_ADMIN'), (NULL, 'EMP_ADMIN');
-INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '4', '4');
-INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '3', '3');
+INSERT INTO `rol` (`id`, `nombre`) VALUES (NULL, 'OBS_ADMIN'), (NULL, 'EMP_ADMIN');
+INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '4', '4');
+INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '3', '3');
 
-
-
-
-
-
-
-
+*/

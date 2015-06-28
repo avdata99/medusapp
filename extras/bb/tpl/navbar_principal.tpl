@@ -20,6 +20,8 @@
             <li class="nav-header">Informacion</li>
             <li><a href="/#MedusApp/que-es">El proyecto</a></li>
             <li><a href="/#MedusApp/ventajas">Ventajas</a></li>  
+            <li><a href="/manual">Manual de uso</a></li>  
+
             <li class="divider"></li>
             <li class="nav-header">Registro</li>
             <li><a href="/#suscribe">Suscribirme a las novedades</a></li>

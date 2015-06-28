@@ -7,3 +7,4 @@ Medusapp puede ser usado por las empresas para mantenerse al tanto de licitacion
    :maxdepth: 2  
 
    como-registrarse
+   postularse

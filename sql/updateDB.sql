@@ -173,3 +173,4 @@ INSERT INTO `permiso` (`id`, `nombre`) VALUES (16, 'ADD_OBSS'), (17, 'EDIT_OBSS'
 INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '17', '3'), (NULL, '15', '4');
 INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('8',  '2');
 INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('9',  '2'); 
+INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('10',  '2'); 

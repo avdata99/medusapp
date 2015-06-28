@@ -171,3 +171,4 @@ ALTER TABLE `observador` ADD `status` INT NOT NULL , ADD INDEX (`status`) ;
 INSERT INTO `permiso` (`id`, `nombre`) VALUES (14, 'ADD_EMPS'), (15, 'EDIT_EMPS');
 INSERT INTO `permiso` (`id`, `nombre`) VALUES (16, 'ADD_OBSS'), (17, 'EDIT_OBSS');
 INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '17', '3'), (NULL, '15', '4');
+INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('8',  '2');

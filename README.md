@@ -29,6 +29,7 @@ sphinx-build -b html docs/source manual
 ``` 
 se genera el manual en HTML. Estamos usando el template de [Read The Docs](https://readthedocs.org).  
 Esto permite que el directorio [manual](http://medusapp.org/manual) muestre al público todo el contenido.  
+Es por esto que el directorio *manual* **nunca** debe editarse manualmente ya que es contenido auto-generado.  
 
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

@@ -153,3 +153,16 @@ INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '4', '4')
 INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '3', '3');
 
 */
+
+CREATE TABLE IF NOT EXISTS `observador_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+
+INSERT INTO `observador_status` (`id`, `estado`) VALUES
+(1, 'Nuevo'),
+(2, 'Suspendido'),
+(3, 'No aprobado'),
+(4, 'Activo');

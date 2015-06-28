@@ -385,15 +385,24 @@ CREATE TABLE IF NOT EXISTS `empresa_status` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Volcado de datos para la tabla `empresa_status`
---
-
 INSERT INTO `empresa_status` (`id`, `estado`) VALUES
 (1, 'Nueva'),
 (2, 'Suspendida'),
 (3, 'No aprobada'),
 (4, 'Activa');
+
+CREATE TABLE IF NOT EXISTS `observador_status` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `estado` varchar(60) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;
+
+
+INSERT INTO `observador_status` (`id`, `estado`) VALUES
+(1, 'Nuevo'),
+(2, 'Suspendido'),
+(3, 'No aprobado'),
+(4, 'Activo');
 
 CREATE TABLE IF NOT EXISTS `licitacion_postulacion_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

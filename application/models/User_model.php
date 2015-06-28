@@ -120,7 +120,7 @@ class User_model extends CI_Model
         $query = $this->db->query($q);
         $empresas = array();
         foreach ($query->result() as $empresa) {
-            $empresas[] = $empresas->id_empresa;
+            $empresas[] = $empresa->id_empresa;
         }
         return $empresas;   
     }

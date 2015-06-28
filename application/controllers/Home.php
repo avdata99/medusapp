@@ -258,12 +258,13 @@ class Home extends CI_Controller {
 		$crud->set_relation('status', 'empresa_status', 'estado');
 		$where_in = $this->user_model->getWhereIn('EMPS'); 
 		if ($where_in){
-			$crud->where("id in ($where_in)");
+			$crud->where("empresa.id in ($where_in)");
 		}
+		/*echo '<pre>';
 		print_r($this->session->all_userdata());
-		echo "WI";
+		echo "</pre><br/>WI";
 		echo $where_in;
-		exit();
+		exit();*/
 		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;

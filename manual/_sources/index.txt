@@ -25,3 +25,4 @@ Indice:
    como-colaborar
    medusapp-en-municipios/index
    medusapp-para-empresas/index
+   medusapp-admin/index

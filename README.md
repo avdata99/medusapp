@@ -23,11 +23,11 @@ Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*.
   
 **Manual de uso**  
 Destinado a los usaurios por tipo (municipios, empresas, observadores, ciudadanos).  
-Desarrollado con (Sphinx)[http://sphinx-doc.org/]. El directorio *docs/source* guarda los textos en *rst* y con el comando
+Desarrollado con [Sphinx](http://sphinx-doc.org/). El directorio *docs/source* guarda los textos en *rst* y con el comando
 ``` bash
 sphinx-build -b html docs/source manual
 ``` 
-se genera el manual en HTML. Estamos usando el template de (Read The Docs)[https://readthedocs.org]
+se genera el manual en HTML. Estamos usando el template de [Read The Docs](https://readthedocs.org)
 
 # Entorno
 Se detallan a continuacion los requisitos y el proceso de alta del entorno de trabajo

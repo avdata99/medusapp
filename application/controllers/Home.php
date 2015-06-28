@@ -255,11 +255,18 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('empresa');
-		$crud->set_relation('status', 'empresa_status', 'estado');
 		$where_in = $this->user_model->getWhereIn('EMPS'); 
 		if ($where_in){
 			$crud->where("empresa.id in ($where_in)");
 		}
+		if (!$this->user_model->can('CHANGE_STATUS_EMPS')) { # no a real role, just for FULL-ADMIN 
+			$crud->field_type('status', 'hidden');
+			$crud->unset_columns('status');
+			}
+		else {
+			$crud->set_relation('status', 'empresa_status', 'estado');
+			}
+		
 		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
@@ -279,8 +286,21 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('observador');
-		$crud->set_relation('status', 'observador_status', 'estado');
 		$crud->unset_delete();
+		
+		$where_in = $this->user_model->getWhereIn('OBSS'); 
+		if ($where_in){
+			$crud->where("observador.id in ($where_in)");
+		}
+		
+		if (!$this->user_model->can('CHANGE_STATUS_OBSS')) { # no a real role, just for FULL-ADMIN 
+			$crud->field_type('status', 'hidden');
+			$crud->unset_columns('status');
+			}
+		else {
+			$crud->set_relation('status', 'observador_status', 'estado');
+			}
+		
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

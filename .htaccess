@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c> 
 	RewriteEngine on
-	RewriteCond $1 !^(ci\.php|assets|robots\.txt|static|licitaciones|extras|index\.html|docs)
+	RewriteCond $1 !^(ci\.php|assets|robots\.txt|static|licitaciones|extras|index\.html|manual)
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ ci.php/$1 [L,QSA]

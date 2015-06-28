@@ -195,8 +195,8 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_POSTULACIONES'))
 			{$this->redirecToUnauthorized();}
 
-		$this->parts['active'] = 'licitaciones';
-		$this->parts['title_table'] = 'Licitaciones';
+		$this->parts['active'] = 'postulaciones';
+		$this->parts['title_table'] = 'Postulaciones';
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('licitacion_postulaciones');

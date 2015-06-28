@@ -180,7 +180,11 @@ INSERT INTO `permiso` (`id`, `nombre`) VALUES
 (10, 'EDIT_LICITACION'),
 (11, 'VIEW_POSTULACIONES'),
 (12, 'EDIT_POSTULACIONES'),
-(13, 'ADD_POSTULACIONES');
+(13, 'ADD_POSTULACIONES'),
+(14, 'ADD_EMPS'),
+(15, 'EDIT_EMPS'),
+(16, 'ADD_OBSS'),
+(17, 'EDIT_OBSS');
 
 -- --------------------------------------------------------
 
@@ -214,7 +218,9 @@ INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES
 (11, 9, 1),
 (12, 10, 1),
 (13, 3, 3),
-(14, 4, 4);
+(14, 4, 4),
+(15, 17, 3),
+(16, 15, 4);
 
 -- --------------------------------------------------------
 

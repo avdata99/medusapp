@@ -178,10 +178,13 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
 		$crud->unset_delete();
+
+		# mostrar solo los gobiernos a los que el usuario tiene permiso
 		$where_in = $this->user_model->getWhereIn('GOVS');
 		if ($where_in){
 			$crud->where("id in ($where_in)");
 		}
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -255,10 +258,14 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_table('empresa');
+		if (!$this->user_model->can('ADD_EMPS')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_EMPS')) $crud->unset_edit();
+		# limitar la lista a los usuarios permitidos
 		$where_in = $this->user_model->getWhereIn('EMPS'); 
 		if ($where_in){
 			$crud->where("empresa.id in ($where_in)");
 		}
+		# mostrar y permitir cambiar el estado de las empresas solo a los usuarios autorizados
 		if (!$this->user_model->can('CHANGE_STATUS_EMPS')) { # no a real role, just for FULL-ADMIN 
 			$crud->field_type('status', 'hidden');
 			$crud->unset_columns('status');
@@ -287,12 +294,16 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('observador');
 		$crud->unset_delete();
+		if (!$this->user_model->can('ADD_OBSS')) $crud->unset_add();
+		if (!$this->user_model->can('EDIT_OBSS')) $crud->unset_edit();
 		
+		# limitar la lista a los observadores sobre los cuales hay permiso
 		$where_in = $this->user_model->getWhereIn('OBSS'); 
 		if ($where_in){
 			$crud->where("observador.id in ($where_in)");
 		}
 		
+		# mostrar y permitir cambiar el estado de los observadores solo cuando este permitido
 		if (!$this->user_model->can('CHANGE_STATUS_OBSS')) { # no a real role, just for FULL-ADMIN 
 			$crud->field_type('status', 'hidden');
 			$crud->unset_columns('status');

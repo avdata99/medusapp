@@ -165,5 +165,8 @@ class User_model extends CI_Model
         // el usuario que puede editar una licitacion es solo sobre los gobiernos a los que esta conectado
         // por lo tanto no uso class 'LICITACIONES', en estas uso GOVS
         if ($class == 'GOVS'){return $sess['govs_in'];}
+        if ($class == 'EMPS'){return $sess['empresas_in'];}
+        if ($class == 'OBSS'){return $sess['obss_in'];}
+
     }
 }

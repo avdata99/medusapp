@@ -148,8 +148,9 @@ CREATE TABLE IF NOT EXISTS `usuario_observadores` (
 
 ALTER TABLE `observador` CHANGE `nombre` `nombre` VARCHAR(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 
-
-
+INSERT INTO `pactointegridad`.`rol` (`id`, `nombre`) VALUES (NULL, 'OBS_ADMIN'), (NULL, 'EMP_ADMIN');
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '4', '4');
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '3', '3');
 
 
 

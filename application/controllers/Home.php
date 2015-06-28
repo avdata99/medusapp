@@ -256,7 +256,14 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_table('empresa');
 		$crud->set_relation('status', 'empresa_status', 'estado');
-		
+		$where_in = $this->user_model->getWhereIn('EMPS'); 
+		if ($where_in){
+			$crud->where("id in ($where_in)");
+		}
+		print_r($this->session->all_userdata());
+		echo "WI";
+		echo $where_in;
+		exit();
 		$crud->unset_delete();
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
@@ -322,7 +329,8 @@ class Home extends CI_Controller {
 		$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
 		$crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
 		$crud->set_relation_n_n('Observadores', 'usuario_observadores', 'observador', 'id_usuario', 'id_observador', 'nombre');
-		
+		$crud->set_relation_n_n('Roles', 		'usuario_rol', 			'rol', 		  'id_usuario', 'id_rol', 		 'nombre');
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

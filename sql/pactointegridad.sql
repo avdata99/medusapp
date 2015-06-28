@@ -211,7 +211,9 @@ INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES
 (9, 7, 1),
 (10, 8, 1),
 (11, 9, 1),
-(12, 10, 1);
+(12, 10, 1),
+(13, 3, 3),
+(14, 4, 4);
 
 -- --------------------------------------------------------
 
@@ -231,7 +233,9 @@ CREATE TABLE IF NOT EXISTS `rol` (
 
 INSERT INTO `rol` (`id`, `nombre`) VALUES
 (1, 'FULL_ADMIN'),
-(2, 'GOV_ADMIN');
+(2, 'GOV_ADMIN'),
+(3, 'OBS_ADMIN'),
+(4, 'EMP_ADMIN');
 
 -- --------------------------------------------------------
 

@@ -6,6 +6,7 @@ En activo desarrollo, producto no finalizado a cargo del Observatorio de Políti
 MedusApp esta compuesta por dos aplicaciones.  
 **Backend**  
 Este incluye la carga de datos del sistema: licitaciones, gobiernos, usuarios, etc.  
+![Sistema](/../develop/static/img/screen-medusapp-01-home.png?raw=true)
 
 Hecho con Codeigniter 3 (PHP 5) con las librerías:  
 - [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API.  

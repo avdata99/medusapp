@@ -26,6 +26,7 @@ Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*.
   
 **Manual de uso**  
 Desarrollado con [Sphinx](http://sphinx-doc.org/). [Ver más](https://github.com/avdata99/medusapp/tree/master/manual)
+![Sistema](/../master/static/img/screen-medusapp-02-manual-small.png?raw=true)
 
 #### Entorno de desarrollo local
 

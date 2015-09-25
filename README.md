@@ -2,9 +2,12 @@
 Aplicación para la gestion de licitaciones públicas y concursos de precios.  
 En activo desarrollo, producto no finalizado a cargo del Observatorio de Políticas Públicas de Universidad Católica de Córdoba.  
   
-# Componentes
+## Componentes
+  
 MedusApp esta compuesta por dos aplicaciones.  
-**Backend**  
+  
+### Backend  
+  
 Este incluye la carga de datos del sistema: licitaciones, gobiernos, usuarios, etc.  
 
 Hecho con Codeigniter 3 (PHP 5) con las librerías:  
@@ -16,7 +19,8 @@ Para la parte gráfica se usa el template [SB Admin 2](http://startbootstrap.com
 
 ![Sistema](/../master/static/img/screen-medusapp-03-system-small.png?raw=true)
   
-**Web site**  
+### Web site
+  
 Aplicacion HTML5 + Backbone para publicación de datos.  
 Consume vía API todos los datos necesarios para poder embeberse como aplicación mobile Phonegap.  
 Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusiness/contact_us.html)  
@@ -24,7 +28,8 @@ Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusi
 
 Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
-**Manual de uso**  
+### Manual de uso
+
 Desarrollado con [Sphinx](http://sphinx-doc.org/).  
 [Ver más](https://github.com/avdata99/medusapp/tree/master/manual).  
 ![Sistema](/../master/static/img/screen-medusapp-02-manual-small.png?raw=true)
@@ -33,5 +38,3 @@ Desarrollado con [Sphinx](http://sphinx-doc.org/).
 
 Para desarrollar se recomienda montar un entorno local de desarrollo.
 [Instrucciones](https://github.com/avdata99/medusapp/blob/master/ENV.md)
-
-

@@ -25,7 +25,8 @@ Template: [BootBusiness](http://demo.firebootstrap.com/themes/bootstrap/bootbusi
 Esta aplicación comienza en */index.html* y routea las URLs desde */routes.js*. Las librerías backbone y los templates estan en el directorio */extras/bb*.  
   
 **Manual de uso**  
-Desarrollado con [Sphinx](http://sphinx-doc.org/). [Ver más](https://github.com/avdata99/medusapp/tree/master/manual)
+Desarrollado con [Sphinx](http://sphinx-doc.org/).  
+[Ver más](https://github.com/avdata99/medusapp/tree/master/manual).  
 ![Sistema](/../master/static/img/screen-medusapp-02-manual-small.png?raw=true)
 
 #### Entorno de desarrollo local

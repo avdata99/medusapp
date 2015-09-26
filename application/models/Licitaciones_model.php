@@ -15,7 +15,7 @@ class Licitaciones_model extends CI_Model {
         }
         if ($soloActivas){
             $ahora = date("Y-m-d H:i:s");
-            $filtros[] = "fecha_inicio>'$ahora' AND fecha_fin <='$ahora'";
+            $filtros[] = "fecha_inicio>='$ahora' AND fecha_fin <='$ahora'";
         }
 
         $where = (count($filtros) == 0) ? '' : ' WHERE ' . implode(' AND ', $filtros). ' ';

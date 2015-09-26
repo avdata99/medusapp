@@ -7,10 +7,23 @@ class Licitaciones_model extends CI_Model {
     	return $list->result();
     	}
 
-    public function lista(){
+    public function lista($soloActivas=FALSE, $gobiernos=[]){
+        $filtros = []
+        if (count($gobiernos) > 0){
+            $gobs = implode(',', $gobiernos)
+            $filtros[] = 'gobierno_id IN ()';
+        }
+        if ($soloActivas){
+            $ahora = date("Y-m-d H:i:s");
+            $filtros[] = "fecha_inicio>'$ahora' AND fecha_fin <='$ahora'";
+        }
+
+        $where = (count($filtros) == 0) ? '' : ' WHERE ' . implode(' AND ', $filtros). ' ';
     	$query = $this->db->query("SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
     			li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 
-				FROM licitacion li join gobierno g on li.gobierno_id=g.id
+				FROM licitacion li 
+                join gobierno g on li.gobierno_id=g.id
+                $where
 				order by fecha_inicio");
 
     	return $query->result();

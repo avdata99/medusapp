@@ -38,3 +38,7 @@ Desarrollado con [Sphinx](http://sphinx-doc.org/).
 
 Para desarrollar se recomienda montar un entorno local de desarrollo.
 [Instrucciones](https://github.com/avdata99/medusapp/blob/master/ENV.md)
+
+#### Tests
+
+Testear el funcionamiento. Ver [acá]((https://github.com/avdata99/medusapp/blob/master/tests/)

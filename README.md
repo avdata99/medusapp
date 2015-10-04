@@ -41,4 +41,4 @@ Para desarrollar se recomienda montar un entorno local de desarrollo.
 
 #### Tests
 
-Testear el funcionamiento. Ver [acá]((https://github.com/avdata99/medusapp/blob/master/tests/)
+Testear el funcionamiento. Ver [acá](https://github.com/avdata99/medusapp/blob/master/tests/)

@@ -8,6 +8,10 @@ class Licitaciones_model extends CI_Model {
     	}
 
     public function lista($soloActivas=FALSE, $gobiernos=[]){
+        /* 
+        soloActivas se refiere a la fecha de inicio y cierre 
+        gobiernos es una lista de IDs
+        */
         $filtros = []
         if (count($gobiernos) > 0){
             $gobs = implode(',', $gobiernos)

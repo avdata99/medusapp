@@ -30,6 +30,14 @@
             <li><a href="/#registrar-ciudadano">Registrarme como ciudadano</a></li>
           </ul>                  
         </li>
+
+        <li class="dropdown">    
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Publicaciones<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li class="nav-header">Blog</li>
+            <li><a href="/#blog/desafios-de-la-transparencia">Desafíos de la transparencia</a></li>
+          </ul>                  
+        </li>
         <!--
         <li><a href="/">Ciudadanos</a></li>
         <li class="dropdown">  

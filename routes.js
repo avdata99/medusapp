@@ -8,6 +8,7 @@ App.Router = Backbone.Router.extend({
     'registrar-empresa': 'registrarEmpresa',
     'registrar-municipio': 'registrarMunicipio',
     'registrar-ciudadano': 'registrarCiudadano',
+    'blog/:post': 'blog', 
     '*other': 'fail404',
   },
 
@@ -44,6 +45,16 @@ App.Router = Backbone.Router.extend({
     // cargar las licitaciones leidas en la home
     App.Views.sectionView = new sectionView({model: App.Models.section});
     App.Views.sectionView.render();
+  },
+
+  blog: function(post){
+    setPage('/blog/' + post, 'Blog ' + post, 'Blog ' + post);
+    App.Models.blog = new blogModel();
+    App.Models.blog.getPost(post); // carga todas las licitaciones
+
+    // cargar las licitaciones leidas en la home
+    App.Views.blogView = new blogView({model: App.Models.blog});
+    App.Views.blogView.render();
   },
 
   suscribe: function(){

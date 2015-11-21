@@ -19,8 +19,7 @@ var blogModel = Backbone.Model.extend({
 var blogView = Backbone.View.extend({
     template: template('blog'),
     render: function(){
-        // section = this.model.attributes;
-        // $('#main_title').html(section.titulo);
+        $('#main_title').html('Medusapp Blog');
         var tpl = this.template(this.model.toJSON());
         $('#main_container').append(tpl);
         return this;

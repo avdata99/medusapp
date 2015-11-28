@@ -179,3 +179,6 @@ INSERT INTO `permiso_rol` (`id_permiso` ,`id_rol`) VALUES ('10',  '2');
 
 -- agregar permiso de ver licitaciones a las empresas
 INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '2', '4');
+
+-- permitir a los EMP_ADMIN la capasidad de ADD_POSTULACIONES
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '13', '4');

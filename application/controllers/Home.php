@@ -104,6 +104,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Licitaciones';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('licitacion');
 		#TODO municipio_id is just for add time, not edit
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
@@ -140,6 +141,17 @@ class Home extends CI_Controller {
 		$crud->display_as('gobierno_id','Gobierno');
 		$crud->display_as('observador_id','Observador');
 		$crud->display_as('datos','Datos a solicitar a las empresas');
+
+		# si es una empresa agregar la opcion de postularse
+		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
+			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
+			$class = ''; # 'ui-icon-plus';
+			$crud->add_action('Postularse', $img, '/home/postularse', $class);
+		}
+		else {
+
+		}
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -187,6 +199,8 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Gobiernos';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+
 		$crud->set_table('gobierno');
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
@@ -216,6 +230,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Postulaciones';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('licitacion_postulaciones');
 		#TODO municipio_id is just for add time, not edit
 		$crud->set_relation('id_licitacion', 'licitacion', 'nombre');
@@ -250,6 +265,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Textos Web';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('textos');
 		if (!$this->user_model->can('EDIT_WEBPAGE')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_WEBPAGE')) $crud->unset_edit();
@@ -272,6 +288,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Empresas';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('empresa');
 		if (!$this->user_model->can('ADD_EMPS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_EMPS')) $crud->unset_edit();
@@ -308,6 +325,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Observadores';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('observador');
 		$crud->unset_delete();
 		if (!$this->user_model->can('ADD_OBSS')) $crud->unset_add();
@@ -346,6 +364,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Ciudadanos';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('ciudadano');
 		$crud->unset_delete();
 		$crud_table = $crud->render();
@@ -365,6 +384,7 @@ class Home extends CI_Controller {
 		$this->parts['title_table'] = 'Usuarios';
 		
 		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
 		$crud->set_table('usuario');
 		
 		$crud->unset_columns('password');

@@ -56,6 +56,7 @@
 
 // pin2 is the folder at production server.
 	define('ENVIRONMENT', file_exists('/home/pin2') ? 'production' : 'development');
+	
 
 /*
  *---------------------------------------------------------------

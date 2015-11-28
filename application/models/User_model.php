@@ -152,7 +152,14 @@ class User_model extends CI_Model
         }
         
     }
-
+    /**
+    Ver si un usuario tiene un rol
+    */
+    public function hasRole($role){
+        $sess = $this->session->all_userdata();
+        return in_array($role, $sess['roles']);
+    }
+    
     /**
     Indicar si corresponde un where in para las listas de objetos de una clase
     Return False si no es necesario

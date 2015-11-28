@@ -84,13 +84,11 @@ class Home extends CI_Controller {
 	public function unauthorized(){
 		$this->parts['active'] = 'No autorizado';
 		$this->parts['title_table'] = 'No autorizado';
-		
+		$this->parts['table'] = 'No tiene permiso para ingresar a esta seccion';
 		if (ENVIRONMENT == 'development'){
 			$sess = $this->session->all_userdata();
-			$this->parts['table'] = '<pre>' . print_r($sess, TRUE) . '</pre>';}
-		else 
-			{$this->parts['table'] = 'No tiene permiso para ingresar a esta seccion';}
-
+			$this->parts['table'] .= '<hr><pre>' . print_r($sess, TRUE) . '</pre>';}
+		
 		$this->load_all();
 	}
 

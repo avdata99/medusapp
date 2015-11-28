@@ -94,6 +94,50 @@ class Home extends CI_Controller {
 		$this->load_all();
 	}
 
+	/* una empresa se postula a una licitacion */
+	public function postularse($licitacion_id){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('ADD_POSTULACIONES'))
+			{$this->redirecToUnauthorized();}
+		if (!$this->user_model->hasRole('EMP_ADMIN')){
+			{$this->redirecToUnauthorized();}
+		}
+		#TODO si el usuario representa a mas de una empresa, preguntar a nombre de
+		# cual hace esto
+		$empresas = $this->user_model->empresas();
+		if (count($empresas) == 0) {
+			$this->parts['subtitle'] = 'Error al postularse';
+			$this->parts['active'] = 'licitaciones';
+			$this->parts['title_table'] = 'Fallo postulación';
+			$this->parts['table'] = "Tu usuario no tiene empresa asignada para postularse";
+		}
+		elseif (count($empresas) > 1) {
+			$this->parts['subtitle'] = 'Error al postularse';
+			$this->parts['active'] = 'licitaciones';
+			$this->parts['title_table'] = 'Fallo postulación';
+			$this->parts['table'] = "Tu usuario tiene más de una empresa asignada";
+		}
+		else {
+			$empresa_id= $empresas[0];
+			$this->load->model('postulaciones_model');
+			$postulacion_id = $this->postulaciones_model->add($licitacion_id, $empresa_id);
+			$this->parts['subtitle'] = 'Licitaciones';
+			$this->parts['active'] = 'licitaciones';
+				
+			if ($postulacion_id){
+				$this->parts['title_table'] = 'Postulación correcta';
+				$this->parts['table'] = $this->load->view('postularse.php', $this->parts, TRUE);
+			}
+			else {
+				$this->parts['title_table'] = 'Postulación INCORRECTA';
+				$this->parts['table'] = "Error al postularse";
+			}
+			
+		}
+		$this->load_all();
+	}
+
+	/* ver el listado de licitaciones*/
 	public function licitaciones(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_LICITACION'))
@@ -147,9 +191,6 @@ class Home extends CI_Controller {
 			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
 			$class = ''; # 'ui-icon-plus';
 			$crud->add_action('Postularse', $img, '/home/postularse', $class);
-		}
-		else {
-
 		}
 
 		$crud_table = $crud->render();

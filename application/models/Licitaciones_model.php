@@ -12,10 +12,10 @@ class Licitaciones_model extends CI_Model {
         soloActivas se refiere a la fecha de inicio y cierre 
         gobiernos es una lista de IDs
         */
-        $filtros = []
+        $filtros = [];
         if (count($gobiernos) > 0){
-            $gobs = implode(',', $gobiernos)
-            $filtros[] = 'gobierno_id IN ()';
+            $gobs = implode(',', $gobiernos);
+            $filtros[] = 'gobierno_id IN ('.$gobs.')';
         }
         if ($soloActivas){
             $ahora = date("Y-m-d H:i:s");

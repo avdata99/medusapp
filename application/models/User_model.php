@@ -159,7 +159,15 @@ class User_model extends CI_Model
         $sess = $this->session->all_userdata();
         return in_array($role, $sess['roles']);
     }
-    
+
+    /**
+    ver a que empresas representa
+    */
+    public function empresas(){
+        $sess = $this->session->all_userdata();
+        return $sess['empresas'];
+    }
+
     /**
     Indicar si corresponde un where in para las listas de objetos de una clase
     Return False si no es necesario

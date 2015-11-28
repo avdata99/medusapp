@@ -62,7 +62,8 @@
         ?></div>
 
  		<div class="row">
-        	<div class="col-md-12 table-section">
+            <!-- ACA se define el ancho de todo el template-->
+        	<div class="col-md-10 table-section">
                 <div class="table-label">
                     <div class="floatL l5">
                         <?php echo $subject_plural; ?>

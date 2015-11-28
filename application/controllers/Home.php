@@ -22,6 +22,7 @@ class Home extends CI_Controller {
 		$this->parts['session'] = $this->session->userdata;
 
 		$this->parts['title'] = $this->config->item('app_name_short');
+		if (isset($this->parts['subtitle'])) $this->parts['title'] = $this->parts['title'] . ' - ' . $this->parts['subtitle'];
 		$this->parts['headers'] = $this->load->view('headers.php', $this->parts, TRUE);
 		$this->parts['menu_principal'] = $this->load->view('menu_principal.php', $this->parts, TRUE);
 		$this->parts['notifications_bar'] = $this->load->view('notifications_bar.php', $this->parts, TRUE);
@@ -67,6 +68,7 @@ class Home extends CI_Controller {
 		$logo_harvard = $this->config->item('base_url')."static/img/logo-hardvard-2.jpg";
 		$style = "style='max-height:150px; padding:10px;'";
 
+		$this->parts['subtitle'] = 'Home';
 		$this->parts['table'] = "Sistema de Transparencia en Compras Públicas basado en Acuerdos Prácticos<br/>";
 		$this->parts['table'] .= "<img src='$logo_icda' $style/><img src='$logo_harvard' $style/>";
 		# $this->parts['table'] += "<img src='$logo_junar' $style/>";
@@ -97,6 +99,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_LICITACION'))
 			{$this->redirecToUnauthorized();}
 
+		$this->parts['subtitle'] = 'Licitaciones';
 		$this->parts['active'] = 'licitaciones';
 		$this->parts['title_table'] = 'Licitaciones';
 		
@@ -179,7 +182,7 @@ class Home extends CI_Controller {
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_GOVS'))
 			{$this->redirecToUnauthorized();}
-
+		$this->parts['subtitle'] = 'Gobiernos';
 		$this->parts['active'] = 'gobiernos';
 		$this->parts['title_table'] = 'Gobiernos';
 		
@@ -208,6 +211,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_POSTULACIONES'))
 			{$this->redirecToUnauthorized();}
 
+		$this->parts['subtitle'] = 'Postulaciones';
 		$this->parts['active'] = 'postulaciones';
 		$this->parts['title_table'] = 'Postulaciones';
 		
@@ -263,6 +267,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_EMPRESAS'))
 			{$this->redirecToUnauthorized();}
 
+		$this->parts['subtitle'] = 'Empresas';
 		$this->parts['active'] = 'empresas';
 		$this->parts['title_table'] = 'Empresas';
 		
@@ -298,6 +303,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_OBSERVADORES'))
 			{$this->redirecToUnauthorized();}
 
+		$this->parts['subtitle'] = 'Observadores';
 		$this->parts['active'] = 'observadores';
 		$this->parts['title_table'] = 'Observadores';
 		
@@ -335,6 +341,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_CIUDADANOS'))
 			{$this->redirecToUnauthorized();}
 		
+		$this->parts['subtitle'] = 'Ciudadanos';
 		$this->parts['active'] = 'ciudadanos';
 		$this->parts['title_table'] = 'Ciudadanos';
 		
@@ -353,6 +360,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('VIEW_USUARIOS'))
 			{$this->redirecToUnauthorized();}
 		
+		$this->parts['subtitle'] = 'Usuarios';
 		$this->parts['active'] = 'usuarios';
 		$this->parts['title_table'] = 'Usuarios';
 		

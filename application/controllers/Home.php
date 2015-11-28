@@ -102,18 +102,17 @@ class Home extends CI_Controller {
 		if (!$this->user_model->hasRole('EMP_ADMIN')){
 			{$this->redirecToUnauthorized();}
 		}
+		$this->parts['active'] = 'licitaciones';
 		#TODO si el usuario representa a mas de una empresa, preguntar a nombre de
 		# cual hace esto
 		$empresas = $this->user_model->empresas();
 		if (count($empresas) == 0) {
 			$this->parts['subtitle'] = 'Error al postularse';
-			$this->parts['active'] = 'licitaciones';
 			$this->parts['title_table'] = 'Fallo postulación';
 			$this->parts['table'] = "Tu usuario no tiene empresa asignada para postularse";
 		}
 		elseif (count($empresas) > 1) {
 			$this->parts['subtitle'] = 'Error al postularse';
-			$this->parts['active'] = 'licitaciones';
 			$this->parts['title_table'] = 'Fallo postulación';
 			$this->parts['table'] = "Tu usuario tiene más de una empresa asignada";
 		}
@@ -122,7 +121,7 @@ class Home extends CI_Controller {
 			$this->load->model('postulaciones_model');
 			$postulacion_id = $this->postulaciones_model->add($licitacion_id, $empresa_id);
 			$this->parts['subtitle'] = 'Licitaciones';
-			$this->parts['active'] = 'licitaciones';
+			
 				
 			if ($postulacion_id){
 				$this->parts['title_table'] = 'Postulación correcta';
@@ -130,7 +129,7 @@ class Home extends CI_Controller {
 			}
 			else {
 				$this->parts['title_table'] = 'Postulación INCORRECTA';
-				$this->parts['table'] = "Error al postularse";
+				$this->parts['table'] = "Error al postularse, posiblementa ya estas postulado a esta licitacion";
 			}
 			
 		}

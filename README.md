@@ -10,7 +10,7 @@ MedusApp esta compuesta por dos aplicaciones.
   
 Este incluye la carga de datos del sistema: licitaciones, gobiernos, usuarios, etc.  
 
-Hecho con Codeigniter 3 (PHP 5) con las librerías:  
+Hecho con [Codeigniter 3](https://www.codeigniter.com/userguide3/) (PHP 5) con las librerías:  
 - [Rest Server](https://github.com/chriskacerguis/codeigniter-restserver) para el API.  
 - [Grocery Crud](http://www.grocerycrud.com/) para la carga rápida de datos.  
   

@@ -190,3 +190,47 @@ ALTER TABLE `licitacion_postulaciones`
 ALTER TABLE `licitacion_postulaciones` 
   ADD FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
   ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `licitacion_datos_entregados` 
+  ADD FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) 
+  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `licitacion_datos_entregados` 
+  ADD FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
+  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `licitacion_datos_pedidos` 
+  ADD FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) 
+  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+ALTER TABLE `licitacion_postulaciones` 
+  DROP FOREIGN KEY `licitacion_postulaciones_ibfk_2`; 
+
+ALTER TABLE `licitacion_postulaciones` 
+  ADD CONSTRAINT `licitacion_postulaciones_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
+  ON DELETE CASCADE ON UPDATE CASCADE; 
+
+ALTER TABLE `licitacion_postulaciones` 
+  ADD FOREIGN KEY (`status`) REFERENCES `pactointegridad`.`licitacion_postulacion_status`(`id`) 
+  ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `observador` 
+  ADD FOREIGN KEY (`status`) REFERENCES `pactointegridad`.`observador_status`(`id`) 
+  ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Cambiar status AproVado por AproBado
+-- hacer Unico el key id_permiso+id_rol
+
+
+
+
+
+
+
+
+
+
+
+
+
+

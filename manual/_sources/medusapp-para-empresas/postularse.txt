@@ -1,4 +1,7 @@
 Postularse a una licitación
 ===========================
 
- Dentro del `listado de licitaciones abiertas <http://medusapp.org/home/licitaciones>`_ .
+ Dentro del `listado de licitaciones abiertas <http://medusapp.org/home/licitaciones>`_ el usuario podrá postularse a cualquiera de ellas. Para esta finalidad está disponible el botón *Postularse* en cada licitación.
+
+ Una vez postulado el sistema enviará noticificaciones al Gobierno y a los observadores para que analicen el caso y acepten o rechacen la postulación.
+ 

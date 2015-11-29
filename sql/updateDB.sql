@@ -182,3 +182,11 @@ INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUE
 
 -- permitir a los EMP_ADMIN la capasidad de ADD_POSTULACIONES
 INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '13', '4');
+
+-- agregar FK a las postulaciones
+ALTER TABLE `licitacion_postulaciones` 
+  ADD FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) 
+  ON DELETE CASCADE ON UPDATE CASCADE; 
+ALTER TABLE `licitacion_postulaciones` 
+  ADD FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
+  ON DELETE RESTRICT ON UPDATE RESTRICT;

@@ -221,7 +221,8 @@ ALTER TABLE `observador`
 -- Cambiar status AproVado por AproBado
 -- hacer Unico el key id_permiso+id_rol
 
-
+-- permitir ver postulaciones a las empresas
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '11', '4');
 
 
 

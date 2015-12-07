@@ -7,4 +7,6 @@ Postularse a una licitación
 
  Cuando esta postulación este resuelta recibirá una noticifación indicando la aceptación o no a participar de la compulsa.
 
+En la seccion *Postulaciones* de tu cuenta vas a ver cada postulación y su estado actual.
+
  

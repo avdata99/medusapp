@@ -136,6 +136,44 @@ class Home extends CI_Controller {
 		$this->load_all();
 	}
 
+	private function show_error($title, $description=''){
+		$this->parts['subtitle'] = '';
+		$this->parts['title_table'] = $title;
+		$this->parts['table'] = $description;
+		$this->parts['active'] = '';
+		$this->load_all();
+	}
+
+	/* empresa cargando los datos de la licitacion
+	Si no se pasa la empresa supongo una sola */
+	public function procesar_licitacion($licitacion_id, $empresa_id){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
+			{$this->redirecToUnauthorized();}
+		
+		// ver que la empresa haya postulado y haya sido aceptado
+		$empresas = $this->user_model->empresas();
+		if (!in_array($empresa_id, $empresas)) {
+			$this->show_error('Error al procesar licitacion', 'Tu usuario no tiene permisos para la empresa');
+			return False;
+		}
+
+		$this->load->model('postulaciones_model');
+		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
+		if (!$res->status){
+			$this->show_error('Error al procesar licitacion', 'No puedes acceder a esta licitacion');
+			return False;
+		}
+
+		$this->parts['title'] = 'Procesar postulacion';
+		$this->parts['subtitle'] = 'Procesar postulacion';
+		$this->parts['title_table'] = 'table title';
+		$this->parts['active'] = 'licitaciones';
+		$this->parts['table'] = $this->load->view('procesar_licitacion', $res->results, TRUE);
+		$this->load_all();
+
+	}
+
 	/* ver el listado de licitaciones*/
 	public function licitaciones(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
@@ -276,13 +314,22 @@ class Home extends CI_Controller {
 		$crud->set_relation('id_licitacion', 'licitacion', 'nombre');
 		$crud->set_relation('id_empresa','empresa','nombre');
 		$crud->set_relation('status', 'licitacion_postulacion_status', 'estado');
-		if (!$this->user_model->can('ADD_POSTULACIONES')) $crud->unset_add();
-		if (!$this->user_model->can('EDIT_POSTULACIONES')) $crud->unset_edit();
+		//agregar o editar postulaciones desde la lista es cuestion de administradores
+		if (!$this->user_model->hasRole('FULL_ADMIN')) {
+			$crud->unset_add();	
+			$crud->unset_edit();
+		}
+		// if (!$this->user_model->can('ADD_POSTULACIONES')) $crud->unset_add();
+		// if (!$this->user_model->can('EDIT_POSTULACIONES')) $crud->unset_edit();
 		$crud->unset_delete();
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
 		$where_in = $this->user_model->getWhereIn('GOVS'); 
 		if ($where_in){
 			$crud->where("licitacion.gobierno_id in ($where_in)"); #TODO check this
+		}
+		$where_in = $this->user_model->getWhereIn('EMPS'); 
+		if ($where_in){
+			$crud->where("id_empresa in ($where_in)"); #TODO check this
 		}
 		$crud->display_as('id_licitacion','Licitacion');
 		$crud->display_as('id_empresa','Empresa');

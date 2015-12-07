@@ -22,6 +22,32 @@ class Postulaciones_model extends CI_Model {
 
     }
 
+    /* ver si una empresa esta postulada y aceptada a una licitacion */
+    public function validate($licitacion_id, $empresa_id){
+        $q = "SELECT lp.*, g.nombre gobierno, e.nombre empresa
+            , lps.estado, l.nombre licitacion 
+            FROM licitacion_postulaciones lp 
+            join licitacion l on lp.id_licitacion=l.id 
+            join empresa e on lp.id_empresa = e.id 
+            join licitacion_postulacion_status lps on lp.status = lps.id 
+            join gobierno g on l.gobierno_id=g.id
+            where lp.id_licitacion=$licitacion_id and lp.id_empresa=$empresa_id;";
+
+        $query = $this->db->query($q);
+
+        if ($query->num_rows() == 1) {
+            $res = (object)['status'=>TRUE, 'results'=>$query->row_array()];
+        }
+        else if ($query->num_rows() == 0 || $query->num_rows() > 1) {
+            $res = (object)['status'=>FALSE, 'error'=>'Postulacion inválida, consulte al administrador'];
+            $txt = "Postulacion invalida [".$query->num_rows()."] [$licitacion_id, $empresa_id]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 2);
+        }
+
+        return $res;
+    }
+
     /* obtener una lista de postulaciones por empresa o por gobierno*/
     public function lista($soloActivas=FALSE, $gobiernos=[], $empresas=[]){
         /* 

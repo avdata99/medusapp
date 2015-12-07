@@ -167,7 +167,7 @@ class Home extends CI_Controller {
 
 		$this->parts['title'] = 'Procesar postulacion';
 		$this->parts['subtitle'] = 'Procesar postulacion';
-		$this->parts['title_table'] = 'table title';
+		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
 		$this->parts['active'] = 'licitaciones';
 		$this->parts['table'] = $this->load->view('procesar_licitacion', $res->results, TRUE);
 		$this->load_all();

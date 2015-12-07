@@ -132,7 +132,8 @@ class User_model extends CI_Model
     Hay que agregar funcionalidades para permisos especificos #TODO
     */
     public function can($permission, $id2 = 0){
-        $sess = $this->session->all_userdata();
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
         # el usuario full_admin puede hacer todo
         if (in_array('FULL_ADMIN', $sess['roles'])) return true;
 
@@ -156,15 +157,23 @@ class User_model extends CI_Model
     Ver si un usuario tiene un rol
     */
     public function hasRole($role){
-        $sess = $this->session->all_userdata();
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
         return in_array($role, $sess['roles']);
     }
 
+    private function get_sess(){
+        $sess = $this->session->all_userdata();
+        if (!$sess || !isset($sess['user_id'])) return FALSE; # lost session
+        return $sess;
+    }
     /**
     ver a que empresas representa
     */
     public function empresas(){
-        $sess = $this->session->all_userdata();
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        
         return $sess['empresas'];
     }
 
@@ -173,7 +182,9 @@ class User_model extends CI_Model
     Return False si no es necesario
     */
     public function getWhereIn($class){
-        $sess = $this->session->all_userdata();
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        
         if (in_array('FULL_ADMIN', $sess['roles'])) 
             return false;
 
@@ -187,7 +198,9 @@ class User_model extends CI_Model
 
     /** lista de id permitidos de una clase */
     public function getWhere($class){
-        $sess = $this->session->all_userdata();
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        
         if (in_array('FULL_ADMIN', $sess['roles'])) 
             return false;
 

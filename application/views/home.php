@@ -11,11 +11,13 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <?= $table ?>
-            </div>
+
+<? if (isset($table_pre)) { ?> <div class="row"><?= $table_pre ?></div> <? } ?>
+
+<div class="row"><?= $table ?></div>
             
+<? if (isset($table_pos)) { ?> <div class="row"><?= $table_pos ?></div> <? } ?>
+
         </div>
         <!-- /#page-wrapper -->
 

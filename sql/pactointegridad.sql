@@ -379,14 +379,16 @@ CREATE TABLE `licitacion_datos_pedidos` (
 
 CREATE TABLE `licitacion_datos_entregados` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
- `id_licitacion` int(11) NOT NULL,
- `id_dato_pedido` int(11) NOT NULL,
+ `id_datos_pedidos` int(11) NOT NULL,
  `id_empresa` int(11) NOT NULL,
  `status` int(11) NOT NULL DEFAULT '0',
  `url` varchar(220) NOT NULL,
  PRIMARY KEY (`id`),
- KEY `id_licitacion` (`id_licitacion`,`id_dato_pedido`,`id_empresa`),
- KEY `status` (`status`)
+ KEY `id_licitacion` (`id_datos_pedidos`,`id_empresa`),
+ KEY `status` (`status`),
+ KEY `licitacion_datos_entregados_ibfk_2` (`id_empresa`),
+ CONSTRAINT `licitacion_datos_entregados_ibfk_3` FOREIGN KEY (`id_datos_pedidos`) REFERENCES `licitacion_datos_pedidos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `licitacion_datos_entregados_ibfk_2` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `empresa_status` (

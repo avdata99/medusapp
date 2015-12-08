@@ -169,7 +169,43 @@ class Home extends CI_Controller {
 		$this->parts['subtitle'] = 'Procesar postulacion';
 		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
 		$this->parts['active'] = 'licitaciones';
-		$this->parts['table'] = $this->load->view('procesar_licitacion', $res->results, TRUE);
+
+		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+		$crud->set_table('licitacion_datos_pedidos');
+		$crud->where("id_licitacion = $licitacion_id");
+		// datos_publicar titulo + descripcion
+		$crud->set_relation('id_dato_pedido', 'datos_publicar', 'titulo'); //where, order_by 
+		
+		// $crud->set_field_upload('licitacion_datos_entregados.url',$this->config->item('upload_documentos_empresas'));
+
+		//$crud->field_type('id_licitacion', 'hidden');
+		$crud->unset_columns('id_licitacion');
+		
+		$crud->unset_read();
+		$crud->unset_add();
+		//$crud->unset_edit();
+		$crud->unset_delete();
+		
+		// $crud->change_field_type('uid','invisible');
+		// $crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
+		// $crud->columns('nombre', 'gobierno_id', 'observador_id');
+		$crud->display_as('id_dato_pedido','Dato pedido');
+		
+		# si es una empresa puede subir los archivos
+		if ($this->user_model->hasRole('EMP_ADMIN')){
+			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
+			$class = ''; # 'ui-icon-plus';
+			//$crud->add_action('Subir archivo', $img, '/home/upload_company_document', $class);
+		}
+
+		$crud_table = $crud->render();
+		$data = ['results'=>$res->results];
+		$this->parts['table_pre'] = $this->load->view('procesar_licitacion', $data, TRUE);
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
 		$this->load_all();
 
 	}

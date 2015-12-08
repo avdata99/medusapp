@@ -5,8 +5,11 @@
 $config['app_name_short'] = 'MedusApp';
 
 # carpeta donde se almacenan los documentos principales de cada licitacion
-$config['upload_documents'] = 'static/documents'; # asegurarse permisos
-$config['upload_images'] = 'static/images';
+# asegurarse permisos
+$config['upload_documents'] = 'static/documents'; # documentos de info de las licitaciones 
+$config['upload_images'] = 'static/images'; # imagenes usadas para las licitaciones
+$config['upload_documentos_empresas'] = 'static/company_documents'; # imagenes usadas para las licitaciones
+
 $config['environment'] = ENVIRONMENT;
 
 

@@ -191,14 +191,6 @@ ALTER TABLE `licitacion_postulaciones`
   ADD FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
   ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-ALTER TABLE `licitacion_datos_entregados` 
-  ADD FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) 
-  ON DELETE RESTRICT ON UPDATE RESTRICT;
-
-ALTER TABLE `licitacion_datos_entregados` 
-  ADD FOREIGN KEY (`id_empresa`) REFERENCES `pactointegridad`.`empresa`(`id`) 
-  ON DELETE RESTRICT ON UPDATE RESTRICT;
-
 ALTER TABLE `licitacion_datos_pedidos` 
   ADD FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) 
   ON DELETE RESTRICT ON UPDATE RESTRICT;
@@ -224,11 +216,11 @@ ALTER TABLE `observador`
 -- permitir ver postulaciones a las empresas
 INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '11', '4');
 
+ALTER TABLE `licitacion_datos_entregados` ADD FOREIGN KEY (`status`) REFERENCES `pactointegridad`.`licitacion_datos_entregados_status`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
+ALTER TABLE `licitacion_datos_pedidos` ADD FOREIGN KEY (`id_dato_pedido`) REFERENCES `pactointegridad`.`datos_publicar`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-
-
-
+ALTER TABLE `licitacion_datos_pedidos` DROP FOREIGN KEY `licitacion_datos_pedidos_ibfk_1`; ALTER TABLE `licitacion_datos_pedidos` ADD CONSTRAINT `licitacion_datos_pedidos_ibfk_1` FOREIGN KEY (`id_licitacion`) REFERENCES `pactointegridad`.`licitacion`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 

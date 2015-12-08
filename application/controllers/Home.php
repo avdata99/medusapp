@@ -183,7 +183,7 @@ class Home extends CI_Controller {
 		$crud->set_table('licitacion_datos_entregados');
 		
 		/* BEST QUERY */
-		$q = "SELECT lde.id, lde.url
+		$q = "SELECT lde.id, lde.url, lde.observaciones
 		 , ldes.estado
 		 , empresa.nombre AS empresa
 		 , ldp.id AS pedido_id
@@ -198,26 +198,8 @@ class Home extends CI_Controller {
 		
 		$crud->basic_model->set_manual_select($q);
 		$crud->columns('documento', 'empresa', 'estado', 'url');
-		$crud->edit_fields('url');
-		/*
-		$crud->set_relation('status', 'licitacion_datos_entregados_status', 'estado'); 
-		$crud->set_relation('id_empresa', 'empresa', 'nombre'); 
+		$crud->edit_fields('url', 'observaciones');
 		
-		$crud->set_relation('id_licitacion_dato_pedido', 'licitacion_datos_pedidos', 'id');  
-		// $crud->set_relation('id_dato_pedido', 'datos_publicar', 'titulo');  
-		
-		
-		$crud->set_relation_n_n('Documento', 'licitacion_datos_pedidos' 
-				, 'datos_publicar'
-				, 'id' // pega contra el primary key de la tabla princiapl de ste CRUD ¿?
-				// conecta con: `{$this->table_name}`.$this_table_primary_key 
-				, 'id_dato_pedido'
-				, 'titulo'
-				,''
-				,['licitacion_datos_entregados.id_datos_pedidos'=>'licitacion_datos_pedidos.id']);
-		
-		$crud->where("id_empresa = $empresa_id");
-		*/
 
 		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
 		
@@ -226,13 +208,9 @@ class Home extends CI_Controller {
 		// $crud->unset_edit();
 		$crud->unset_delete();
 		
-		//$crud->change_field_type('id_licitacion_dato_pedido', 'invisible');
-		// $crud->field_type('id_licitacion_dato_pedido', 'hidden');
-		// $crud->unset_columns('id_licitacion_dato_pedido');
-		// $crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
-		// $crud->columns('nombre', 'gobierno_id', 'observador_id');
-		// $crud->display_as('id_empresa','Empresa');
-		
+		//#TODO despues de editar pasar el estado a otro
+		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
+
 		$crud_table = $crud->render();
 		$data = ['results'=>$res->results];
 		$this->parts['table_pre'] = $this->load->view('procesar_licitacion', $data, TRUE);

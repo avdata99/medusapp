@@ -177,6 +177,7 @@ class Home extends CI_Controller {
 		$crud->where("id_licitacion = $licitacion_id");
 		// datos_publicar titulo + descripcion
 		$crud->set_relation('id_dato_pedido', 'datos_publicar', 'titulo'); //where, order_by 
+		$crud->set_relation('id', 'licitacion_datos_entregados', 'url'); //where, order_by 
 		
 		// $crud->set_field_upload('licitacion_datos_entregados.url',$this->config->item('upload_documentos_empresas'));
 
@@ -185,7 +186,7 @@ class Home extends CI_Controller {
 		
 		$crud->unset_read();
 		$crud->unset_add();
-		//$crud->unset_edit();
+		// $crud->unset_edit();
 		$crud->unset_delete();
 		
 		// $crud->change_field_type('uid','invisible');
@@ -196,8 +197,11 @@ class Home extends CI_Controller {
 		# si es una empresa puede subir los archivos
 		if ($this->user_model->hasRole('EMP_ADMIN')){
 			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = ''; # 'ui-icon-plus';
-			//$crud->add_action('Subir archivo', $img, '/home/upload_company_document', $class);
+			$class = 'fa-file';
+			# Atention, UGLY parameter
+			$this->tmp = ['empresa_id'=>$empresa_id];
+			$url_callback = array($this,'define_upload_company_document');
+			$crud->add_action('Subir archivo', $img, '', $class, $url_callback);
 		}
 
 		$crud_table = $crud->render();
@@ -210,6 +214,77 @@ class Home extends CI_Controller {
 
 	}
 
+	/* empresa cargando los datos de la licitacion
+	Si no se pasa la empresa supongo una sola */
+	public function procesar_licitacion2($licitacion_id, $empresa_id){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
+			{$this->redirecToUnauthorized();}
+		
+		// ver que la empresa haya postulado y haya sido aceptado
+		$empresas = $this->user_model->empresas();
+		if (!in_array($empresa_id, $empresas)) {
+			$this->show_error('Error al procesar licitacion', 'Tu usuario no tiene permisos para la empresa');
+			return False;
+		}
+
+		$this->load->model('postulaciones_model');
+		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
+		if (!$res->status){
+			$this->show_error('Error al procesar licitacion', 'No puedes acceder a esta licitacion');
+			return False;
+		}
+
+		//revisar que todos los pedidos tengan al menos un registro de entregado
+		//vacio en espera de carga
+		$dbg = $this->postulaciones_model->check_documents($licitacion_id, $empresa_id);
+		$this->parts['debug'] = print_r($dbg, TRUE);
+		
+		$this->parts['title'] = 'Procesar postulacion';
+		$this->parts['subtitle'] = 'Procesar postulacion';
+		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
+		$this->parts['active'] = 'licitaciones';
+
+		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+		$crud->set_table('licitacion_datos_entregados');
+		// $crud->set_relation('status', 'licitacion_datos_entregados_status', 'estado'); //where, order_by 
+		
+		$crud->set_relation_n_n('Documento', 'licitacion_datos_pedidos' 
+				, 'datos_publicar'
+				, 'id'
+				, 'id_dato_pedido'
+				, 'titulo');
+		
+		// $crud->where("id_licitacion = $licitacion_id");
+		
+		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
+
+		
+		$crud->unset_read();
+		$crud->unset_add();
+		// $crud->unset_edit();
+		$crud->unset_delete();
+		
+		// $crud->change_field_type('uid','invisible');
+		// $crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
+		// $crud->columns('nombre', 'gobierno_id', 'observador_id');
+		// $crud->display_as('id_dato_pedido','Dato pedido');
+		
+		$crud_table = $crud->render();
+		$data = ['results'=>$res->results];
+		$this->parts['table_pre'] = $this->load->view('procesar_licitacion', $data, TRUE);
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		$this->load_all();
+
+	}
+	public function define_upload_company_document($primary_key, $row){
+		$upload = '/home/upload_company_document/';
+		return $upload . $primary_key . '/'. $this->tmp['empresa_id'];
+	}
 	/* ver el listado de licitaciones*/
 	public function licitaciones(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);

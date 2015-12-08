@@ -94,4 +94,91 @@ class Postulaciones_model extends CI_Model {
 
         return $query->row();        
     }
+
+    /* listar los postulantes a una licitacion */
+    function licitacion_postulantes($licitacion_id, $solo_aceptadas=TRUE){
+        $q = 'SELECT * FROM licitacion_postulaciones where id_licitacion=$licitacion_id ';
+        if ($solo_aceptadas) $q .= ' AND status=3';
+        $query = $this->db->query($q);
+        return $query->result();
+    }
+
+    function licitacion_datos_pedidos($licitacion_id){
+        $q = "SELECT * FROM licitacion_datos_pedidos where id_licitacion=$licitacion_id";
+        $query = $this->db->query($q);
+        return $query->result();
+    }
+
+    function licitacion_datos_entregados($licitacion_id){
+        $q = "SELECT lde.*, ldp.id_dato_pedido, ldp.id_licitacion
+            FROM licitacion_datos_entregados lde 
+            join licitacion_datos_pedidos ldp ON lde.id_licitacion_dato_pedido=ldp.id
+            where ldp.id_licitacion=$licitacion_id";
+        $query = $this->db->query($q);
+        return $query->result();
+    }
+
+    function add_licitacion_dato_entregado($id_licitacion_dato_pedido, $empresa_id, $status=1){
+        $q = "INSERT INTO licitacion_datos_entregados 
+            (id_empresa, id_licitacion_dato_pedido, status) 
+            VALUES 
+            ($empresa_id, $id_licitacion_dato_pedido, $status);";
+        $query = $this->db->query($q);
+        if (!$query) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $txt = "Error sql ($q) [" .$error['code']. "-" .$error['message'] ."]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 5);
+            return FALSE;
+        }
+        return $this->db->insert_id();
+    }
+
+    /* revisar que los documentos no cargados de cada 
+    empresa que postula tengan al menos un registro 
+    Si solicita una empresa se revisa esa, si empresa_id=0 entonces reviso todas*/
+    function check_documents($licitacion_id, $empresa_id=0){
+        $empresas = [];
+        if ($empresa_id==0) {
+            // ver todas las empresas postuladas
+            $postulantes = $this->licitacion_postulantes($licitacion_id);
+            foreach ($postulantes as $postulante) {
+                $empresas[] = $postulante->id_empresa;
+            }
+        }
+        else {
+            $empresas[] = $empresa_id;
+        }
+
+        $datos_pedidos = $this->licitacion_datos_pedidos($licitacion_id);
+        $datos_entregados = $this->licitacion_datos_entregados($licitacion_id);
+
+        // ver los datos solicitados y cargar los registros para cada
+        // empresa cuando no esten cargados
+        $added = 0;
+        $fails = 0;
+        $readys = 0;
+        foreach ($datos_pedidos as $dato_pedido) {
+            $id_licitacion_dato_pedido = $dato_pedido->id;
+            foreach ($empresas as $empresa_id) {
+                $ready = FALSE;
+                foreach ($datos_entregados as $dato_entregado) {
+                    if ($dato_entregado->id_empresa == $empresa_id 
+                            && $dato_entregado->id_dato_pedido == $dato_pedido->id_dato_pedido) {
+                        $ready = TRUE;
+                    }
+                }
+                // si no esta insertarlo
+                if (!$ready) {
+                    $ok = $this->add_licitacion_dato_entregado($id_licitacion_dato_pedido, $empresa_id);
+                    if ($ok) {$added ++;}
+                    else {$fails ++;}
+                }
+                else {$readys++;}    
+            }
+        }
+
+        return (object)['ready'=>$readys, 'added'=>$added, 'fails'=>$fails];
+
+    }
 }

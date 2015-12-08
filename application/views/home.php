@@ -18,11 +18,12 @@
             
 <? if (isset($table_pos)) { ?> <div class="row"><?= $table_pos ?></div> <? } ?>
 
+<? if (ENVIRONMENT=='development' && isset($debug)) { ?> <div class="row"><?= $debug ?></div> <? } ?>
         </div>
         <!-- /#page-wrapper -->
 
     </div>
-    
+        
     <?= $js_loads ?>
 
 </body>

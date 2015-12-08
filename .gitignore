@@ -3,6 +3,7 @@ simulacion
 logins
 static/documents/*
 static/images/*
+static/company_documents/*
 lasterror.html
 extras/htmls-tpl/css
 extras/htmls-tpl/img

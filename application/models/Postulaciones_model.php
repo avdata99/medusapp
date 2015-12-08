@@ -97,7 +97,7 @@ class Postulaciones_model extends CI_Model {
 
     /* listar los postulantes a una licitacion */
     function licitacion_postulantes($licitacion_id, $solo_aceptadas=TRUE){
-        $q = 'SELECT * FROM licitacion_postulaciones where id_licitacion=$licitacion_id ';
+        $q = "SELECT * FROM licitacion_postulaciones where id_licitacion=$licitacion_id ";
         if ($solo_aceptadas) $q .= ' AND status=3';
         $query = $this->db->query($q);
         return $query->result();

@@ -165,81 +165,11 @@ class Home extends CI_Controller {
 			return False;
 		}
 
-		$this->parts['title'] = 'Procesar postulacion';
-		$this->parts['subtitle'] = 'Procesar postulacion';
-		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
-		$this->parts['active'] = 'licitaciones';
-
-		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
-		$crud = new grocery_CRUD();
-		$crud->set_theme('bootstrap');
-		$crud->set_table('licitacion_datos_pedidos');
-		$crud->where("id_licitacion = $licitacion_id");
-		// datos_publicar titulo + descripcion
-		$crud->set_relation('id_dato_pedido', 'datos_publicar', 'titulo'); //where, order_by 
-		$crud->set_relation('id', 'licitacion_datos_entregados', 'url'); //where, order_by 
-		
-		// $crud->set_field_upload('licitacion_datos_entregados.url',$this->config->item('upload_documentos_empresas'));
-
-		//$crud->field_type('id_licitacion', 'hidden');
-		$crud->unset_columns('id_licitacion');
-		
-		$crud->unset_read();
-		$crud->unset_add();
-		// $crud->unset_edit();
-		$crud->unset_delete();
-		
-		// $crud->change_field_type('uid','invisible');
-		// $crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
-		// $crud->columns('nombre', 'gobierno_id', 'observador_id');
-		$crud->display_as('id_dato_pedido','Dato pedido');
-		
-		# si es una empresa puede subir los archivos
-		if ($this->user_model->hasRole('EMP_ADMIN')){
-			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = 'fa-file';
-			# Atention, UGLY parameter
-			$this->tmp = ['empresa_id'=>$empresa_id];
-			$url_callback = array($this,'define_upload_company_document');
-			$crud->add_action('Subir archivo', $img, '', $class, $url_callback);
-		}
-
-		$crud_table = $crud->render();
-		$data = ['results'=>$res->results];
-		$this->parts['table_pre'] = $this->load->view('procesar_licitacion', $data, TRUE);
-		$this->parts['table'] = $crud_table->output;
-		$this->parts['css_files'] = $crud_table->css_files;
-		$this->parts['js_files'] = $crud_table->js_files;
-		$this->load_all();
-
-	}
-
-	/* empresa cargando los datos de la licitacion
-	Si no se pasa la empresa supongo una sola */
-	public function procesar_licitacion2($licitacion_id, $empresa_id){
-		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
-		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
-			{$this->redirecToUnauthorized();}
-		
-		// ver que la empresa haya postulado y haya sido aceptado
-		$empresas = $this->user_model->empresas();
-		if (!in_array($empresa_id, $empresas)) {
-			$this->show_error('Error al procesar licitacion', 'Tu usuario no tiene permisos para la empresa');
-			return False;
-		}
-
-		$this->load->model('postulaciones_model');
-		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
-		if (!$res->status){
-			$this->show_error('Error al procesar licitacion', 'No puedes acceder a esta licitacion');
-			return False;
-		}
-
 		//revisar que todos los pedidos tengan al menos un registro de entregado
 		//vacio en espera de carga
-		$dbg = $this->postulaciones_model->check_documents($licitacion_id, $empresa_id);
+		$dbg = $this->postulaciones_model->check_documents($licitacion_id);
 		$this->parts['debug'] = print_r($dbg, TRUE);
-		
+
 		$this->parts['title'] = 'Procesar postulacion';
 		$this->parts['subtitle'] = 'Procesar postulacion';
 		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
@@ -248,29 +178,60 @@ class Home extends CI_Controller {
 		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
 		$crud = new grocery_CRUD();
 		$crud->set_theme('bootstrap');
+
+		$crud->set_model('my_custom_grocery_entregados_model');
 		$crud->set_table('licitacion_datos_entregados');
-		// $crud->set_relation('status', 'licitacion_datos_entregados_status', 'estado'); //where, order_by 
+		
+		/* BEST QUERY */
+		$q = "SELECT lde.id, lde.url
+		 , ldes.estado
+		 , empresa.nombre AS empresa
+		 , ldp.id AS pedido_id
+		 , dp.titulo as documento
+
+		 FROM licitacion_datos_entregados AS lde
+		LEFT JOIN licitacion_datos_entregados_status as ldes ON ldes.id = lde.status
+		LEFT JOIN empresa ON empresa.id = lde.id_empresa
+		LEFT JOIN licitacion_datos_pedidos as ldp ON ldp.id = lde.id_licitacion_dato_pedido
+		LEFT JOIN datos_publicar as dp ON dp.id=ldp.id_dato_pedido
+		WHERE id_empresa = $empresa_id AND ldp.id_licitacion=$licitacion_id";
+		
+		$crud->basic_model->set_manual_select($q);
+		$crud->columns('documento', 'empresa', 'estado', 'url');
+		$crud->edit_fields('url');
+		/*
+		$crud->set_relation('status', 'licitacion_datos_entregados_status', 'estado'); 
+		$crud->set_relation('id_empresa', 'empresa', 'nombre'); 
+		
+		$crud->set_relation('id_licitacion_dato_pedido', 'licitacion_datos_pedidos', 'id');  
+		// $crud->set_relation('id_dato_pedido', 'datos_publicar', 'titulo');  
+		
 		
 		$crud->set_relation_n_n('Documento', 'licitacion_datos_pedidos' 
 				, 'datos_publicar'
-				, 'id'
+				, 'id' // pega contra el primary key de la tabla princiapl de ste CRUD ¿?
+				// conecta con: `{$this->table_name}`.$this_table_primary_key 
 				, 'id_dato_pedido'
-				, 'titulo');
+				, 'titulo'
+				,''
+				,['licitacion_datos_entregados.id_datos_pedidos'=>'licitacion_datos_pedidos.id']);
 		
-		// $crud->where("id_licitacion = $licitacion_id");
-		
-		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
+		$crud->where("id_empresa = $empresa_id");
+		*/
 
+		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
 		
 		$crud->unset_read();
 		$crud->unset_add();
 		// $crud->unset_edit();
 		$crud->unset_delete();
 		
-		// $crud->change_field_type('uid','invisible');
+		//$crud->change_field_type('id_licitacion_dato_pedido', 'invisible');
+		// $crud->field_type('id_licitacion_dato_pedido', 'hidden');
+		// $crud->unset_columns('id_licitacion_dato_pedido');
 		// $crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
 		// $crud->columns('nombre', 'gobierno_id', 'observador_id');
-		// $crud->display_as('id_dato_pedido','Dato pedido');
+		// $crud->display_as('id_empresa','Empresa');
 		
 		$crud_table = $crud->render();
 		$data = ['results'=>$res->results];

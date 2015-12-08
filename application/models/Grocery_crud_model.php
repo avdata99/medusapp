@@ -34,7 +34,7 @@ class grocery_CRUD_Model  extends CI_Model  {
     protected $relation = array();
     protected $relation_n_n = array();
     protected $primary_keys = array();
-
+    
     function __construct()
     {
         parent::__construct();
@@ -81,7 +81,7 @@ class grocery_CRUD_Model  extends CI_Model  {
         {
             $select = $this->relation_n_n_queries($select);
         }
-
+        
         $this->db->select($select, false);
 
         $results = $this->db->get($this->table_name)->result();
@@ -182,7 +182,7 @@ class grocery_CRUD_Model  extends CI_Model  {
         {
             $select = "{$this->table_name}.*";
             $select = $this->relation_n_n_queries($select);
-
+            
             $this->db->select($select,false);
         }
 

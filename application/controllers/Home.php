@@ -146,22 +146,33 @@ class Home extends CI_Controller {
 
 	/* empresa cargando los datos de la licitacion
 	Si no se pasa la empresa supongo una sola */
-	public function procesar_licitacion($licitacion_id, $empresa_id){
+	public function procesar_licitacion($postulacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
 			{$this->redirecToUnauthorized();}
 		
+		// buscar que postulacion es esta si es que existe
+		$this->load->model('postulaciones_model');
+		$postulacion = $this->postulaciones_model->load($postulacion_id);
+		
+		if (!$postulacion) {
+			$this->show_error('Error al procesar licitacion', 'No existe la postulación');
+			return False;
+		}
+		
+		$licitacion_id = $postulacion->id_licitacion;
+		$empresa_id = $postulacion->id_empresa;
+
+		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
+		if (!$res->status){
+			$this->show_error('Error al procesar licitacion', $res->error);
+			return False;
+		}
+
 		// ver que la empresa haya postulado y haya sido aceptado
 		$empresas = $this->user_model->empresas();
 		if (!in_array($empresa_id, $empresas)) {
 			$this->show_error('Error al procesar licitacion', 'Tu usuario no tiene permisos para la empresa');
-			return False;
-		}
-
-		$this->load->model('postulaciones_model');
-		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
-		if (!$res->status){
-			$this->show_error('Error al procesar licitacion', 'No puedes acceder a esta licitacion');
 			return False;
 		}
 
@@ -384,6 +395,12 @@ class Home extends CI_Controller {
 		$crud->display_as('id_licitacion','Licitacion');
 		$crud->display_as('id_empresa','Empresa');
 		
+		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
+			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
+			$class = ''; # 'ui-icon-plus';
+			$crud->add_action('Procesar postulación', $img, '/home/procesar_licitacion', $class);
+		}
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

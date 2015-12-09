@@ -16,6 +16,8 @@ Medusapp entiende como posible usuarios del sistema a:
  - **Empresas** participantes de licitaciones o concursos de precios
  - **Ciudadanos** u organizaciones con intenciones de colaborar o conocer estos procesos públicos
 
+.. image:: static/medusapp-home.png
+
 Indice:  
 
 .. toctree::
@@ -26,3 +28,4 @@ Indice:
    medusapp-en-municipios/index
    medusapp-para-empresas/index
    medusapp-admin/index
+   proyecto-medusapp/index

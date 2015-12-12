@@ -211,4 +211,55 @@ class User_model extends CI_Model
         if ($class == 'OBSS'){return $sess['obss'];}
 
     }
+
+    /*
+    Analizar que perfiles tiene disponible un usuario al entrar a una licitacion
+    Es posible que sea como una (o más) empresas, gobierno u observador
+    */
+    public function detect_licitacion_profiles($licitacion_id){
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+
+        $this->load->model('licitaciones_model');
+        $licitacion = $this->licitaciones_model->load_by_id($licitacion_id);
+        if (!$licitacion) return FALSE;
+
+        $ret = [];
+        // ver si es el gobierno
+        if (in_array($licitacion->gobierno_id, $sess['govs'])) {
+            $ret['gobiernos'] = [$licitacion->gobierno_id]; }
+        else { $ret['gobiernos'] = []; }
+
+        // ver observador
+        if (in_array($licitacion->observador_id, $sess['obss'])) {
+            $ret['observadores'] = [$licitacion->observador_id]; }
+        else { $ret['observadores'] = []; }
+
+        // ver empresas
+        $ret['empresas'] = [];
+        $postulaciones = $this->licitaciones_model->get_postulaciones($licitacion_id);
+
+        foreach ($postulaciones as $postulacion) {
+            if (in_array($postulacion->id_empresa, $sess['empresas'])) {
+                $ret['empresas'][] = $postulacion->id_empresa;
+            }
+        }
+
+        // identificar si hay un único perfil
+
+        if ($ret['gobiernos'] == [] && $ret['observadores'] == [] && count($ret['empresas'] == 1)) {
+            $ret['profile'] = ['perfil'=>'empresa', 'id'=>$ret['empresas'][0]];
+        }
+        else if ($ret['gobiernos'] == [] && count($ret['observadores']) == 1 && $ret['empresas'] == []) {
+            $ret['profile'] = ['perfil'=>'observador', 'id'=>$ret['observadores'][0]];
+        }
+        else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {
+            $ret['profile'] = ['perfil'=>'gobierno', 'id'=>$ret['gobiernos'][0]];
+        }
+        else {
+            $ret['profile'] = FALSE;    
+        }
+
+        return $ret;
+    }
 }

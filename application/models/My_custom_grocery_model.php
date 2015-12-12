@@ -3,7 +3,7 @@
 Custom grocery para las consultas completas de obtencion de status y lista de documentos
 entregados para la licitacion
 */
-class My_custom_grocery_entregados_model extends grocery_CRUD_Model  {
+class My_custom_grocery_model extends grocery_CRUD_Model  {
 
     protected $manual_select = null;
 

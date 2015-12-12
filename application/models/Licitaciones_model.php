@@ -34,12 +34,48 @@ class Licitaciones_model extends CI_Model {
 
     }
 
+    /* usar los ids numericos y continuos no es conveniente, por eso se usa el UID */
     function load($uid){
-        $query = $this->db->query("SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
+        $q = "SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
                 li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 
                 FROM licitacion li join gobierno g on li.gobierno_id=g.id
-                where li.uid='$uid'");
+                where li.uid='$uid'";
 
+        $query = $this->db->query($q);
+
+        if (!$query) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $txt = "Error sql ($q) [" .$error['code']. "-" .$error['message'] ."]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 5);
+            return false;}
         return $query->row();        
+    }
+
+    function load_by_id($licitacion_id){
+        $q = "SELECT g.nombre gobierno, li.uid, li.id, li.nombre titulo, 
+                li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin
+                , li.gobierno_id, li.observador_id 
+                FROM licitacion li 
+                join gobierno g on li.gobierno_id=g.id
+                where li.id=$licitacion_id";
+
+        $query = $this->db->query($q);
+
+        if (!$query) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $txt = "Error sql ($q) [" .$error['code']. "-" .$error['message'] ."]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 5);
+            return false;}
+        
+        return $query->row();        
+    }
+
+    /* obtener las postulaciones (def, solo aceptadas)*/
+    function get_postulaciones($licitacion_id, $status=3){
+        $this->load->model('postulaciones_model');
+        $postulaciones = $this->postulaciones_model->search($licitacion_id);
+        return $postulaciones;
     }
 }

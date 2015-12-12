@@ -99,12 +99,19 @@ class Postulaciones_model extends CI_Model {
             join empresa e on lp.id_empresa = e.id 
             join licitacion_postulacion_status lps on lp.status = lps.id 
             join gobierno g on l.gobierno_id=g.id
-            where status=$status";
+            where lp.status=$status";
 
         if ($licitacion_id > 0)  $q .= " AND lp.id_licitacion=$licitacion_id ";
         if ($empresa_id > 0)  $q .= " AND lp.id_empresa=$empresa_id ";
 
         $query = $this->db->query($q);
+
+        if (!$query) {
+            $error = $this->db->error(); // Has keys 'code' and 'message'
+            $txt = "Error sql ($q) [" .$error['code']. "-" .$error['message'] ."]";
+            $seccion = __CLASS__.".".__FUNCTION__;
+            $this->errors_model->add($txt, $seccion, 5);
+            return false;}
 
         return $query->result();        
     }

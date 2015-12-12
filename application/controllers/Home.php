@@ -63,7 +63,6 @@ class Home extends CI_Controller {
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		$this->parts['active'] = 'inicio';
 		$this->parts['title_table'] = 'Pactos de transparencia';
-		$logo_junar = $this->config->item('base_url')."static/img/logo-junar-cuad.jpg";
 		$logo_icda = $this->config->item('base_url')."static/img/Logo_ICDA_b.jpg";
 		$logo_harvard = $this->config->item('base_url')."static/img/logo-hardvard-2.jpg";
 		$style = "style='max-height:150px; padding:10px;'";
@@ -71,7 +70,6 @@ class Home extends CI_Controller {
 		$this->parts['subtitle'] = 'Home';
 		$this->parts['table'] = "Sistema de Transparencia en Compras Públicas basado en Acuerdos Prácticos<br/>";
 		$this->parts['table'] .= "<img src='$logo_icda' $style/><img src='$logo_harvard' $style/>";
-		# $this->parts['table'] += "<img src='$logo_junar' $style/>";
 		$this->load_all();
 	}
 
@@ -190,7 +188,7 @@ class Home extends CI_Controller {
 		$crud = new grocery_CRUD();
 		$crud->set_theme('bootstrap');
 
-		$crud->set_model('my_custom_grocery_entregados_model');
+		$crud->set_model('my_custom_grocery_model');
 		$crud->set_table('licitacion_datos_entregados');
 		
 		/* BEST QUERY */
@@ -231,6 +229,7 @@ class Home extends CI_Controller {
 		$this->load_all();
 
 	}
+
 	public function define_upload_company_document($primary_key, $row){
 		$upload = '/home/upload_company_document/';
 		return $upload . $primary_key . '/'. $this->tmp['empresa_id'];
@@ -571,6 +570,76 @@ class Home extends CI_Controller {
 
 	function set_password_input_to_empty() {
 	    return "<input type='password' name='password' value='' />";
+	}
+
+	/* mostrar la sala de negociaciones de una licitacion */
+	public function sala($licitacion_id){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
+			{$this->redirecToUnauthorized();}
+		
+		// identificar a nombre de quien entra (empresa, gobierno, observador)
+		$profiles = $this->user_model->detect_licitacion_profiles($licitacion_id);
+		if (!$profiles['profile']){
+			$descr = 'No tienes perfil para esta sala';
+			if (ENVIRONMENT == 'development') $descr .= ' :: ' . print_r($profiles, TRUE);
+			$this->show_error('Acceso incorrecto', $descr);
+			return False;
+		}
+
+		//cargar la licitacion
+		$this->load->model('licitaciones_model');
+		$licitacion = $this->licitaciones_model->load_by_id($licitacion_id);
+		if (! $licitacion){
+			$this->show_error('Licitacion inválida', '');
+			return False;
+		}
+
+		$perfil = $profiles['profile']; // empresas | gobierno | observador
+
+		$this->parts['debug'] = print_r($profiles, TRUE);
+		$this->parts['title'] = 'Sala de negociaciones';
+		$this->parts['subtitle'] = 'Sala de negociaciones';
+		$this->parts['title_table'] = 'Sala de negociaciones: ' . $licitacion->titulo;
+		$this->parts['active'] = 'licitaciones';
+
+		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+
+		$crud->set_model('my_custom_grocery_model');
+		$crud->set_table('licitacion_datos_entregados');
+		
+		/* BEST QUERY */
+		$q = "SELECT lde.id, e.nombre empresa, dp.titulo documento, 
+			 ldes.estado, lde.url, lde.observaciones 
+			 FROM licitacion_datos_entregados lde
+			 join empresa e ON lde.id_empresa=e.id 
+			 join licitacion_datos_pedidos ldp ON lde.id_licitacion_dato_pedido=ldp.id 
+			 join datos_publicar dp ON ldp.id_dato_pedido=dp.id
+			 join licitacion_datos_entregados_status ldes ON lde.status=ldes.id
+			 where ldp.id_licitacion=$licitacion_id
+			 order by e.nombre, dp.titulo";
+		
+		$crud->basic_model->set_manual_select($q);
+		$crud->columns('empresa', 'documento', 'estado', 'url', 'observaciones');
+		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
+		$crud->unset_read();
+		$crud->unset_add();
+		$crud->unset_edit();
+		$crud->unset_delete();
+		
+		//#TODO despues de editar pasar el estado a otro
+		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
+
+		$crud_table = $crud->render();
+		$data = ['perfil'=>$perfil, 'licitacion'=>$licitacion]; // datos para pasar a la vista
+		$this->parts['table_pre'] = $this->load->view('sala', $data, TRUE);
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		$this->load_all();
+
 	}
 }
 

@@ -6,7 +6,7 @@ A continuación la lista dedocumentos entregados por las empresas participantes
 
 <h2>Conversaciones abiertas</h2>
 
-<? foreach ($chats as $chat) {	?>
+<? foreach ($chats as $sala_id => $chat) {	?>
 
 <div class="col-lg-5">
 <div class="chat-panel panel panel-default">
@@ -43,10 +43,13 @@ A continuación la lista dedocumentos entregados por las empresas participantes
     <!-- /.panel-body -->
     <div class="panel-footer">
         <div class="input-group">
-            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+            <input id="input_mensaje_<?=$sala_id?>" type="text" 
+            	class="form-control input-sm" 
+            	placeholder="Escribe tu mensaje aquí...">
+
             <span class="input-group-btn">
-                <button class="btn btn-warning btn-sm" id="btn-chat">
-                    Send
+                <button class="btn btn-warning btn-sm btn_enviar_chat" data-sala='<?=$sala_id?>'>
+                    Enviar
                 </button>
             </span>
         </div>

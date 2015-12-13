@@ -26,6 +26,10 @@
         
     <?= $js_loads ?>
 
+<? if (isset($local_js)) { 
+    echo $local_js ;
+    } ?>
+
 </body>
 
 </html>

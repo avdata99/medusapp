@@ -28,6 +28,14 @@ class Home extends CI_Controller {
 		$this->parts['notifications_bar'] = $this->load->view('notifications_bar.php', $this->parts, TRUE);
 		$this->parts['navbar'] = $this->load->view('navbar.php', $this->parts, TRUE);
 		$this->parts['js_loads'] = $this->load->view('js_loads.php', $this->parts, TRUE);
+		// sumar JSs locales
+		if (isset($this->parts['local_jss'])) {
+			$this->parts['local_js'] = '';
+			foreach ($this->parts['local_jss'] as $local_js) {
+				$this->parts['local_js'] .= '<script src="' . $this->config->item('base_url').'static/js/'.$local_js.'"></script>';
+			}
+		
+		}
 		$this->load->view('home.php', $this->parts);
 	}
 
@@ -643,6 +651,7 @@ class Home extends CI_Controller {
 				'lista_documentos'=>$crud_table->output,
 				'chats'=>$this->salas_model->get_chats($licitacion_id)]; // datos para pasar a la vista
 
+		$this->parts['local_jss'] = ['medusapp/sala.js'];
 		$this->parts['debug'] .= '<br/>CHATS: ' . print_r($data['chats'], TRUE);
 		$this->parts['table'] = $this->load->view('sala', $data, TRUE);
 		$this->parts['css_files'] = $crud_table->css_files;

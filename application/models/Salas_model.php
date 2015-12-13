@@ -18,15 +18,20 @@ class Salas_model extends CI_Model {
 		$id = $this->db->insert_id();
 
 		// meterle un hola
-		// crear la primera sala
+		$this->add_chat($id, 1, 'Bienvenido a la sala de negociaciones', 'sistema', 'MedusApp');
+
+        return TRUE;
+	}
+
+	// enviar un mensaje a una sala de chat
+	public function add_chat($licitacion_salas_id, $user_id, $mensaje, $perfil_tipo, $perfil_nombre){
 		$q = "INSERT INTO licitacion_sala_chat 
 				(licitacion_salas_id, user_id, mensaje, perfil_tipo, perfil_nombre, momento) 
 				VALUES 
-				($id, 1, 'Bienvenido a la sala de negociaciones, ya puede enviar su mensaje', 
-				'sistema', 'MedusApp', '".date('Y-m-d H:i:s')."');";
+				($licitacion_salas_id, $user_id, '$mensaje', 
+				'$perfil_tipo', '$perfil_nombre', '".date('Y-m-d H:i:s')."');";
 		$query = $this->db->query($q);
 		
-        return TRUE;
 	}
 
 	/* obtener los chats y mensajes en cada una */

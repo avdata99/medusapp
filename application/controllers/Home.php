@@ -633,9 +633,18 @@ class Home extends CI_Controller {
 		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
 
 		$crud_table = $crud->render();
-		$data = ['perfil'=>$perfil, 'licitacion'=>$licitacion]; // datos para pasar a la vista
-		$this->parts['table_pre'] = $this->load->view('sala', $data, TRUE);
-		$this->parts['table'] = $crud_table->output;
+		
+		// buscar las salas de chat
+		$this->load->model('salas_model');
+		//asegurarse que tenga al menos la sala inicial creada
+		$this->salas_model->check_starting_chats($licitacion_id);
+		
+		$data = ['perfil'=>$perfil, 'licitacion'=>$licitacion, 
+				'lista_documentos'=>$crud_table->output,
+				'chats'=>$this->salas_model->get_chats($licitacion_id)]; // datos para pasar a la vista
+
+		$this->parts['debug'] .= '<br/>CHATS: ' . print_r($data['chats'], TRUE);
+		$this->parts['table'] = $this->load->view('sala', $data, TRUE);
 		$this->parts['css_files'] = $crud_table->css_files;
 		$this->parts['js_files'] = $crud_table->js_files;
 		$this->load_all();

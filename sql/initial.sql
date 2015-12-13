@@ -588,6 +588,34 @@ INSERT INTO `usuario_rol` (`id`, `id_usuario`, `id_rol`) VALUES
 (4, 4, 4),
 (5, 5, 4);
 
+
+--
+-- Estructura de tabla para la tabla `licitacion_salas`
+--
+
+CREATE TABLE IF NOT EXISTS `licitacion_salas` (
+  `id` int(11) NOT NULL,
+  `licitacion_id` int(11) NOT NULL,
+  `nombre` varchar(60) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `licitacion_sala_chat`
+--
+
+CREATE TABLE IF NOT EXISTS `licitacion_sala_chat` (
+  `id` int(11) NOT NULL,
+  `licitacion_salas_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `mensaje` text NOT NULL,
+  `perfil_tipo` varchar(30) NOT NULL,
+  `perfil_nombre` int(190) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 --
 -- Índices para tablas volcadas
 --
@@ -919,6 +947,49 @@ ADD CONSTRAINT `observador_ibfk_1` FOREIGN KEY (`status`) REFERENCES `observador
 ALTER TABLE `permiso_rol`
 ADD CONSTRAINT `permiso_rol_ibfk_2` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `permiso_rol_ibfk_1` FOREIGN KEY (`id_permiso`) REFERENCES `permiso` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Indices de la tabla `licitacion_salas`
+--
+ALTER TABLE `licitacion_salas`
+  ADD PRIMARY KEY (`id`), ADD KEY `licitacion_id` (`licitacion_id`);
+
+--
+-- Indices de la tabla `licitacion_sala_chat`
+--
+ALTER TABLE `licitacion_sala_chat`
+  ADD PRIMARY KEY (`id`), ADD KEY `licitacion_salas_id` (`licitacion_salas_id`), ADD KEY `user_id` (`user_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `licitacion_salas`
+--
+ALTER TABLE `licitacion_salas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `licitacion_sala_chat`
+--
+ALTER TABLE `licitacion_sala_chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `licitacion_salas`
+--
+ALTER TABLE `licitacion_salas`
+ADD CONSTRAINT `licitacion_salas_ibfk_1` FOREIGN KEY (`licitacion_id`) REFERENCES `licitacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `licitacion_sala_chat`
+--
+ALTER TABLE `licitacion_sala_chat`
+ADD CONSTRAINT `licitacion_sala_chat_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`),
+ADD CONSTRAINT `licitacion_sala_chat_ibfk_1` FOREIGN KEY (`licitacion_salas_id`) REFERENCES `licitacion_salas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

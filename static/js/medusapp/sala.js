@@ -11,7 +11,8 @@
 
 	enviar_chat = function(txt, sala_id){
 		var url = '/api/salas/mensaje';
-		var data = {'mensaje': txt, 'sala_id': sala_id};
+		var CSRF = $('#CSRF').html();
+		var data = {'mensaje': txt, 'sala_id': sala_id, 'CSRF': CSRF};
 		var xhr = $.ajax({
 					  type: "POST",
 					  url: url,
@@ -22,5 +23,5 @@
 			console.log('data DONE');
 			console.log(data);
 		});
-		
+
 	};

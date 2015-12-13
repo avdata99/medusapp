@@ -23,7 +23,9 @@
         <!-- /#page-wrapper -->
 
     </div>
-        
+
+    <span style='display:none' id='CSRF'><?=$GUID?></span>
+    
     <?= $js_loads ?>
 
 <? if (isset($local_js)) { 

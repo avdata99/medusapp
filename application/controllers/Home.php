@@ -36,6 +36,7 @@ class Home extends CI_Controller {
 			}
 		
 		}
+		$this->parts['GUID'] = $this->user_model->CSRF();
 		$this->load->view('home.php', $this->parts);
 	}
 

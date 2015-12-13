@@ -32,6 +32,7 @@ class Salas_model extends CI_Model {
 				'$perfil_tipo', '$perfil_nombre', '".date('Y-m-d H:i:s')."');";
 		$query = $this->db->query($q);
 		
+		return $this->db->insert_id(); 
 	}
 
 	/* obtener los chats y mensajes en cada una */

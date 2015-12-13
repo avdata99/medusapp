@@ -10,5 +10,17 @@
 	});
 
 	enviar_chat = function(txt, sala_id){
-		alert(txt + ' -- ' + sala_id);
+		var url = '/api/salas/mensaje';
+		var data = {'mensaje': txt, 'sala_id': sala_id};
+		var xhr = $.ajax({
+					  type: "POST",
+					  url: url,
+					  data: data,
+					  dataType: 'json'
+					});
+		xhr.done(function(data){
+			console.log('data DONE');
+			console.log(data);
+		});
+		
 	};

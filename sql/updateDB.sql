@@ -34,3 +34,5 @@ ADD CONSTRAINT `licitacion_sala_chat_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES 
 ADD CONSTRAINT `licitacion_sala_chat_ibfk_1` FOREIGN KEY (`licitacion_salas_id`) REFERENCES `licitacion_salas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `licitacion_sala_chat` ADD `momento` DATETIME NOT NULL ;
+
+ALTER TABLE `licitacion_sala_chat` CHANGE `perfil_nombre` `perfil_nombre` VARCHAR(190) NOT NULL;

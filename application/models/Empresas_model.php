@@ -1,6 +1,13 @@
 <?php
 
 class Empresas_model extends CI_Model {
+    
+    public function load($id){
+        $q = "Select * from empresa where id=$id";
+        $query = $this->db->query($q);
+        if ($query->num_rows() == 0) return FALSE;
+        return $query->row();
+    }
 
     public function add($fields){
     	//validate

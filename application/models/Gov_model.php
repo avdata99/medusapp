@@ -2,6 +2,14 @@
 
 class Gov_model extends CI_Model
     {
+
+    public function load($id){
+        $q = "Select * from gobierno where id=$id";
+        $query = $this->db->query($q);
+        if ($query->num_rows() == 0) return FALSE;
+        return $query->row();
+    }
+    
     function list(){
     	$crud = new grocery_CRUD();
 		$crud->set_table('gobierno');

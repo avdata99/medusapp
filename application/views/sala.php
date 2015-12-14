@@ -16,7 +16,7 @@ A continuación la lista dedocumentos entregados por las empresas participantes
     </div>
     <!-- /.panel-heading -->
     <div class="panel-body">
-        <ul class="chat">
+        <ul class="chat" id="lista_mensajes_<?=$sala_id?>">
 
 	<? foreach ($chat->chats as $msg) {	?>
 	<li class="left clearfix">
@@ -48,7 +48,10 @@ A continuación la lista dedocumentos entregados por las empresas participantes
             	placeholder="Escribe tu mensaje aquí...">
 
             <span class="input-group-btn">
-                <button class="btn btn-warning btn-sm btn_enviar_chat" data-sala='<?=$sala_id?>'>
+                <button class="btn btn-warning btn-sm btn_enviar_chat" 
+                    data-sala='<?=$sala_id?>'
+                    data-perfiltipo='<?=$perfil_tipo?>'
+                    data-perfilnombre='<?=$perfil_nombre?>'>
                     Enviar
                 </button>
             </span>
@@ -58,3 +61,20 @@ A continuación la lista dedocumentos entregados por las empresas participantes
 </div>
 </div>
 <? } ?>
+
+
+<!-- elemento dela lista generico -->
+<li class="left clearfix" id='generic_chat_message_element' style='display_none'>
+    <span class="chat-img pull-left">
+        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle">
+    </span>
+    <div class="chat-body clearfix">
+        <div class="header">
+            <strong class="primary-font" id='user_txt'></strong>
+            <small class="pull-right text-muted" id='time_txt'>
+                <i class="fa fa-clock-o fa-fw"></i> 
+            </small>
+        </div>
+        <p id='msg_txt'></p>
+    </div>
+</li>

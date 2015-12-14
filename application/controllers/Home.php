@@ -604,7 +604,8 @@ class Home extends CI_Controller {
 			return False;
 		}
 
-		$perfil = $profiles['profile']; // empresas | gobierno | observador
+		$perfil_tipo = $profiles['profile']['perfil']; // empresas | gobierno | observador
+		$perfil_nombre = $profiles['profile']['nombre'];
 
 		$this->parts['debug'] = print_r($profiles, TRUE);
 		$this->parts['title'] = 'Sala de negociaciones';
@@ -648,7 +649,8 @@ class Home extends CI_Controller {
 		//asegurarse que tenga al menos la sala inicial creada
 		$this->salas_model->check_starting_chats($licitacion_id);
 		
-		$data = ['perfil'=>$perfil, 'licitacion'=>$licitacion, 
+		$data = ['perfil_tipo'=>$perfil_tipo, 'perfil_nombre'=>$perfil_nombre, 
+				'licitacion'=>$licitacion, 
 				'lista_documentos'=>$crud_table->output,
 				'chats'=>$this->salas_model->get_chats($licitacion_id)]; // datos para pasar a la vista
 

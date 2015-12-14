@@ -249,12 +249,21 @@ class User_model extends CI_Model
 
         if ($ret['gobiernos'] == [] && $ret['observadores'] == [] && count($ret['empresas'] == 1)) {
             $ret['profile'] = ['perfil'=>'empresa', 'id'=>$ret['empresas'][0]];
+            $this->load->model('empresas_model');
+            $empresa = $this->empresas_model->load($ret['empresas'][0]);
+            $ret['profile']['nombre'] = $empresa->nombre;
         }
         else if ($ret['gobiernos'] == [] && count($ret['observadores']) == 1 && $ret['empresas'] == []) {
             $ret['profile'] = ['perfil'=>'observador', 'id'=>$ret['observadores'][0]];
+            $this->load->model('gov_model');
+            $gov = $this->gov_model->load($ret['gobiernos'][0]);
+            $ret['profile']['nombre'] = $gov->nombre;
         }
         else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {
             $ret['profile'] = ['perfil'=>'gobierno', 'id'=>$ret['gobiernos'][0]];
+            $this->load->model('observadores_model');
+            $observador = $this->observadores_model->load($ret['observadores'][0]);
+            $ret['profile']['nombre'] = $observador->nombre;
         }
         else {
             $ret['profile'] = FALSE;    
@@ -275,4 +284,13 @@ class User_model extends CI_Model
 
         return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
     }
+
+    /* validar si este usuario tiene el tipo y nombre del perfil validos 
+    se usa para validar que las llamadas de chats no hayan sido modificadas */
+    public function check_profile($licitacion_id, $perfil_tipo, $perfil_nombre){
+        $profiles = $this->detect_licitacion_profiles($licitacion_id);
+        if ($profiles['profile']['perfil'] != $perfil_tipo) return FALSE;
+        if ($profiles['profile']['nombre'] != $perfil_nombre) return FALSE;
+        return TRUE;
+    } 
 }

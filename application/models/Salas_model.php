@@ -3,6 +3,13 @@
 /* salas de negociacion de las licitaciones */
 class Salas_model extends CI_Model {
 
+	public function load_sala($id){
+        $q = "Select * from licitacion_salas where id=$id";
+        $query = $this->db->query($q);
+        if ($query->num_rows() == 0) return FALSE;
+        return $query->row();
+    }
+
 	/*crear al menos una sala de chat para una licitaion*/
 	public function check_starting_chats($licitacion_id){
 		$q = "SELECT * FROM licitacion_salas where licitacion_id=$licitacion_id";

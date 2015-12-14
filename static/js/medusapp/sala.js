@@ -4,15 +4,21 @@
 	  $('.btn_enviar_chat').on('click', function(){
 	  	var sala_id = $(this).data('sala');
 	  	var mensaje = $('#input_mensaje_' + sala_id).val();
-	  	enviar_chat(mensaje, sala_id);
+	  	var perfil_tipo = $(this).data('perfiltipo');
+	  	var perfil_nombre = $(this).data('perfilnombre');
+	  	enviar_chat(mensaje, sala_id, perfil_tipo, perfil_nombre);
 	  })
 
 	});
 
-	enviar_chat = function(txt, sala_id){
+	enviar_chat = function(txt, sala_id, perfil_tipo, perfil_nombre){
 		var url = '/api/salas/mensaje';
 		var CSRF = $('#CSRF').html();
-		var data = {'mensaje': txt, 'sala_id': sala_id, 'CSRF': CSRF};
+		var data = {'mensaje': txt, 'sala_id': sala_id, 
+			'CSRF': CSRF, 
+			'perfil_tipo': perfil_tipo,
+			'perfil_nombre': perfil_nombre
+			};
 		var xhr = $.ajax({
 					  type: "POST",
 					  url: url,
@@ -20,8 +26,14 @@
 					  dataType: 'json'
 					});
 		xhr.done(function(data){
-			console.log('data DONE');
-			console.log(data);
+			//si fue OK mostrar el nuevo CHAT
+			var $li = $("#generic_chat_message_element").clone();
+			// $("#user_txt", $li).html(perfil_tipo);
+			$("#msg_txt", $li).html(txt);
+
+			$("#lista_mensajes_" + sala_id).append($li);
+
+			$("#input_mensaje_" + sala_id).val('');
 		});
 
 	};

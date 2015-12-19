@@ -18,3 +18,6 @@ Este nuevo usuario del sistema ya puede entonces acceder al sistema con las cred
    :maxdepth: 1  
 
    alta-licitacion
+   alta-empresa
+   postulacion
+   

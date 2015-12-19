@@ -16,3 +16,6 @@ Aqui deben cargarse:
  - **Datos a solicitarse**: La plataforma MedusApp especifica previamente los documentos que los gobiernos pueden solicitar en cada licitación. Esta lista esta predefinida y puede ampliarse a pedido de los gobiernos. La empresas aceptadas a participar de la compulsa podrán completar cada una de estas solicitudes con un documento adjunto. Es importante definir con el observador. 
 
 Luego de cargada la licitación esta será visible desde el `sitio web de MedusApp <http://medusapp.org/#licitaciones>`_.
+
+.. image :: /static/medusapp-licitacion-publica.png
+

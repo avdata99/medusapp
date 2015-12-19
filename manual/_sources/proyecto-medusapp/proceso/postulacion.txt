@@ -1,4 +1,4 @@
-Postulacion a participar
+Postulacion de la empresa
 ========================
 
 .. image :: /static/medusapp-postulacion.png

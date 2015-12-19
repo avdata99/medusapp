@@ -21,7 +21,7 @@ Medusapp entiende como posible usuarios del sistema a:
 Indice:  
 
 .. toctree::
-   :maxdepth: 1  
+   :maxdepth: 3  
 
    quienes-somos
    como-colaborar

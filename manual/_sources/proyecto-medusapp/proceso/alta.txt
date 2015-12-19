@@ -1,0 +1,7 @@
+Alta de nueva licitacion
+========================
+
+El usuario autorizado por el gobierno puede entonces ingresar y dar de alta una licitación o compulsa de precios.
+
+
+.. image :: /static/medusapp-alta.png

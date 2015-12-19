@@ -270,14 +270,8 @@ class Home extends CI_Controller {
 		$crud->set_relation('gobierno_id', 'gobierno', 'nombre', $wh, 'gobierno.nombre'); 
 
 		# no mostrar el observador designbado o permitir cargarlo a los no administradores
-		if (!$this->user_model->can('CHANGE_OBSS_LICITACION')) { # no a real role, just for FULL-ADMIN 
-			$crud->field_type('observador_id', 'hidden');
-			$crud->unset_columns('observador_id');
-			}
-		else {
-			$crud->set_relation('observador_id','observador','nombre');
-			}
-
+		$crud->set_relation('observador_id','observador','nombre');
+		
 		$crud->set_relation_n_n('datos', 'licitacion_datos_pedidos', 'datos_publicar', 
 			'id_licitacion', 'id_dato_pedido', 'titulo' );
 		$crud->set_field_upload('documento',$this->config->item('upload_documents'));

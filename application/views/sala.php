@@ -63,8 +63,10 @@ A continuación la lista dedocumentos entregados por las empresas participantes
 <? } ?>
 
 
-<!-- elemento dela lista generico -->
-<li class="left clearfix" id='generic_chat_message_element' style='display_none'>
+<!-- elemento dela lista generico. template -->
+<div style='display:none'>
+<ul>
+<li class="left clearfix" id='generic_chat_message_element'>
     <span class="chat-img pull-left">
         <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle">
     </span>
@@ -78,3 +80,5 @@ A continuación la lista dedocumentos entregados por las empresas participantes
         <p id='msg_txt'></p>
     </div>
 </li>
+</ul>
+</div>

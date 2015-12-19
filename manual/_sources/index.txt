@@ -21,11 +21,12 @@ Medusapp entiende como posible usuarios del sistema a:
 Indice:  
 
 .. toctree::
-   :maxdepth: 2  
+   :maxdepth: 1  
 
    quienes-somos
    como-colaborar
    medusapp-en-municipios/index
    medusapp-para-empresas/index
    medusapp-admin/index
+   observadores-externos/index
    proyecto-medusapp/index

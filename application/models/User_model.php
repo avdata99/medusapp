@@ -167,14 +167,20 @@ class User_model extends CI_Model
         if (!$sess || !isset($sess['user_id'])) return FALSE; # lost session
         return $sess;
     }
-    /**
-    ver a que empresas representa
-    */
+    /* ver a que empresas representa */
     public function empresas(){
         $sess = $this->get_sess();
         if (!$sess) return FALSE;
         
         return $sess['empresas'];
+    }
+
+    /* ver a que empresas representa */
+    public function gobiernos(){
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        
+        return $sess['govs'];
     }
 
     /**

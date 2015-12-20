@@ -83,9 +83,9 @@ class grocery_CRUD_Model  extends CI_Model  {
         }
         
         $this->db->select($select, false);
-
+        
         $results = $this->db->get($this->table_name)->result();
-
+        
         return $results;
     }
 

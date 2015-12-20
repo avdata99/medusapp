@@ -166,22 +166,28 @@ class Home extends CI_Controller {
 			$this->show_error('Error al procesar licitacion', 'No existe la postulación');
 			return False;
 		}
-		
-		$licitacion_id = $postulacion->id_licitacion;
-		$empresa_id = $postulacion->id_empresa;
 
-		$res = $this->postulaciones_model->validate($licitacion_id, $empresa_id);
-		if (!$res->status){
-			$this->show_error('Error al procesar licitacion', $res->error);
+		if ($postulacion->status != 3 ) {
+			$this->show_error('Error en la postulacion', 'No ha sido aceptada aún');
 			return False;
 		}
-
+		
+		$empresa_id = $postulacion->id_empresa;
 		// ver que la empresa haya postulado y haya sido aceptado
 		$empresas = $this->user_model->empresas();
 		if (!in_array($empresa_id, $empresas)) {
 			$this->show_error('Error al procesar licitacion', 'Tu usuario no tiene permisos para la empresa');
 			return False;
 		}
+
+		$licitacion_id = $postulacion->id_licitacion;
+		/* parece que es redundate validar esto, revisarlo mas despierto otro dia
+		$res = $this->postulaciones_model->validate_empresa($licitacion_id, $empresa_id);
+		if (!$res->status){
+			$this->show_error('Error al procesar licitacion', $res->error);
+			return False;
+		}
+		*/
 
 		//revisar que todos los pedidos tengan al menos un registro de entregado
 		//vacio en espera de carga
@@ -372,12 +378,36 @@ class Home extends CI_Controller {
 		
 		$crud = new grocery_CRUD();
 		$crud->set_theme('bootstrap');
+		$crud->set_model('my_custom_grocery_model');
 		$crud->set_table('licitacion_postulaciones');
 		#TODO municipio_id is just for add time, not edit
-		$crud->set_relation('id_licitacion', 'licitacion', 'nombre');
-		$crud->set_relation('id_empresa','empresa','nombre');
-		$crud->set_relation('status', 'licitacion_postulacion_status', 'estado');
-		//agregar o editar postulaciones desde la lista es cuestion de administradores
+		
+		$q = "SELECT lp.*, licitacion.nombre AS licitacion, empresa.nombre AS empresa, lpe.estado AS estado
+				FROM licitacion_postulaciones lp
+				LEFT JOIN licitacion ON licitacion.id = lp.id_licitacion
+				LEFT JOIN empresa ON empresa.id = lp.id_empresa
+				LEFT JOIN licitacion_postulacion_status as lpe ON lpe.id = lp.status";
+
+		$wheres = [];
+		$where_in = $this->user_model->getWhereIn('GOVS'); 
+		if ($where_in){
+			$wheres[] = "licitacion.gobierno_id in ($where_in)"; #TODO check this
+		}
+
+		$where_in = $this->user_model->getWhereIn('EMPS'); 
+		if ($where_in){
+			$wheres[] = "id_empresa in ($where_in)"; #TODO check this
+		}
+
+		if (count($wheres) > 0) {
+			$q .= ' WHERE ';
+			$q .= implode($glue=" AND ",$pieces=$wheres);
+		}
+
+		$crud->columns('licitacion', 'empresa', 'estado');
+		$crud->edit_fields('estado');
+		$crud->basic_model->set_manual_select($q);
+
 		if (!$this->user_model->hasRole('FULL_ADMIN')) {
 			$crud->unset_add();	
 			$crud->unset_edit();
@@ -385,18 +415,15 @@ class Home extends CI_Controller {
 		// if (!$this->user_model->can('ADD_POSTULACIONES')) $crud->unset_add();
 		// if (!$this->user_model->can('EDIT_POSTULACIONES')) $crud->unset_edit();
 		$crud->unset_delete();
+		$crud->unset_read();	
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
-		$where_in = $this->user_model->getWhereIn('GOVS'); 
-		if ($where_in){
-			$crud->where("licitacion.gobierno_id in ($where_in)"); #TODO check this
-		}
-		$where_in = $this->user_model->getWhereIn('EMPS'); 
-		if ($where_in){
-			$crud->where("id_empresa in ($where_in)"); #TODO check this
-		}
-		$crud->display_as('id_licitacion','Licitacion');
-		$crud->display_as('id_empresa','Empresa');
 		
+		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
+			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
+			$class = ''; # 'ui-icon-plus';
+			$crud->add_action('Aceptar postulacion', $img, '/home/aceptar_postulacion', $class);
+		}
+
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
 			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
 			$class = ''; # 'ui-icon-plus';
@@ -410,6 +437,44 @@ class Home extends CI_Controller {
 		
 		$this->load_all();
 			
+	}
+
+	/* aceptar postulaciones, solo puede hacerlo el gobierno responsable*/
+	public function aceptar_postulacion($postulacion_id){
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('EDIT_POSTULACIONES')) # no existe el permiso por lo tanto solo full admin podra
+			{$this->redirecToUnauthorized();}
+
+		$this->load->model('postulaciones_model');
+		$postulacion = $this->postulaciones_model->load($postulacion_id);
+		
+		if (!$postulacion) {
+			$this->show_error('Error al procesar licitacion', 'No existe la postulación');
+			return False;
+		}
+		
+		$licitacion_id = $postulacion->id_licitacion;
+		$gobierno_id = $postulacion->gobierno_id;
+
+		// ver que la empresa haya postulado y haya sido aceptado
+		$gobiernos = $this->user_model->gobiernos();
+		if (!in_array($gobierno_id, $gobiernos)) {
+			$this->show_error('Error al aceptar postulacion', 'Tu usuario no tiene permisos');
+			return False;
+		}
+
+		//marcar como aceptada entonces
+		$this->postulaciones_model->aceptar($postulacion_id);
+		$data = ['postulacion'=>$postulacion];
+		
+		$this->parts['title'] = 'Aceptar postulacion';
+		$this->parts['subtitle'] = 'Aceptar postulacion';
+		$this->parts['title_table'] = '';
+		$this->parts['active'] = 'postulaciones';
+		$this->parts['table'] = $this->load->view('aceptar_postulacion', $data, TRUE);
+		
+		$this->load_all();
+
 	}
 
 	public function textos(){

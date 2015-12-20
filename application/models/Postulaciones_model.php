@@ -23,7 +23,7 @@ class Postulaciones_model extends CI_Model {
     }
 
     /* ver si una empresa esta postulada y aceptada a una licitacion */
-    public function validate($licitacion_id, $empresa_id){
+    public function validate_empresa($licitacion_id, $empresa_id){
         $q = "SELECT lp.*, g.nombre gobierno, e.nombre empresa
             , lps.estado, l.nombre licitacion 
             FROM licitacion_postulaciones lp 
@@ -117,7 +117,8 @@ class Postulaciones_model extends CI_Model {
     }
 
     function load($id){
-        $query = $this->db->query("SELECT lp.*, g.nombre gobierno, e.nombre empresa, lps.estado 
+        $query = $this->db->query("SELECT lp.*, g.nombre gobierno, e.nombre empresa, 
+            lps.estado, g.id gobierno_id, l.nombre licitacion 
             FROM licitacion_postulaciones lp 
             join licitacion l on lp.id_licitacion=l.id 
             join empresa e on lp.id_empresa = e.id 
@@ -153,6 +154,14 @@ class Postulaciones_model extends CI_Model {
             where ldp.id_licitacion=$licitacion_id";
         $query = $this->db->query($q);
         return $query->result();
+    }
+
+    /* aceptar la postulacion */
+    function aceptar($postulacion_id){
+        $q = "update licitacion_postulaciones set status = 3 
+            where id=$postulacion_id";
+        $query = $this->db->query($q);
+        return $query;
     }
 
     function add_licitacion_dato_entregado($id_licitacion_dato_pedido, $empresa_id, $status=1){

@@ -36,3 +36,13 @@ ADD CONSTRAINT `licitacion_sala_chat_ibfk_1` FOREIGN KEY (`licitacion_salas_id`)
 ALTER TABLE `licitacion_sala_chat` ADD `momento` DATETIME NOT NULL ;
 
 ALTER TABLE `licitacion_sala_chat` CHANGE `perfil_nombre` `perfil_nombre` VARCHAR(190) NOT NULL;
+
+
+ -- 19/12/2015
+ -- permitir a los gobiernos ver las postulaciones
+
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '11', '2');
+
+ -- permitir a los gobiernos editar las postulaciones
+INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '12', '2');
+

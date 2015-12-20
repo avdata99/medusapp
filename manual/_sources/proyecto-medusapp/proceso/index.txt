@@ -20,4 +20,5 @@ Este nuevo usuario del sistema ya puede entonces acceder al sistema con las cred
    alta-licitacion
    alta-empresa
    postulacion
+   sala-de-negociaciones
    

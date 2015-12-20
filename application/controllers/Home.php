@@ -196,7 +196,7 @@ class Home extends CI_Controller {
 
 		$this->parts['title'] = 'Procesar postulacion';
 		$this->parts['subtitle'] = 'Procesar postulacion';
-		$this->parts['title_table'] = 'Licitacion: ' . $res->results['licitacion'];
+		$this->parts['title_table'] = 'Licitacion: ' . $postulacion->licitacion;
 		$this->parts['active'] = 'licitaciones';
 
 		// cargar la tabla de datos pedidos para la licitacion con el de datos ya enregados
@@ -236,7 +236,7 @@ class Home extends CI_Controller {
 		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
 
 		$crud_table = $crud->render();
-		$data = ['results'=>$res->results];
+		$data = ['postulacion'=>$postulacion];
 		$this->parts['table_pre'] = $this->load->view('procesar_licitacion', $data, TRUE);
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

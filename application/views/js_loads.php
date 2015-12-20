@@ -8,9 +8,9 @@ foreach($js_files as $file): ?>
 <script src="<?=$this->config->item('base_url')?>static/js/jquery-1.11.0.js"></script>
 -->
 
-<!-- Bootstrap Core JavaScript -->
+<!-- Bootstrap Core JavaScript 
 <script src="<?=$this->config->item('base_url')?>static/js/bootstrap.min.js"></script>
-
+-->
 
 <!-- Metis Menu Plugin JavaScript --> 
 <script src="<?=$this->config->item('base_url')?>static/js/plugins/metisMenu/metisMenu.min.js"></script>

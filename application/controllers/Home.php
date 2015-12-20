@@ -285,6 +285,7 @@ class Home extends CI_Controller {
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
 		$crud->unset_delete();
+		
 		$crud->change_field_type('uid','invisible');
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
 		$crud->columns('nombre', 'gobierno_id', 'observador_id');
@@ -294,16 +295,12 @@ class Home extends CI_Controller {
 
 		# si es una empresa agregar la opcion de postularse
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
-			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = ''; # 'ui-icon-plus';
-			$crud->add_action('Postularse', $img, '/home/postularse', $class);
+			$crud->add_action('Postularse', '', '/home/postularse', '');
 		}
 
 		# si es un observador aceptado o gobierno titular dale la posibilidad de ir a la sala
-		if ($this->user_model->hasRole('OBS_ADMIN') && $this->user_model->can('VIEW_LICITACION')){
-			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = ''; # 'ui-icon-plus';
-			$crud->add_action('Ir a la sala', $img, '/home/sala', $class);
+		if ($this->user_model->hasRole('OBS_ADMIN') || $this->user_model->hasRole('GOV_ADMIN')) {
+			$crud->add_action('Ir a la sala', '', '/home/sala', 'fa-users');
 		}
 
 		$crud_table = $crud->render();
@@ -428,15 +425,11 @@ class Home extends CI_Controller {
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
 		
 		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
-			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = ''; # 'ui-icon-plus';
-			$crud->add_action('Aceptar postulacion', $img, '/home/aceptar_postulacion', $class);
+			$crud->add_action('Aceptar postulacion', '', '/home/aceptar_postulacion', 'fa-check-circle');
 		}
 
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
-			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
-			$class = ''; # 'ui-icon-plus';
-			$crud->add_action('Procesar postulación', $img, '/home/procesar_licitacion', $class);
+			$crud->add_action('Procesar postulación', '', '/home/procesar_licitacion', '');
 		}
 
 		$crud_table = $crud->render();

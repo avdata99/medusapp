@@ -48,3 +48,9 @@ INSERT INTO permiso_rol (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '12', '2');
 
  -- permitir a los observadores ver las licitaciones
 INSERT INTO permiso_rol (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '2', '3');
+
+ -- 2015-12-20 permitir descripcion y documento a los observadores
+
+ ALTER TABLE `observador` 
+    ADD `descripcion` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL , 
+    ADD `documento_url` VARCHAR(190) CHARACTER SET utf8 COLLATE utf8_general_ci NULL ;

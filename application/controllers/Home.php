@@ -569,6 +569,9 @@ class Home extends CI_Controller {
 			$crud->set_relation('status', 'observador_status', 'estado');
 			}
 		
+		$crud->columns('nombre', 'descripcion', 'documento_url');
+		$crud->set_field_upload('documento_url',$this->config->item('upload_documentos_observadores'));
+		
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

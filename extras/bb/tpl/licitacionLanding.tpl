@@ -4,7 +4,7 @@
 		<%= descripcion %>
 	</div>
     <div class="span3">
-        <a target='_blank' class="btn btn-large btn-block" href="/static/documents/<%= documento %>">Descargar PDF</a>
+        <a target='_blank' class="btn btn-large btn-block" href="/static/documents/<%= documento %>">Descargar documento</a>
     </div>
 </div>
 

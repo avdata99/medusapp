@@ -14,9 +14,9 @@ Esta alta incluye a uno o más usuarios con permisos de cursas los diferentes mo
 
 Este nuevo usuario del sistema ya puede entonces acceder al sistema con las credenciales (usuario y clave) creadas por los administradores de la aplicación.
 
-.. toctree::
-   :maxdepth: 1  
 
+.. toctree::
+   
    alta-licitacion
    alta-empresa
    postulacion

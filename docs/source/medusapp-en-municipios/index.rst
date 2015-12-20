@@ -1,8 +1,10 @@
 MedusApp en municipios
 ====================================
 
+Funcionalidad para municipios.
+
+
 .. toctree::
-   :maxdepth: 2  
 
    como-usar
    primera-licitacion

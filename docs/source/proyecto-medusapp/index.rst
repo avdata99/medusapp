@@ -6,7 +6,8 @@ Esta pensado para que municipios (o secretarías, ministerios, organizaciones, e
 
 Esta aplicación permite acompañar el proceso completo, desde que el municipio expone su necesiadad hasta que se realiza la adjucación final.
 
-.. toctree::
-   :maxdepth: 2  
 
-   proceso/index
+.. toctree::
+	:hidden:
+	
+	proceso/index

@@ -7,10 +7,16 @@ var licitacionModel = Backbone.Model.extend({
         documento: null,
         imagen: null,
         uid: '',
-        id: 0,     
+        id: 0,  
+        observador: null,
+        observador_descripcion: null,
+        observador_documento: null, 
+        postulaciones: [],   
+        fecha_fin: null,
     },
     getLicitacion: function(slug){
         self = this;
+
         var url = App.Configuration.Api + '/licitaciones/load/' + slug;
         var xhr = $.ajax({
             url: url,
@@ -21,6 +27,19 @@ var licitacionModel = Backbone.Model.extend({
         self.set(data);
         });
       xhr.fail(function(data){console.log("failed on getLicitacionLanding");});
+
+      // obtener las empresas postuladas
+      var url = App.Configuration.Api + '/licitaciones/postulaciones/' + slug;
+        var xhr = $.ajax({
+            url: url,
+            type: 'GET',
+            async: false});
+        
+      xhr.done(function(data){ // get licitacion info
+        self.set('postulaciones', data);
+        });
+      xhr.fail(function(data){console.log("failed on postulaciones");});
+
     },
 });
 

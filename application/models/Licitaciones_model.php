@@ -36,7 +36,7 @@ class Licitaciones_model extends CI_Model {
 
     /* usar los ids numericos y continuos no es conveniente, por eso se usa el UID */
     function load($uid){
-        $q = "SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
+        $q = "SELECT li.id, g.nombre gobierno, li.uid, li.nombre titulo, 
                 li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, 
                 li.fecha_fin, o.nombre observador, o.descripcion observador_descripcion,
                 o.documento_url observador_documento 
@@ -77,7 +77,7 @@ class Licitaciones_model extends CI_Model {
     }
 
     /* obtener las postulaciones (def, solo aceptadas)*/
-    function get_postulaciones($licitacion_id, $status=3){
+    function get_postulaciones($licitacion_id, $status=3) {
         $this->load->model('postulaciones_model');
         $postulaciones = $this->postulaciones_model->search($licitacion_id);
         return $postulaciones;

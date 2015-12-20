@@ -590,6 +590,8 @@ CREATE TABLE IF NOT EXISTS `usuario_rol` (
 -- Restricciones para tablas volcadas
 --
 
+INSERT INTO `usuario_rol` (`id`, `id_usuario`, `id_rol`) VALUES (NULL, '1', '1');
+
 --
 -- Filtros para la tabla `empresa`
 --

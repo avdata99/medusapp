@@ -23,3 +23,4 @@ Este nuevo usuario del sistema ya puede entonces acceder al sistema con las cred
    sala-de-negociaciones
    licitacion-publicada
    
+   

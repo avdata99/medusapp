@@ -405,15 +405,17 @@ class Home extends CI_Controller {
 		}
 
 		$crud->columns('licitacion', 'empresa', 'estado');
-		$crud->edit_fields('estado');
+		//$crud->set_relation('status', 'licitacion_postulacion_status', 'estado');
+		//$crud->edit_fields('status');
 		$crud->basic_model->set_manual_select($q);
 
 		if (!$this->user_model->hasRole('FULL_ADMIN')) {
 			$crud->unset_add();	
-			$crud->unset_edit();
+			
 		}
 		// if (!$this->user_model->can('ADD_POSTULACIONES')) $crud->unset_add();
 		// if (!$this->user_model->can('EDIT_POSTULACIONES')) $crud->unset_edit();
+		$crud->unset_edit();
 		$crud->unset_delete();
 		$crud->unset_read();	
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos

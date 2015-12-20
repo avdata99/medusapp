@@ -37,8 +37,12 @@ class Licitaciones_model extends CI_Model {
     /* usar los ids numericos y continuos no es conveniente, por eso se usa el UID */
     function load($uid){
         $q = "SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
-                li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 
-                FROM licitacion li join gobierno g on li.gobierno_id=g.id
+                li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, 
+                li.fecha_fin, o.nombre observador, o.descripcion observador_descripcion,
+                o.documento_url observador_documento 
+                FROM licitacion li 
+                join gobierno g on li.gobierno_id=g.id
+                left join observador o on li.observador_id=o.id 
                 where li.uid='$uid'";
 
         $query = $this->db->query($q);

@@ -295,7 +295,7 @@ class Home extends CI_Controller {
 
 		# si es una empresa agregar la opcion de postularse
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
-			$crud->add_action('Postularse', '', '/home/postularse', '');
+			$crud->add_action('Postularse', '', '/home/postularse', 'fa-hand-paper-o');
 		}
 
 		# si es un observador aceptado o gobierno titular dale la posibilidad de ir a la sala

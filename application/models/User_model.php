@@ -162,6 +162,12 @@ class User_model extends CI_Model
         return in_array($role, $sess['roles']);
     }
 
+    public function nice_name(){
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        return $sess['user_name'].' ('.$sess['user_login'].')';
+    }
+
     private function get_sess(){
         $sess = $this->session->all_userdata();
         if (!$sess || !isset($sess['user_id'])) return FALSE; # lost session
@@ -253,7 +259,7 @@ class User_model extends CI_Model
 
         // identificar si hay un único perfil
 
-        if ($ret['gobiernos'] == [] && $ret['observadores'] == [] && count($ret['empresas'] == 1)) {
+        if ($ret['gobiernos'] == [] && $ret['observadores'] == [] && count($ret['empresas']) == 1) {
             $ret['profile'] = ['perfil'=>'empresa', 'id'=>$ret['empresas'][0]];
             $this->load->model('empresas_model');
             $empresa = $this->empresas_model->load($ret['empresas'][0]);
@@ -261,15 +267,15 @@ class User_model extends CI_Model
         }
         else if ($ret['gobiernos'] == [] && count($ret['observadores']) == 1 && $ret['empresas'] == []) {
             $ret['profile'] = ['perfil'=>'observador', 'id'=>$ret['observadores'][0]];
-            $this->load->model('gov_model');
-            $gov = $this->gov_model->load($ret['gobiernos'][0]);
-            $ret['profile']['nombre'] = $gov->nombre;
-        }
-        else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {
-            $ret['profile'] = ['perfil'=>'gobierno', 'id'=>$ret['gobiernos'][0]];
             $this->load->model('observadores_model');
             $observador = $this->observadores_model->load($ret['observadores'][0]);
             $ret['profile']['nombre'] = $observador->nombre;
+        }
+        else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {
+            $ret['profile'] = ['perfil'=>'gobierno', 'id'=>$ret['gobiernos'][0]];
+            $this->load->model('gov_model');
+            $gov = $this->gov_model->load($ret['gobiernos'][0]);
+            $ret['profile']['nombre'] = $gov->nombre;
         }
         else {
             $ret['profile'] = FALSE;    

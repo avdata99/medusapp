@@ -41,8 +41,10 @@ ALTER TABLE `licitacion_sala_chat` CHANGE `perfil_nombre` `perfil_nombre` VARCHA
  -- 19/12/2015
  -- permitir a los gobiernos ver las postulaciones
 
-INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '11', '2');
+INSERT INTO permiso_rol (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '11', '2');
 
  -- permitir a los gobiernos editar las postulaciones
-INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '12', '2');
+INSERT INTO permiso_rol (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '12', '2');
 
+ -- permitir a los observadores ver las licitaciones
+INSERT INTO permiso_rol (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '2', '3');

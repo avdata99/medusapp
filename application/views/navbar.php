@@ -6,7 +6,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?=$my_base_url?>"><?=$title?></a>
+                <a class="navbar-brand" href="<?=$my_base_url?>"><?=$title?> :: <?=$this->user_model->nice_name()?> </a>
             </div>
             
             <? /*=$notifications_bar */ ?>

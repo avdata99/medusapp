@@ -299,6 +299,13 @@ class Home extends CI_Controller {
 			$crud->add_action('Postularse', $img, '/home/postularse', $class);
 		}
 
+		# si es un observador aceptado o gobierno titular dale la posibilidad de ir a la sala
+		if ($this->user_model->hasRole('OBS_ADMIN') && $this->user_model->can('VIEW_LICITACION')){
+			$img = ''; # 'http://www.grocerycrud.com/assets/uploads/general/smiley.png';
+			$class = ''; # 'ui-icon-plus';
+			$crud->add_action('Ir a la sala', $img, '/home/sala', $class);
+		}
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

@@ -10,7 +10,7 @@ class Gov_model extends CI_Model
         return $query->row();
     }
     
-    function list(){
+    function lista(){
     	$crud = new grocery_CRUD();
 		$crud->set_table('gobierno');
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();

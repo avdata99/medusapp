@@ -4,7 +4,7 @@
     <div class="span6">
       <h4 style='text-align:center'>Nosotros</h4>
       <div>
-         Desarrollado por <a href='<%= developed_by_txt %>'><%= developed_by_txt %></a>.
+         Desarrollado por <a href='<%= developed_by_url %>'><%= developed_by_txt %></a>.
       </div>
     </div>
 
@@ -30,14 +30,6 @@
     </div>
   </div>
 </div>
-<!--
-<hr class="footer-divider">
-<div class="container">
-  <p>
-      Desarrollado por el <a href='http://www.ucc.edu.ar/portalnuevo/paginaspopup/fichaProyectosSivPublica.php?hash=ba97718297fae089e297ec7f0e6353f4'>Observatorio de Políticas Públicas</a> de la Universidad Católica de Córdoba.
-  </p>
-</div>
--->
 <hr class="footer-divider">
 <div class="container" id='medusalogs'>
   

@@ -233,7 +233,7 @@ class Home extends CI_Controller {
 		$crud->unset_delete();
 		
 		//#TODO despues de editar pasar el estado a otro
-		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
+		$crud->callback_after_update(array($this,'_uploaded_company_document'));
 
 		$crud_table = $crud->render();
 		$data = ['postulacion'=>$postulacion];
@@ -620,8 +620,8 @@ class Home extends CI_Controller {
 		$crud->callback_edit_field('password',array($this,'set_password_input_to_empty'));
     	$crud->callback_add_field('password',array($this,'set_password_input_to_empty'));
  
-		$crud->callback_before_insert(array($this,'encrypt_password_callback'));
-		$crud->callback_before_update(array($this,'encrypt_password_callback'));
+		$crud->callback_before_insert(array($this,'_encrypt_password_callback'));
+		$crud->callback_before_update(array($this,'_encrypt_password_callback'));
 		
 		$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
 		$crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
@@ -635,10 +635,21 @@ class Home extends CI_Controller {
 		$this->load_all();	
 	}
 
-	public function encrypt_password_callback($post){
+	public function _encrypt_password_callback($post){
 		if ($post['password'] != '') $post['password'] = md5($post['password']);
 		else unset($post['password']);
 		return $post;
+	}
+
+	/* una empresa ha subido un documento solicitado*/
+	public function _uploaded_company_document($post, $pk){
+		$this->load->model('postulaciones_model');
+		if ($post['url']) {
+			$this->postulaciones_model->update_uploaded_document_status($pk, 3);
+		}
+		else {
+			$this->postulaciones_model->update_uploaded_document_status($pk, 1);	
+		}
 	}
 
 	function set_password_input_to_empty() {
@@ -707,9 +718,6 @@ class Home extends CI_Controller {
 		$crud->unset_edit();
 		$crud->unset_delete();
 		
-		//#TODO despues de editar pasar el estado a otro
-		// $crud->callback_before_update(array($this,'encrypt_password_callback'));
-
 		$crud_table = $crud->render();
 		
 		// buscar las salas de chat

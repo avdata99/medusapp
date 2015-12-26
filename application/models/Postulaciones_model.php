@@ -156,6 +156,14 @@ class Postulaciones_model extends CI_Model {
         return $query->result();
     }
 
+    function update_uploaded_document_status($lde_id, $status){
+        $q = "UPDATE licitacion_datos_entregados 
+            set status = $status
+            where id=$lde_id";
+        $query = $this->db->query($q);
+        return TRUE;    
+    }
+
     /* aceptar la postulacion */
     function aceptar($postulacion_id){
         $q = "update licitacion_postulaciones set status = 3 

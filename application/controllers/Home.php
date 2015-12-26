@@ -698,7 +698,11 @@ class Home extends CI_Controller {
 		$crud->basic_model->set_manual_select($q);
 		$crud->columns('empresa', 'documento', 'estado', 'url', 'observaciones');
 		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
-		$crud->unset_read();
+		$crud->field_type('id_empresa', 'hidden');
+		$crud->field_type('id_licitacion_dato_pedido', 'hidden');
+		$crud->field_type('status', 'hidden');
+		
+		// $crud->unset_read();
 		$crud->unset_add();
 		$crud->unset_edit();
 		$crud->unset_delete();

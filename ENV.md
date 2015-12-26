@@ -55,3 +55,6 @@ Asegurese de tener activados los tags cortos de php (*<?* con *short_open_tag = 
 Luego de reiniciar apache la url [http://medusapp/home](http://medusapp/home) ya debe funcionar.  
 El usuario y clave prederteminados para el *backend* son *admin* + *admin*.  
 En [medusapp/](http://medusapp/) estará visible el sitio web público.  
+
+#### Directorios y otros requisitos
+Va a necesitar algunos directorios para contenido estático. El archivo *sql/initial.sh* tiene algunos comandos para crearlos. En entornos de produccion posiblemente necesite revisar los permisos de estos.

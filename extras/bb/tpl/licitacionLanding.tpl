@@ -43,6 +43,35 @@
 
 <div class="row">
 	<div class="span12">
+	    <h3>Documentos pedidos por el gobierno</h3>
+	    <p>Al iniciar el proceso el Gobierno define que documentos solicitará liberar
+	     a las empresas participantes. Estos fueron los documentos solicitados:</p>
+	     <ul> 
+	     	<% _.each(datos_pedidos, function(pedido) { %>
+	     	<li><%= pedido.titulo %></li>
+	     	<% }); %>
+	     </ul>
+		<h3>Documentos liberados por las empresas participantes</h3>
+	<% if (_.size(datos_entregados) > 0) { %>
+		<ul>
+		<% _.each(datos_entregados, function(datos_entregado) { %>
+		<li><%= datos_entregado.empresa %> entrego <%= datos_entregado.documento %></li>
+		<p><b>Observaciones de la empresa:</b> <%= datos_entregado.observaciones %></p>
+		<% if (datos_entregado.url) { %>
+		<a target='_blank' class="btn btn-large btn-block" 
+			href="/static/company_documents/<%= datos_entregado.url %>">Descargar</a>
+		<% } %>
+		
+		<% }); %>
+		</ul>
+	<% } else { %>
+		<p>Ninguna empresa libero alguno de los datos solicitados</p>
+	<% } %>	
+	</div>
+</div>
+
+<div class="row">
+	<div class="span12">
 		<h3>Cierre de la licitacion</h3>
 		<p>Fecha de cierre: <%= fecha_fin %></p>
 	</div>

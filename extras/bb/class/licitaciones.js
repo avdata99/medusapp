@@ -11,7 +11,9 @@ var licitacionModel = Backbone.Model.extend({
         observador: null,
         observador_descripcion: null,
         observador_documento: null, 
-        postulaciones: [],   
+        postulaciones: [],  
+        datos_pedidos: [], // documentos que el gobierno pidio
+        datos_entregados: [], // documentos entregados por las empresas en el proceso
         fecha_fin: null,
         cierre_observador_txt: null, // texto de cierre del observador
         cierre_observador_url: null, // url del doc de cierre del observador si lo hubiera
@@ -27,13 +29,14 @@ var licitacionModel = Backbone.Model.extend({
         
       xhr.done(function(data){ // get licitacion info
         self.set(data.licitacion);
-        self.set('postulaciones', data.postulaciones);        
+        self.set('postulaciones', data.postulaciones);
+        self.set('datos_pedidos', data.datos_pedidos);
+        self.set('datos_entregados', data.datos_entregados);
         });
       xhr.fail(function(data){console.log("failed on getLicitacionLanding");});
 
-      // obtener el texto y documento de cierre
-      // obtener los documentos de las empresas
-      // obtener el histórico de hechos
+      //#TODO obtener los documentos de las empresas
+      //#TODO obtener el histórico de hechos
     },
 });
 

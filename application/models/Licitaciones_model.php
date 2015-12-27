@@ -54,8 +54,38 @@ class Licitaciones_model extends CI_Model {
         // postulaciones aceptadas
         $postulaciones = $this->get_postulaciones($licitacion->id);
         $ret['postulaciones'] = $postulaciones;
+        //datos pedidos por el gobierno
+        $datos_pedidos = $this->datos_pedidos($licitacion->id);
+        $ret['datos_pedidos'] = $datos_pedidos;
+        // documentos liberados por empresas 
+        $datos_entregados = $this->datos_entregados($licitacion->id);
+        $ret['datos_entregados'] = $datos_entregados;
+
 
         return $ret;
+    }
+
+    function datos_entregados($licitacion_id){
+        $q = "SELECT lde.id, e.nombre empresa, dp.titulo documento, 
+             ldes.estado, lde.url, lde.observaciones 
+             FROM licitacion_datos_entregados lde
+             join empresa e ON lde.id_empresa=e.id 
+             join licitacion_datos_pedidos ldp ON lde.id_licitacion_dato_pedido=ldp.id 
+             join datos_publicar dp ON ldp.id_dato_pedido=dp.id
+             join licitacion_datos_entregados_status ldes ON lde.status=ldes.id
+             where ldp.id_licitacion=$licitacion_id
+             order by e.nombre, dp.titulo";
+
+        $query = $this->db->query($q);
+        return $query->result();
+    }
+
+    function datos_pedidos($licitacion_id){
+        $q = "SELECT ldp.*, dp.titulo FROM licitacion_datos_pedidos ldp
+            join datos_publicar dp on ldp.id_dato_pedido=dp.id 
+            where id_licitacion=$licitacion_id";
+        $query = $this->db->query($q);
+        return $query->result();
     }
 
     function load_by_id($licitacion_id){

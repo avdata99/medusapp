@@ -155,7 +155,7 @@ class Home extends CI_Controller {
 	Si no se pasa la empresa supongo una sola */
 	public function procesar_licitacion($postulacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
-		if (!$this->user_model->can('VIEW_LICITACION') || !$this->user_model->can('EDIT_LICITACION'))
+		if ( !$this->user_model->hasRole('EMP_ADMIN') )
 			{$this->redirecToUnauthorized();}
 		
 		// buscar que postulacion es esta si es que existe
@@ -223,8 +223,6 @@ class Home extends CI_Controller {
 		$crud->basic_model->set_manual_select($q);
 		$crud->columns('documento', 'empresa', 'estado', 'url');
 		$crud->edit_fields('url', 'observaciones');
-		
-
 		$crud->set_field_upload('url',$this->config->item('upload_documentos_empresas'));
 		
 		$crud->unset_read();

@@ -5,6 +5,7 @@ static/documents/*
 static/images/*
 static/company_documents/*
 static/observador_documentos/*
+static/documentos_cierre/*
 lasterror.html
 extras/htmls-tpl/css
 extras/htmls-tpl/img

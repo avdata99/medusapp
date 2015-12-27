@@ -2,9 +2,15 @@
 
 mkdir static/documents 
 chmod 777 static/documents
+
 mkdir static/images
 chmod 777 static/images
+
 mkdir static/company_documents
 chmod 777 static/company_documents
+
 mkdir static/observador_documentos
 chmod 777 static/observador_documentos
+
+mkdir static/documentos_cierre
+chmod 777 static/documentos_cierre

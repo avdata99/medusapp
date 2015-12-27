@@ -189,6 +189,14 @@ class User_model extends CI_Model
         return $sess['govs'];
     }
 
+    /* ver a que observadores representa */
+    public function observadores(){
+        $sess = $this->get_sess();
+        if (!$sess) return FALSE;
+        
+        return $sess['obss'];
+    }
+
     /**
     Indicar si corresponde un where in para las listas de objetos de una clase
     Return False si no es necesario

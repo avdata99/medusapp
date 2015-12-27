@@ -155,7 +155,7 @@ class Home extends CI_Controller {
 	Si no se pasa la empresa supongo una sola */
 	public function procesar_licitacion($postulacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
-		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
+		if (!$this->user_model->can('VIEW_LICITACION') || !$this->user_model->can('EDIT_LICITACION'))
 			{$this->redirecToUnauthorized();}
 		
 		// buscar que postulacion es esta si es que existe
@@ -282,11 +282,18 @@ class Home extends CI_Controller {
 			'id_licitacion', 'id_dato_pedido', 'titulo' );
 		$crud->set_field_upload('documento',$this->config->item('upload_documents'));
 		$crud->set_field_upload('imagen',$this->config->item('upload_images'));
+		
 		if (!$this->user_model->can('ADD_LICITACION')) $crud->unset_add();
-		if (!$this->user_model->can('EDIT_LICITACION')) $crud->unset_edit();
+		if (!$this->user_model->can('EDIT_LICITACION') || !$this->user_model->hasRole('GOV_ADMIN')) { 
+			$crud->unset_edit();
+		}
 		$crud->unset_delete();
 		
 		$crud->change_field_type('uid','invisible');
+		// documentos de cierre del observador no van aqui
+		$crud->change_field_type('cierre_observador_txt','invisible');
+		$crud->change_field_type('cierre_observador_url','invisible');
+
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
 		$crud->columns('nombre', 'gobierno_id', 'observador_id');
 		$crud->display_as('gobierno_id','Gobierno');
@@ -301,6 +308,7 @@ class Home extends CI_Controller {
 		# si es un observador aceptado o gobierno titular dale la posibilidad de ir a la sala
 		if ($this->user_model->hasRole('OBS_ADMIN') || $this->user_model->hasRole('GOV_ADMIN')) {
 			$crud->add_action('Ir a la sala', '', '/home/sala', 'fa-users');
+			$crud->add_action('Documento de cierre', '', '/home/cierre_observador', 'fa-file');
 		}
 
 		$crud_table = $crud->render();
@@ -310,6 +318,43 @@ class Home extends CI_Controller {
 		
 		$this->load_all();
 		
+	}
+
+	/* un observador carga el documento de cierre */
+	public function cierre_observador($licitacion_id) {
+		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
+		if (!$this->user_model->can('EDIT_LICITACION') || !$this->user_model->hasRole('OBS_ADMIN'))
+			{$this->redirecToUnauthorized();}
+
+		$this->load->model('licitaciones_model');
+		$licitacion = $this->licitaciones_model->load_by_id($licitacion_id);
+
+		// asegurarse logueado al observador de esta licitacion
+		if ( !in_array($licitacion->observador_id, $this->user_model->observadores() ) )
+			{$this->redirecToUnauthorized();}
+
+		$this->parts['subtitle'] = 'Documento de cierre de licitación';
+		$this->parts['active'] = 'licitaciones';
+		$this->parts['title_table'] = 'Licitacion ' . $licitacion->titulo;
+
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+		$crud->set_table('licitacion');
+		$crud->where("id = $licitacion_id");
+		//solo editar los datos de cierre
+		$crud->columns('nombre', 'cierre_observador_txt', 'cierre_observador_url');
+		$crud->fields('cierre_observador_txt', 'cierre_observador_url');
+		$crud->set_field_upload('cierre_observador_url',$this->config->item('upload_documentos_cierre'));
+		$crud->unset_add();
+		$crud->unset_read();
+		$crud->unset_delete();
+
+		$crud_table = $crud->render();
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+
+		$this->load_all();
 	}
 
 	/** Crear la URL slug solo la primera vez que se graba */
@@ -659,7 +704,7 @@ class Home extends CI_Controller {
 	/* mostrar la sala de negociaciones de una licitacion */
 	public function sala($licitacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
-		if (!$this->user_model->can('VIEW_LICITACION') && !$this->user_model->can('EDIT_LICITACION'))
+		if (!$this->user_model->can('VIEW_LICITACION') || !$this->user_model->can('EDIT_LICITACION'))
 			{$this->redirecToUnauthorized();}
 		
 		// identificar a nombre de quien entra (empresa, gobierno, observador)

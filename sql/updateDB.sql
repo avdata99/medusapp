@@ -45,3 +45,4 @@ INSERT INTO `pais` (`id`, `pais`) VALUES
 ALTER TABLE `gobierno` ADD `pais_id` INT NOT NULL DEFAULT '1' AFTER `id`, ADD INDEX (`pais_id`) ;
 
 ALTER TABLE `gobierno` ADD `texto_presentacion` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `uid`;
+ALTER TABLE `gobierno` ADD `logo` VARCHAR(190) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `texto_presentacion`;

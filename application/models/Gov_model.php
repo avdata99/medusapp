@@ -4,10 +4,15 @@ class Gov_model extends CI_Model
     {
 
     public function load($id){
-        $q = "Select * from gobierno where id=$id";
+        $q = "Select g.*, p.pais from gobierno g
+                join pais p on g.pais_id=p.id
+                where g.id=$id";
         $query = $this->db->query($q);
-        if ($query->num_rows() == 0) return FALSE;
-        return $query->row();
+        
+        $ret = ['gobierno'=>$query->row()];
+        //#TODO agregar licitaciones abiertas y terminadas y otras cosas de interes
+
+        return $ret;
     }
 
     /* obtener la lista de usuarios de un gobierno */
@@ -16,5 +21,17 @@ class Gov_model extends CI_Model
         $query = $this->db->query($q);
         return $query->result();
     }
+
+    public function lista(){
+        $q = "Select g.*, p.pais from gobierno g
+                join pais p on g.pais_id=p.id";
+
+        $query = $this->db->query($q);
+
+        return $query->result();
+
+    }
+
+}
     
     

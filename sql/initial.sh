@@ -14,3 +14,6 @@ chmod 777 static/observador_documentos
 
 mkdir static/documentos_cierre
 chmod 777 static/documentos_cierre
+
+mkdir static/gobiernos_logo
+chmod 777 static/gobiernos_logo

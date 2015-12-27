@@ -16,25 +16,24 @@
 // This can be removed if you use __autoload() in config.php OR use Modular Extensions
 require APPPATH.'/libraries/REST_Controller.php';
 
-class Licitaciones extends REST_Controller{
+class Gobiernos extends REST_Controller{
 	public function index_get(){
-		$this->load->model('licitaciones_model');
-		$lic = $this->licitaciones_model->lista();
+		$this->load->model('gov_model');
+		$gov = $this->gov_model->lista();
 
-		if($lic)
-        	{$this->response($lic, 200);}
+		if($gov)
+        	{$this->response($gov, 200);}
         else
         	{$this->response(array('error' => 'Error'), 404);}
 	}
 
     public function load_get($uid){
-        $this->load->model('licitaciones_model');
-        $lic = $this->licitaciones_model->load($uid);
+        $this->load->model('gov_model');
+        $gov = $this->gov_model->load($uid);
 
-        if($lic)
-            {$this->response($lic, 200);}
+        if($gov)
+            {$this->response($gov, 200);}
         else
             {$this->response(array('error' => 'Error'), 404);}
     }
-
 }

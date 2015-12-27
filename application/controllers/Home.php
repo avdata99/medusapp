@@ -367,13 +367,14 @@ class Home extends CI_Controller {
 		$crud->set_theme('bootstrap');
 
 		$crud->set_table('gobierno');
-		$crud->fields('nombre', 'pais_id', 'uid', 'texto_presentacion', 'created_at');
+		$crud->fields('nombre', 'pais_id', 'uid', 'texto_presentacion', 'created_at', 'logo');
 		$crud->set_relation('pais_id','pais','pais', null, 'pais.pais');
 		$crud->change_field_type('uid','invisible');
 		$crud->change_field_type('created_at','invisible');
-		$crud->columns('nombre', 'pais_id');
+		$crud->columns('nombre', 'pais_id', 'logo');
 		$crud->display_as('pais_id','Pais');
 		$crud->display_as('texto_presentacion','Texto público de presentación');
+		$crud->set_field_upload('logo',$this->config->item('upload_logo_gobiernos'));
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
 		$crud->unset_delete();

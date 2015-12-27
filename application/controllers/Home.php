@@ -355,35 +355,6 @@ class Home extends CI_Controller {
 		$this->load_all();
 	}
 
-	/** Crear la URL slug solo la primera vez que se graba */
-	public function _slug_title($post){
-
-		$post['uid'] = $this->slugify($post['nombre']);
-		 
-		return $post;
-	}
-
-	function slugify($string, $replace = array(), $delimiter = '-') {
-	  // https://github.com/phalcon/incubator/blob/master/Library/Phalcon/Utils/Slug.php
-	  if (!extension_loaded('iconv')) {
-	    throw new Exception('iconv module not loaded');
-	  }
-	  // Save the old locale and set the new locale to UTF-8
-	  $oldLocale = setlocale(LC_ALL, '0');
-	  setlocale(LC_ALL, 'en_US.UTF-8');
-	  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
-	  if (!empty($replace)) {
-	    $clean = str_replace((array) $replace, ' ', $clean);
-	  }
-	  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-	  $clean = strtolower($clean);
-	  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-	  $clean = trim($clean, $delimiter);
-	  // Revert back to the old locale
-	  setlocale(LC_ALL, $oldLocale);
-	  return $clean;
-	}
-
 	public function gobiernos(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		if (!$this->user_model->can('VIEW_GOVS'))
@@ -396,6 +367,13 @@ class Home extends CI_Controller {
 		$crud->set_theme('bootstrap');
 
 		$crud->set_table('gobierno');
+		$crud->fields('nombre', 'pais_id', 'uid', 'texto_presentacion', 'created_at');
+		$crud->set_relation('pais_id','pais','pais', null, 'pais.pais');
+		$crud->change_field_type('uid','invisible');
+		$crud->change_field_type('created_at','invisible');
+		$crud->columns('nombre', 'pais_id');
+		$crud->display_as('pais_id','Pais');
+		$crud->display_as('texto_presentacion','Texto público de presentación');
 		if (!$this->user_model->can('ADD_GOVS')) $crud->unset_add();
 		if (!$this->user_model->can('EDIT_GOVS')) $crud->unset_edit();
 		$crud->unset_delete();
@@ -406,10 +384,13 @@ class Home extends CI_Controller {
 			$crud->where("id in ($where_in)");
 		}
 
+		// notificar a todo el sistema cuando se agregue un gobierno, no es un hecho menor
+		$crud->callback_before_insert(array($this,'_new_gov'));
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
 		$this->parts['js_files'] = $crud_table->js_files;
+		
 		$this->load_all();	
 	}
 
@@ -678,27 +659,6 @@ class Home extends CI_Controller {
 		$this->load_all();	
 	}
 
-	public function _encrypt_password_callback($post){
-		if ($post['password'] != '') $post['password'] = md5($post['password']);
-		else unset($post['password']);
-		return $post;
-	}
-
-	/* una empresa ha subido un documento solicitado*/
-	public function _uploaded_company_document($post, $pk){
-		$this->load->model('postulaciones_model');
-		if ($post['url']) {
-			$this->postulaciones_model->update_uploaded_document_status($pk, 3);
-		}
-		else {
-			$this->postulaciones_model->update_uploaded_document_status($pk, 1);	
-		}
-	}
-
-	function set_password_input_to_empty() {
-	    return "<input type='password' name='password' value='' />";
-	}
-
 	/* mostrar la sala de negociaciones de una licitacion */
 	public function sala($licitacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
@@ -780,6 +740,70 @@ class Home extends CI_Controller {
 		$this->parts['js_files'] = $crud_table->js_files;
 		$this->load_all();
 
+	}
+
+	/** Crear la URL slug solo la primera vez que se graba */
+	public function _slug_title($post){
+		$post['uid'] = $this->slugify($post['nombre']);
+		return $post;
+	}
+
+	/* marcar la fecha de alta, crear el uid (slug), 
+		notificar que se agrego un nuevo gobierno a la aplicacion */
+	function _new_gov($post) {
+		//crear el titulo slug
+		$post['uid'] = $this->slugify($post['nombre']);
+		//marcar la fecha de alta
+		$post['created_at'] = date('Y-m-d H:i:s');
+
+		$titulo = "Nuevo gobierno";
+		$url = "http://medusapp.org/gobierno/" . $post['uid'];
+		$descripcion = "Se ha agregado " . $post['nombre'] . " a la plataforma MedusApp"; 
+		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
+
+		return $post;
+	}
+
+	public function _encrypt_password_callback($post){
+		if ($post['password'] != '') $post['password'] = md5($post['password']);
+		else unset($post['password']);
+		return $post;
+	}
+
+	/* una empresa ha subido un documento solicitado*/
+	public function _uploaded_company_document($post, $pk){
+		$this->load->model('postulaciones_model');
+		if ($post['url']) {
+			$this->postulaciones_model->update_uploaded_document_status($pk, 3);
+		}
+		else {
+			$this->postulaciones_model->update_uploaded_document_status($pk, 1);	
+		}
+	}
+
+	function set_password_input_to_empty() {
+	    return "<input type='password' name='password' value='' />";
+	}
+
+	function slugify($string, $replace = array(), $delimiter = '-') {
+	  // https://github.com/phalcon/incubator/blob/master/Library/Phalcon/Utils/Slug.php
+	  if (!extension_loaded('iconv')) {
+	    throw new Exception('iconv module not loaded');
+	  }
+	  // Save the old locale and set the new locale to UTF-8
+	  $oldLocale = setlocale(LC_ALL, '0');
+	  setlocale(LC_ALL, 'en_US.UTF-8');
+	  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
+	  if (!empty($replace)) {
+	    $clean = str_replace((array) $replace, ' ', $clean);
+	  }
+	  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+	  $clean = strtolower($clean);
+	  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+	  $clean = trim($clean, $delimiter);
+	  // Revert back to the old locale
+	  setlocale(LC_ALL, $oldLocale);
+	  return $clean;
 	}
 }
 

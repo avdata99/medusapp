@@ -313,4 +313,11 @@ class User_model extends CI_Model
         if ($profiles['profile']['nombre'] != $perfil_nombre) return FALSE;
         return TRUE;
     } 
+
+    /* Obtener a todos los usuarios del sistema */
+    public function get_all(){
+        $q = "SELECT id, nombre, login FROM usuario";
+        $query = $this->db->query($q);
+        return $query->result();
+    }
 }

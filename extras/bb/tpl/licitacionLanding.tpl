@@ -48,3 +48,17 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="span9">
+		<h3>Documento final del observador</h3>
+		<p><%= cierre_observador_txt %></p>
+	</div>
+	<% if (cierre_observador_url) { %>
+    <div class="span3">
+        <a target='_blank' 
+        	class="btn btn-large btn-block" 
+        	href="/static/documentos_cierre/<%= cierre_observador_url %>">+ Documento de cierre del observador</a>
+    </div>
+    <% } %>	
+</div>
+

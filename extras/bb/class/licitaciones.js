@@ -13,6 +13,8 @@ var licitacionModel = Backbone.Model.extend({
         observador_documento: null, 
         postulaciones: [],   
         fecha_fin: null,
+        cierre_observador_txt: null, // texto de cierre del observador
+        cierre_observador_url: null, // url del doc de cierre del observador si lo hubiera
     },
     getLicitacion: function(slug){
         self = this;
@@ -24,22 +26,14 @@ var licitacionModel = Backbone.Model.extend({
             async: false});
         
       xhr.done(function(data){ // get licitacion info
-        self.set(data);
+        self.set(data.licitacion);
+        self.set('postulaciones', data.postulaciones);        
         });
       xhr.fail(function(data){console.log("failed on getLicitacionLanding");});
 
-      // obtener las empresas postuladas
-      var url = App.Configuration.Api + '/licitaciones/postulaciones/' + slug;
-        var xhr = $.ajax({
-            url: url,
-            type: 'GET',
-            async: false});
-        
-      xhr.done(function(data){ // get licitacion info
-        self.set('postulaciones', data);
-        });
-      xhr.fail(function(data){console.log("failed on postulaciones");});
-
+      // obtener el texto y documento de cierre
+      // obtener los documentos de las empresas
+      // obtener el histórico de hechos
     },
 });
 

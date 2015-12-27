@@ -232,7 +232,7 @@ class Home extends CI_Controller {
 		// $crud->unset_edit();
 		$crud->unset_delete();
 		
-		//#TODO despues de editar pasar el estado a otro
+		// despues de editar pasar el estado a otro
 		$crud->callback_after_update(array($this,'_uploaded_company_document'));
 
 		$crud_table = $crud->render();

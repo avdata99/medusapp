@@ -28,9 +28,9 @@ App.Router = Backbone.Router.extend({
     },
 
   licitacion: function(slug){
-    setPage('/licitacion/' + slug, 'Licitacion ' + slug, 'Licitacion '+slug+' en MedusApp');
+    setPage('/licitacion/' + slug, 'Licitacion ' + slug, 'Licitacion ' + slug + ' en MedusApp');
     App.Models.licitacion = new licitacionModel();
-    App.Models.licitacion.getLicitacion(slug); // carga todas las licitaciones
+    App.Models.licitacion.getLicitacion(slug); // carga la licitacion
 
     // cargar las licitaciones leidas en la home
     App.Views.licitacionLandingView = new licitacionLandingView({model: App.Models.licitacion});

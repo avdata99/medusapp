@@ -37,6 +37,7 @@ class Licitaciones extends REST_Controller{
             {$this->response(array('error' => 'Error'), 404);}
     }
 
+    /*
     public function postulaciones_get($uid){
         $this->load->model('licitaciones_model');
         $lic = $this->licitaciones_model->load($uid);
@@ -48,4 +49,5 @@ class Licitaciones extends REST_Controller{
         else
             {$this->response(array('error' => 'Error'), 404);}
     }
+    */
 }

@@ -56,10 +56,20 @@
 		<ul>
 		<% _.each(datos_entregados, function(datos_entregado) { %>
 		<li><%= datos_entregado.empresa %> entrego <%= datos_entregado.documento %></li>
-		<p><b>Observaciones de la empresa:</b> <%= datos_entregado.observaciones %></p>
 		<% if (datos_entregado.url) { %>
 		<a target='_blank' class="btn" 
-			href="/static/company_documents/<%= datos_entregado.url %>">Descargar</a>
+			href="/static/company_documents/<%= datos_entregado.url %>">Descargar <%= datos_entregado.documento %> de <%= datos_entregado.empresa %>  </a>
+		
+		<% } else { %>
+		<p><b>DOCUMENTO NO LIBERADO</b></p>
+		<% } %>
+
+		<% if (datos_entregado.observaciones) { %>
+		<p><b>Observaciones de la empresa:</b> <%= datos_entregado.observaciones %></p>
+		
+		<% } else { %>
+		
+		<p><b>SIN Observaciones de la empresa</b></p>
 		<% } %>
 		
 		<% }); %>

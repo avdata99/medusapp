@@ -1,5 +1,5 @@
  -- 26/12/2015 permitir editar licitaciones a observadores
-INSERT INTO `pactointegridad`.`permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '10', '3');
+INSERT INTO `permiso_rol` (`id`, `id_permiso`, `id_rol`) VALUES (NULL, '10', '3');
 
  -- 26/12/2015 permitir doc de cierre al observador
  ALTER TABLE `licitacion` 

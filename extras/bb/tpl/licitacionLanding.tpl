@@ -58,7 +58,7 @@
 		<li><%= datos_entregado.empresa %> entrego <%= datos_entregado.documento %></li>
 		<p><b>Observaciones de la empresa:</b> <%= datos_entregado.observaciones %></p>
 		<% if (datos_entregado.url) { %>
-		<a target='_blank' class="btn btn-large btn-block" 
+		<a target='_blank' class="btn" 
 			href="/static/company_documents/<%= datos_entregado.url %>">Descargar</a>
 		<% } %>
 		

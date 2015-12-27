@@ -2,7 +2,7 @@
   <img src="/static/gobiernos_logo/<%= logo %>" alt="Licitacion <%= nombre %> - <%= pais%>">
   <div class="caption">
     <h3><%= nombre %> | <%= pais %></h3>
-    <%= texto_presentacion %>
+    
   </div>
   <div class="widget-footer">
     <p>

@@ -54,8 +54,8 @@ var gobiernosCollection = Backbone.Collection.extend({
 var gobiernoLandingView = Backbone.View.extend({
     template: template('gobiernoLanding'),
     render: function(){
-        lic = this.model.attributes;
-        $('#main_title').html(lic.titulo + ' <small>' + lic.gobierno + '</small>');
+        gov = this.model.attributes;
+        $('#main_title').html(gov.nombre + ' <small>' + gov.pais + '</small>');
         var tpl = this.template(this.model.toJSON());
         $('#main_container').append(tpl);
 

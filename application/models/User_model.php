@@ -282,7 +282,7 @@ class User_model extends CI_Model
         else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {
             $ret['profile'] = ['perfil'=>'gobierno', 'id'=>$ret['gobiernos'][0]];
             $this->load->model('gov_model');
-            $gov = $this->gov_model->load($ret['gobiernos'][0]);
+            $gov = $this->gov_model->load_by_id($ret['gobiernos'][0]);
             $ret['profile']['nombre'] = $gov->nombre;
         }
         else {

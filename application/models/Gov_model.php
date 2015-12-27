@@ -3,10 +3,22 @@
 class Gov_model extends CI_Model
     {
 
-    public function load($id){
+    public function load($uid){
         $q = "Select g.*, p.pais from gobierno g
                 join pais p on g.pais_id=p.id
-                where g.id=$id";
+                where g.uid='$uid'";
+        $query = $this->db->query($q);
+        
+        $ret = ['gobierno'=>$query->row()];
+        //#TODO agregar licitaciones abiertas y terminadas y otras cosas de interes
+
+        return $ret;
+    }
+
+    public function load_by_id($id){
+        $q = "Select g.*, p.pais from gobierno g
+                join pais p on g.pais_id=p.id
+                where g.uid=$id";
         $query = $this->db->query($q);
         
         $ret = ['gobierno'=>$query->row()];

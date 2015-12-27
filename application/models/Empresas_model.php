@@ -39,4 +39,11 @@ class Empresas_model extends CI_Model {
 
         return array('result'=> TRUE, 'errors'=> array());
     }
+
+    /* obtener la lista de usuarios de un gobierno */
+    public function get_users($empresa_id){
+        $q = "Select id_usuario from usuario_empresas where id_empresa=$empresa_id";
+        $query = $this->db->query($q);
+        return $query->result();
+    }
 }

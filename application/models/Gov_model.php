@@ -8,10 +8,10 @@ class Gov_model extends CI_Model
                 join pais p on g.pais_id=p.id
                 where g.uid='$uid'";
         $query = $this->db->query($q);
-        
-        $ret = ['gobierno'=>$query->row()];
-        //#TODO agregar licitaciones abiertas y terminadas y otras cosas de interes
-
+        $gobierno = $query->row();
+        $ret = ['gobierno'=>$gobierno];
+        $this->load->model('licitaciones_model');
+        $ret['licitaciones'] = $this->licitaciones_model->lista(FALSE, [$gobierno->id]);
         return $ret;
     }
 
@@ -23,7 +23,6 @@ class Gov_model extends CI_Model
         
         $gobierno = $query->row();
         $ret = ['gobierno'=>$gobierno];
-        $ret['licitaciones'] = $this->eventos_model->get_from_licitacion($gobierno->id);
 
         return $ret;
     }

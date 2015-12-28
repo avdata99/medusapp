@@ -60,7 +60,8 @@ class Licitaciones_model extends CI_Model {
         // documentos liberados por empresas 
         $datos_entregados = $this->datos_entregados($licitacion->id);
         $ret['datos_entregados'] = $datos_entregados;
-
+        // lista de eventos de la licitacion
+        $ret['eventos'] = $this->eventos_model->get_from_licitacion($licitacion->id);
 
         return $ret;
     }

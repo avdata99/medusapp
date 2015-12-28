@@ -17,6 +17,7 @@ var licitacionModel = Backbone.Model.extend({
         fecha_fin: null,
         cierre_observador_txt: null, // texto de cierre del observador
         cierre_observador_url: null, // url del doc de cierre del observador si lo hubiera
+        eventos: [],
     },
     getLicitacion: function(slug){
         self = this;
@@ -32,6 +33,7 @@ var licitacionModel = Backbone.Model.extend({
         self.set('postulaciones', data.postulaciones);
         self.set('datos_pedidos', data.datos_pedidos);
         self.set('datos_entregados', data.datos_entregados);
+        self.set('eventos', data.eventos);
         });
       xhr.fail(function(data){console.log("failed on getLicitacionLanding");});
 

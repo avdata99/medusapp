@@ -52,7 +52,7 @@
 	     	<% }); %>
 	     </ul>
 		<h3>Documentos liberados por las empresas participantes</h3>
-	<% if (_.size(datos_entregados) > 0) { %>
+		<% if (_.size(datos_entregados) > 0) { %>
 		<ul>
 		<% _.each(datos_entregados, function(datos_entregado) { %>
 		<li><%= datos_entregado.empresa %> entrego <%= datos_entregado.documento %></li>
@@ -84,6 +84,23 @@
 	<div class="span12">
 		<h3>Cierre de la licitacion</h3>
 		<p>Fecha de cierre: <%= fecha_fin %></p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="span12">
+		<h3>Eventos de la licitacion</h3>
+		
+		<% if (_.size(eventos) > 0) { %>
+		
+		<% _.each(eventos, function(evento) { %>
+		<p><b><%= evento.titulo %></b> (<%= evento.fecha %>) <%= evento.descripcion %></p>
+		<% }); %>
+		
+		<% } else { %>
+		<p><b>No hubo eventos en esta licitación aún</b></p>
+		<% } %>
+
 	</div>
 </div>
 

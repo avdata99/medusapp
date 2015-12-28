@@ -61,3 +61,7 @@ ALTER TABLE `eventos` ADD INDEX (`licitacion_id`) ;
 ALTER TABLE `eventos` 
 	ADD FOREIGN KEY (`licitacion_id`) 
 	REFERENCES `pactointegridad`.`licitacion`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+ALTER TABLE `eventos` ADD `fecha` DATETIME NOT NULL ;

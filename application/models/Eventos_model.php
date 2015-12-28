@@ -1,12 +1,17 @@
 <?php
+
+/**
+Los eventos son sobre las licitaciones. Es información publica
+que se verá en la web
+*/
 class Eventos_model extends CI_Model{
 
 	/* Agregar una notificacion para un usuario especifico */
-	public function add($user_id, $titulo='', $descripcion='', $url=''){
+	public function add($licitacion_id, $titulo, $descripcion='', $url=''){
 		$q = "INSERT INTO eventos 
-	        (user_id, titulo, descripcion, url, status) 
+	        (licitacion_id, titulo, descripcion) 
 	        VALUES 
-	        ($user_id, '$titulo', '$descripcion', '$url', 1);";
+	        ($licitacion_id, '$titulo', '$descripcion');";
 	    $query = $this->db->query($q);
         return $this->db->insert_id();
 		}

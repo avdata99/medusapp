@@ -293,6 +293,8 @@ class Home extends CI_Controller {
 		$crud->change_field_type('cierre_observador_url','invisible');
 
 		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
+		$crud->callback_after_insert(array($this,'_new_licitacion')); # solo en el insert, la primera vez
+
 		$crud->columns('nombre', 'gobierno_id', 'observador_id');
 		$crud->display_as('gobierno_id','Gobierno');
 		$crud->display_as('observador_id','Observador');
@@ -762,6 +764,11 @@ class Home extends CI_Controller {
 		$descripcion = "Se ha agregado " . $post['nombre'] . " a la plataforma MedusApp"; 
 		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
 
+		return $post;
+	}
+
+	function _new_licitacion($post, $pk) {
+		$this->eventos_model->add($pk, "Se creó la licitacion");
 		return $post;
 	}
 

@@ -46,3 +46,18 @@ ALTER TABLE `gobierno` ADD `pais_id` INT NOT NULL DEFAULT '1' AFTER `id`, ADD IN
 
 ALTER TABLE `gobierno` ADD `texto_presentacion` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `uid`;
 ALTER TABLE `gobierno` ADD `logo` VARCHAR(190) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `texto_presentacion`;
+
+
+CREATE TABLE `eventos` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `licitacion_id` INT NOT NULL, 
+ `titulo` varchar(120) NOT NULL,
+ `descripcion` text NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `eventos` ADD INDEX (`licitacion_id`) ;
+
+ALTER TABLE `eventos` 
+	ADD FOREIGN KEY (`licitacion_id`) 
+	REFERENCES `pactointegridad`.`licitacion`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

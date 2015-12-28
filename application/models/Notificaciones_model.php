@@ -1,4 +1,9 @@
 <?php
+
+/**
+Las notificaciones son mensajes que pueden ver los usuarios sobre acciones 
+que pueden ser de su interes. 
+*/
 class Notificaciones_model extends CI_Model{
 
 	/* Agregar una notificacion para un usuario especifico */

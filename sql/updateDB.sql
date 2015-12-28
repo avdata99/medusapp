@@ -63,5 +63,5 @@ ALTER TABLE `eventos`
 	REFERENCES `pactointegridad`.`licitacion`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
-
+ -- --------------------------------------------
 ALTER TABLE `eventos` ADD `fecha` DATETIME NOT NULL ;

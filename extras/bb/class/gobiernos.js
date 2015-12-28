@@ -7,6 +7,7 @@ var gobiernoModel = Backbone.Model.extend({
         texto_presentacion: null,
         logo: null,
         url: null,
+        licitaciones:[],
     },
     getGobierno: function(slug){
         self = this;
@@ -19,6 +20,7 @@ var gobiernoModel = Backbone.Model.extend({
         
       xhr.done(function(data){ // get gobierno info
         self.set(data.gobierno);
+        self.set('licitaciones', data.licitaciones);
         });
       xhr.fail(function(data){console.log("failed on getGov");});
 

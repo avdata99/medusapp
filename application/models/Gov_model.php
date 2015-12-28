@@ -21,8 +21,9 @@ class Gov_model extends CI_Model
                 where g.uid=$id";
         $query = $this->db->query($q);
         
-        $ret = ['gobierno'=>$query->row()];
-        //#TODO agregar licitaciones abiertas y terminadas y otras cosas de interes
+        $gobierno = $query->row();
+        $ret = ['gobierno'=>$gobierno];
+        $ret['licitaciones'] = $this->eventos_model->get_from_licitacion($gobierno->id);
 
         return $ret;
     }

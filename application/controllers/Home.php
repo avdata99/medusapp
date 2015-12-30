@@ -747,12 +747,6 @@ class Home extends CI_Controller {
 
 	}
 
-	/* marcar la fecha de alta, crear el uid (slug), 
-		notificar que se agrego un nuevo gobierno a la aplicacion */
-	function _new_gov($post) {
-		
-	}
-
 	public function _encrypt_password_callback($post){
 		if ($post['password'] != '') $post['password'] = md5($post['password']);
 		else unset($post['password']);

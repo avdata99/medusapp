@@ -292,8 +292,8 @@ class Home extends CI_Controller {
 		$crud->change_field_type('cierre_observador_txt','invisible');
 		$crud->change_field_type('cierre_observador_url','invisible');
 
-		$crud->callback_before_insert(array($this,'_slug_title')); # solo en el insert, la primera vez
-		$crud->callback_after_insert(array($this,'_new_licitacion')); # solo en el insert, la primera vez
+		$crud->callback_before_insert(array($this->hooks_model,'licitacion_before_inter')); # solo en el insert, la primera vez
+		$crud->callback_after_insert(array($this->hooks_model,'licitacion_after_inter')); # solo en el insert, la primera vez
 
 		$crud->columns('nombre', 'gobierno_id', 'observador_id');
 		$crud->display_as('gobierno_id','Gobierno');
@@ -388,7 +388,9 @@ class Home extends CI_Controller {
 		}
 
 		// notificar a todo el sistema cuando se agregue un gobierno, no es un hecho menor
-		$crud->callback_before_insert(array($this,'_new_gov'));
+		$crud->callback_before_insert(array($this->hooks_model, 'gov_before_insert'));
+		$crud->callback_after_insert(array($this->hooks_model, 'gov_after_insert'));
+		
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -745,31 +747,10 @@ class Home extends CI_Controller {
 
 	}
 
-	/** Crear la URL slug solo la primera vez que se graba */
-	public function _slug_title($post){
-		$post['uid'] = $this->slugify($post['nombre']);
-		return $post;
-	}
-
 	/* marcar la fecha de alta, crear el uid (slug), 
 		notificar que se agrego un nuevo gobierno a la aplicacion */
 	function _new_gov($post) {
-		//crear el titulo slug
-		$post['uid'] = $this->slugify($post['nombre']);
-		//marcar la fecha de alta
-		$post['created_at'] = date('Y-m-d H:i:s');
-
-		$titulo = "Nuevo gobierno";
-		$url = "http://medusapp.org/gobierno/" . $post['uid'];
-		$descripcion = "Se ha agregado " . $post['nombre'] . " a la plataforma MedusApp"; 
-		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
-
-		return $post;
-	}
-
-	function _new_licitacion($post, $pk) {
-		$this->eventos_model->add($pk, "Se creó la licitacion");
-		return $post;
+		
 	}
 
 	public function _encrypt_password_callback($post){
@@ -793,25 +774,5 @@ class Home extends CI_Controller {
 	    return "<input type='password' name='password' value='' />";
 	}
 
-	function slugify($string, $replace = array(), $delimiter = '-') {
-	  // https://github.com/phalcon/incubator/blob/master/Library/Phalcon/Utils/Slug.php
-	  if (!extension_loaded('iconv')) {
-	    throw new Exception('iconv module not loaded');
-	  }
-	  // Save the old locale and set the new locale to UTF-8
-	  $oldLocale = setlocale(LC_ALL, '0');
-	  setlocale(LC_ALL, 'en_US.UTF-8');
-	  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
-	  if (!empty($replace)) {
-	    $clean = str_replace((array) $replace, ' ', $clean);
-	  }
-	  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-	  $clean = strtolower($clean);
-	  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-	  $clean = trim($clean, $delimiter);
-	  // Revert back to the old locale
-	  setlocale(LC_ALL, $oldLocale);
-	  return $clean;
-	}
 }
 

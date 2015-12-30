@@ -5,7 +5,7 @@ Los eventos en el sistema que sean relevantes se procesan aquí
 */
 class Helper_model extends CI_Model{
 
-function slugify($string, $replace = array(), $delimiter = '-') {
+	function slugify($string, $replace = array(), $delimiter = '-') {
 	  // https://github.com/phalcon/incubator/blob/master/Library/Phalcon/Utils/Slug.php
 	  if (!extension_loaded('iconv')) {
 	    throw new Exception('iconv module not loaded');

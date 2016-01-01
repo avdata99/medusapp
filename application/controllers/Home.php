@@ -415,7 +415,9 @@ class Home extends CI_Controller {
 		$crud->set_table('licitacion_postulaciones');
 		#TODO municipio_id is just for add time, not edit
 		
-		$q = "SELECT lp.*, licitacion.nombre AS licitacion, empresa.nombre AS empresa, lpe.estado AS estado
+		$q = "SELECT lp.*, licitacion.nombre AS licitacion, 
+				empresa.nombre AS empresa, lpe.estado AS estado,
+				licitacion.id AS licitacion_id
 				FROM licitacion_postulaciones lp
 				LEFT JOIN licitacion ON licitacion.id = lp.id_licitacion
 				LEFT JOIN empresa ON empresa.id = lp.id_empresa
@@ -438,6 +440,7 @@ class Home extends CI_Controller {
 		}
 
 		$crud->columns('licitacion', 'empresa', 'estado');
+		$crud->callback_column('estado',array($this,'_callback_estado_postulacion'));
 		//$crud->set_relation('status', 'licitacion_postulacion_status', 'estado');
 		//$crud->edit_fields('status');
 		$crud->basic_model->set_manual_select($q);
@@ -453,14 +456,6 @@ class Home extends CI_Controller {
 		$crud->unset_read();	
 		// uso govs porque un usuario puede ver las licitaciones sobre las que tiene permisos
 		
-		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
-			$crud->add_action('Aceptar postulacion', '', '/home/aceptar_postulacion', 'fa-check-circle');
-		}
-
-		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
-			$crud->add_action('Procesar postulación', '', '/home/procesar_licitacion', '');
-		}
-
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;
@@ -768,5 +763,24 @@ class Home extends CI_Controller {
 	    return "<input type='password' name='password' value='' />";
 	}
 
+	/* en la lista de postulaciones, el campo estado es Aceptado | Rechazado | Solicitado 
+	Segun el perfil del usuario puede haber varias opciones*/
+	function _callback_estado_postulacion($value, $row){
+
+		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
+			if ($value == 'Aceptado') {
+				return "ACEPTADO <a href='".site_url('/home/procesar_licitacion/'.$row->licitacion_id)."'>Procesar postulacion</a>";
+			}	
+		}
+
+		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
+			if ($value != 'Aceptado') {
+				return "$value <a href='".site_url('/home/aceptar_postulacion/'.$row->licitacion_id)."'>Aceptar</a>";
+			}
+		}
+		
+		// else all
+		return $value;
+	}
 }
 

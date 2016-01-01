@@ -276,7 +276,7 @@ class User_model extends CI_Model
         else if ($ret['gobiernos'] == [] && count($ret['observadores']) == 1 && $ret['empresas'] == []) {
             $ret['profile'] = ['perfil'=>'observador', 'id'=>$ret['observadores'][0]];
             $this->load->model('observadores_model');
-            $observador = $this->observadores_model->load($ret['observadores'][0]);
+            $observador = $this->observadores_model->load_by_id($ret['observadores'][0]);
             $ret['profile']['nombre'] = $observador->nombre;
         }
         else if (count($ret['gobiernos']) == 1 && $ret['observadores'] == [] && $ret['empresas'] == []) {

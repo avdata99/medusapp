@@ -13,8 +13,8 @@
       <ul class="nav pull-right">
 
         <li><a href="/#licitaciones">Licitaciones</a></li>
-        
         <li><a href="/#gobiernos">Gobiernos</a></li>
+        <li><a href="/#observadores">Observadores</a></li>
 
         <li class="dropdown">    
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">MedusApp<b class="caret"></b></a>

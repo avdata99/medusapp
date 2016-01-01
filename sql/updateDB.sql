@@ -65,3 +65,11 @@ ALTER TABLE `eventos`
 
  -- --------------------------------------------
 ALTER TABLE `eventos` ADD `fecha` DATETIME NOT NULL ;
+
+ -- ----------------------------------
+ -- 1/1/16
+ALTER TABLE `observador` ADD `uid` VARCHAR(120) NOT NULL AFTER `id`, ADD UNIQUE (`uid`) ;
+ALTER TABLE `observador` ADD `foto` VARCHAR(190) NOT NULL ;
+ALTER TABLE `observador` ADD `created_at` DATETIME NOT NULL ;
+ALTER TABLE `observador` ADD `pais_id` INT NOT NULL DEFAULT '1' , ADD INDEX (`pais_id`) ;
+

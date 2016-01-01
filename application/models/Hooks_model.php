@@ -21,7 +21,6 @@ class Hooks_model extends CI_Model{
 	# ------------- GOVIERNOS 
 	function gov_before_insert($post) {
 		//crear el titulo slug
-		$this->load->model('helper_model');
 		$post['uid'] = $this->helper_model->slugify($post['nombre']);
 		//marcar la fecha de alta
 		$post['created_at'] = date('Y-m-d H:i:s');
@@ -37,6 +36,26 @@ class Hooks_model extends CI_Model{
 
 		return TRUE;
 	}
+
+	# ------------- GOVIERNOS 
+	function obs_before_insert($post) {
+		//crear el titulo slug
+		$post['uid'] = $this->helper_model->slugify($post['nombre']);
+		//marcar la fecha de alta
+		$post['created_at'] = date('Y-m-d H:i:s');
+
+		return $post;
+	}
+
+	function obs_after_insert($post, $pk) {
+		$titulo = "Nuevo observador";
+		$url = "http://medusapp.org/#observador/" . $post['uid'];
+		$descripcion = "Se ha agregado " . $post['nombre'] . " como observador a la plataforma MedusApp"; 
+		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
+
+		return TRUE;
+	}
+
 
 }
 

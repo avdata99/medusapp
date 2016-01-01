@@ -593,9 +593,18 @@ class Home extends CI_Controller {
 			$crud->set_relation('status', 'observador_status', 'estado');
 			}
 		
-		$crud->columns('nombre', 'descripcion', 'documento_url');
+		$crud->columns('nombre', 'pais_id', 'descripcion', 'documento_url', 'foto');
+		$crud->set_relation('pais_id','pais','pais', null, 'pais.pais');
+		$crud->display_as('pais_id','Pais');
+		$crud->display_as('documento_url','CV del observador');
+		$crud->change_field_type('uid','invisible');
 		$crud->set_field_upload('documento_url',$this->config->item('upload_documentos_observadores'));
-		
+		$crud->set_field_upload('foto',$this->config->item('upload_fotos_observadores'));
+		$crud->change_field_type('created_at','invisible');
+
+		$crud->callback_before_insert(array($this->hooks_model, 'obs_before_insert'));
+		$crud->callback_after_insert(array($this->hooks_model, 'obs_after_insert'));
+
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

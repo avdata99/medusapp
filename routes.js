@@ -2,9 +2,11 @@ App.Router = Backbone.Router.extend({
   routes: {
     '': 'home',
     'licitaciones': 'licitaciones',
-    'gobiernos': 'gobiernos',
     'licitacion/:slug': 'licitacion',
+    'gobiernos': 'gobiernos',
     'gobierno/:slug': 'gobierno',
+    'observadores': 'observadores',
+    'observador/:slug': 'observador',
     'MedusApp/:slug': 'section',
     'suscribe': 'suscribe',
     'registrar-empresa': 'registrarEmpresa',
@@ -29,16 +31,6 @@ App.Router = Backbone.Router.extend({
     App.Collections.licitacionesView = new licitacionesCollectionView({collection: App.Models.licitaciones});
     },
 
-  gobiernos: function() {
-    setPage('/gobiernos', 'Gobiernos', 'Gobiernos participantes en MedusApp');
-    $('#main_title').html('Gobiernos que usan MedusApp <small>(DEMO)</small>');
-    App.Models.gobiernos = new gobiernosCollection();
-    App.Models.gobiernos.getGobiernos(); // carga todas las licitaciones
-
-    // cargar las licitaciones leidas en la home
-    App.Collections.gobiernosView = new gobiernoCollectionView({collection: App.Models.gobiernos});
-    },
-
   licitacion: function(slug){
     setPage('/licitacion/' + slug, 'Licitacion ' + slug, 'Licitacion ' + slug + ' en MedusApp');
     App.Models.licitacion = new licitacionModel();
@@ -49,6 +41,16 @@ App.Router = Backbone.Router.extend({
     App.Views.licitacionLandingView.render();
   },
 
+  gobiernos: function() {
+    setPage('/gobiernos', 'Gobiernos', 'Gobiernos participantes en MedusApp');
+    $('#main_title').html('Gobiernos que usan MedusApp <small>(DEMO)</small>');
+    App.Models.gobiernos = new gobiernosCollection();
+    App.Models.gobiernos.getGobiernos(); // carga todas las licitaciones
+
+    // cargar las licitaciones leidas en la home
+    App.Collections.gobiernosView = new gobiernoCollectionView({collection: App.Models.gobiernos});
+    },
+
   gobierno: function(slug){
     setPage('/gobierno/' + slug, 'Gobierno ' + slug, 'Gobierno ' + slug + ' en MedusApp');
     App.Models.gobierno = new gobiernoModel();
@@ -57,6 +59,26 @@ App.Router = Backbone.Router.extend({
     // cargar las licitaciones leidas en la home
     App.Views.gobiernoLandingView = new gobiernoLandingView({model: App.Models.gobierno});
     App.Views.gobiernoLandingView.render();
+  },
+
+  observadores: function() {
+    setPage('/observadores', 'Observadores', 'Observadores participantes en MedusApp');
+    $('#main_title').html('Observadores que usan MedusApp <small>(DEMO)</small>');
+    App.Models.observadores = new observadoresCollection();
+    App.Models.observadores.getObservadores(); // carga todas las licitaciones
+
+    // cargar las licitaciones leidas en la home
+    App.Collections.observadoresView = new observadorCollectionView({collection: App.Models.observadores});
+    },
+
+  observador: function(slug){
+    setPage('/observador/' + slug, 'Observador ' + slug, 'Observador ' + slug + ' en MedusApp');
+    App.Models.observador = new observadorModel();
+    App.Models.observador.getObservador(slug); // carga la licitacion
+
+    // cargar las licitaciones leidas en la home
+    App.Views.observadorLandingView = new observadorLandingView({model: App.Models.observador});
+    App.Views.observadorLandingView.render();
   },
 
   section: function(slug){

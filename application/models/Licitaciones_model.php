@@ -7,7 +7,7 @@ class Licitaciones_model extends CI_Model {
     	return $list->result();
     	}
 
-    public function lista($soloActivas=FALSE, $gobiernos=[]){
+    public function lista($soloActivas=FALSE, $gobiernos=[], $observadores=[]){
         /* 
         soloActivas se refiere a la fecha de inicio y cierre 
         gobiernos es una lista de IDs
@@ -21,7 +21,11 @@ class Licitaciones_model extends CI_Model {
             $ahora = date("Y-m-d H:i:s");
             $filtros[] = "fecha_inicio>='$ahora' AND fecha_fin <='$ahora'";
         }
-
+        if (count($observadores) > 0){
+            $obs = implode(',', $observadores);
+            $filtros[] = 'observador_id IN ('.$obs.')';
+        }
+        
         $where = (count($filtros) == 0) ? '' : ' WHERE ' . implode(' AND ', $filtros). ' ';
     	$query = $this->db->query("SELECT g.nombre gobierno, li.uid, li.nombre titulo, 
     			li.detalle descripcion, li.documento, li.imagen, li.fecha_inicio, li.fecha_fin 

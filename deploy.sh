@@ -15,7 +15,7 @@ ssh -p 987 pin2@medusapp.org "find /home/pin2/www/ -type d -exec chmod 755 {} \;
 
 # crear carpetas y cosas necesarias
 echo "Bashes"
-ssh -p 987 pin2@medusapp.org "/home/pin2/www/sql/initial.sh 755"
+ssh -p 987 pin2@medusapp.org "chmod +x /home/pin2/www/sql/initial.sh && cd /home/pin2/www/ && /home/pin2/www/sql/initial.sh 755"
 
 # database 
 # ssh -p 987 pin2@medusapp.org "mysql -u pin2_user -p pin2_db < /home/pin2/www/sql/updateDB.sql"

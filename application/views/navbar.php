@@ -10,6 +10,7 @@
             </div>
             
             <? /*=$notifications_bar */ ?>
+            <?=$notifications_bar?>
 
             <?= $menu_principal ?>
             

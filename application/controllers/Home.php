@@ -29,13 +29,21 @@ class Home extends CI_Controller {
 		$this->parts['navbar'] = $this->load->view('navbar.php', $this->parts, TRUE);
 		$this->parts['js_loads'] = $this->load->view('js_loads.php', $this->parts, TRUE);
 		// sumar JSs locales
+		$this->parts['local_js'] = '';
 		if (isset($this->parts['local_jss'])) {
-			$this->parts['local_js'] = '';
 			foreach ($this->parts['local_jss'] as $local_js) {
 				$this->parts['local_js'] .= '<script src="' . $this->config->item('base_url').'static/js/'.$local_js.'"></script>';
 			}
 		
 		}
+		# $this->parts['js_files'] secarga con el JS requerido por grocery crud pero cuando no se carga 
+		# ninguna tabla es un problema, otras cosas del template requieren jquery y este no se 
+		# carga a mano para que no entre en conflicto con el JS del teplate
+		# por lo tanto si no se cargo, forzar la zarga
+		if ($this->parts['js_files'] == []) {
+			$this->parts['local_js'] .= '<script src="' . $this->config->item('base_url').'static/js/jquery-1.11.0.js"></script>';
+			$this->parts['local_js'] .= '<script src="' . $this->config->item('base_url').'static/js/bootstrap.min.js"></script>';
+		} 
 		$this->parts['GUID'] = $this->user_model->CSRF();
 		$this->load->view('home.php', $this->parts);
 	}

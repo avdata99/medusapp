@@ -28,7 +28,7 @@ body {
 }
 
 .navbar-top-links li {
-    display: inline-block;
+    display: inline-block !important;
 }
 
 .navbar-top-links li:last-child {

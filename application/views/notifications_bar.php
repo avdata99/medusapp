@@ -195,7 +195,7 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/home/usuarios/edit/<?=$session['user_id']?>"><i class="fa fa-user fa-fw"></i> Mis datos</a>
+                        <li><a href="/home/edit_my_user/edit/<?=$session['user_id']?>"><i class="fa fa-user fa-fw"></i> Mis datos</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/home/logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a>

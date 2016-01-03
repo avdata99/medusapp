@@ -641,20 +641,48 @@ class Home extends CI_Controller {
 		$this->load_all();	
 	}
 
+	public function edit_my_user() {
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+		$crud->set_table('usuario');
+		$crud->where('id = ' . $this->session->userdata('user_id'));
+		$crud->unset_columns('password');
+		$crud->unset_delete();
+		$crud->change_field_type('password', 'password');
+		# para evitar que se aplique MD5 sobre algo que ya lo es
+		$crud->callback_edit_field('password',array($this,'set_password_input_to_empty'));
+    	$crud->callback_add_field('password',array($this,'set_password_input_to_empty'));
+ 
+		$crud->callback_before_insert(array($this,'_encrypt_password_callback'));
+		$crud->callback_before_update(array($this,'_encrypt_password_callback'));
+		
+		$crud_table = $crud->render();
+		$this->parts['subtitle'] = 'Mi usuario';
+		$this->parts['active'] = '';
+		$this->parts['title_table'] = 'Mi perfil';
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		$this->load_all();	
+	
+	}
+
 	public function usuarios(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		
 	    $crud = new grocery_CRUD();
 		$crud->set_theme('bootstrap');
 		$crud->set_table('usuario');
-	
-		$limited_edit = FALSE;
+		
+		/*
 		$state = $crud->getState();
 	    $state_info = $crud->getStateInfo();
-		if($state == 'edit' && $state_info->primary_key == $this->session->userdata('user_id')) {
+	    // un usuario cualquiera pdria venir a editar su nombre o pass
+		// if ($state == 'edit' || $state == 'update_validation' || $state == 'update') ... etc 
+		if ($state_info->primary_key == $this->session->userdata('user_id')) {
 	    	$limited_edit = TRUE;
 	    }
-		else if (!$this->user_model->can('VIEW_USUARIOS'))
+		else */if (!$this->user_model->can('VIEW_USUARIOS'))
 			{$this->redirecToUnauthorized();}
 		
 		$this->parts['subtitle'] = 'Usuarios';
@@ -671,13 +699,11 @@ class Home extends CI_Controller {
 		$crud->callback_before_insert(array($this,'_encrypt_password_callback'));
 		$crud->callback_before_update(array($this,'_encrypt_password_callback'));
 		
-		if (!$limited_edit) {
-			$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
-			$crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
-			$crud->set_relation_n_n('Observadores', 'usuario_observadores', 'observador', 'id_usuario', 'id_observador', 'nombre');
-			$crud->set_relation_n_n('Roles', 		'usuario_rol', 			'rol', 		  'id_usuario', 'id_rol', 		 'nombre');
-		}
-		
+		$crud->set_relation_n_n('Gobiernos',    'usuario_gobiernos',    'gobierno',   'id_usuario', 'id_gobierno',   'nombre');
+		$crud->set_relation_n_n('Empresas',     'usuario_empresas',     'empresa',    'id_usuario', 'id_empresa',    'nombre');
+		$crud->set_relation_n_n('Observadores', 'usuario_observadores', 'observador', 'id_usuario', 'id_observador', 'nombre');
+		$crud->set_relation_n_n('Roles', 		'usuario_rol', 			'rol', 		  'id_usuario', 'id_rol', 		 'nombre');
+	
 		$crud_table = $crud->render();
 		$this->parts['table'] = $crud_table->output;
 		$this->parts['css_files'] = $crud_table->css_files;

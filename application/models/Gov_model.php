@@ -18,13 +18,12 @@ class Gov_model extends CI_Model
     public function load_by_id($id){
         $q = "Select g.*, p.pais from gobierno g
                 join pais p on g.pais_id=p.id
-                where g.uid=$id";
+                where g.id=$id";
         $query = $this->db->query($q);
         
         $gobierno = $query->row();
-        $ret = ['gobierno'=>$gobierno];
-
-        return $ret;
+        
+        return $gobierno;
     }
 
     /* obtener la lista de usuarios de un gobierno */

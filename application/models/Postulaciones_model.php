@@ -38,17 +38,20 @@ class Postulaciones_model extends CI_Model {
         if ($query->num_rows() == 1) {
             $row = $query->row_array();
             if ($row['status'] == 3){ 
-                $res = (object)['status'=>TRUE, 'results'=>$row];
+                $res = (object)['status'=>$row['status'], 'results'=>$row];
             }
             elseif ($row['status'] == 2) {
-                $res = (object)['status'=>FALSE, 'error'=>'La postulacion ha sido rechazada.'];
+                $res = (object)['status'=>$row['status'],  'error'=>'La postulacion ha sido rechazada.'];
             }
             elseif ($row['status'] == 1) {
-                $res = (object)['status'=>FALSE, 'error'=>'La postulacion no ha sido analizada aún.'];
+                $res = (object)['status'=>$row['status'], 'error'=>'La postulacion no ha sido analizada aún.'];
             }
         }
-        else if ($query->num_rows() == 0 || $query->num_rows() > 1) {
-            $res = (object)['status'=>FALSE, 'error'=>'Postulacion inválida, consulte al administrador'];
+        else if ($query->num_rows() == 0){
+             $res = (object)['status'=> -1, 'error'=>'La postulacion no ha sido analizada aún.'];
+        }
+        else if ($query->num_rows() > 1) {
+            $res = (object)['status' => FALSE, 'error'=>'Postulacion inválida, consulte al administrador'];
             $txt = "Postulacion invalida [".$query->num_rows()."] [$licitacion_id, $empresa_id]";
             $seccion = __CLASS__.".".__FUNCTION__;
             $this->errors_model->add($txt, $seccion, 2);

@@ -6,7 +6,7 @@ class Observadores_model extends CI_Model
     public function load_by_id($id){
         $q = "Select o.*, p.pais from observador o 
                 join pais p on o.pais_id=p.id
-                where id=$id";
+                where o.id=$id";
         $query = $this->db->query($q);
         if ($query->num_rows() == 0) return FALSE;
         return $query->row();

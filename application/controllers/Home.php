@@ -191,7 +191,7 @@ class Home extends CI_Controller {
 		$licitacion_id = $postulacion->id_licitacion;
 		/* parece que es redundate validar esto, revisarlo mas despierto otro dia
 		$res = $this->postulaciones_model->validate_empresa($licitacion_id, $empresa_id);
-		if (!$res->status){
+		if ($res->status === FALSE){
 			$this->show_error('Error al procesar licitacion', $res->error);
 			return False;
 		}
@@ -303,20 +303,29 @@ class Home extends CI_Controller {
 		$crud->callback_before_insert(array($this->hooks_model,'licitacion_before_inter')); # solo en el insert, la primera vez
 		$crud->callback_after_insert(array($this->hooks_model,'licitacion_after_inter')); # solo en el insert, la primera vez
 
-		$crud->columns('nombre', 'gobierno_id', 'observador_id');
+		$crud->columns('nombre', 'gobierno_id', 'observador_id', 'estado');
 		$crud->display_as('gobierno_id','Gobierno');
 		$crud->display_as('observador_id','Observador');
 		$crud->display_as('datos','Datos a solicitar a las empresas');
 
-		# si es una empresa agregar la opcion de postularse
+		# mostrar las acciones segun el estado y el perfil
+		
+		# empresas pueden postularse por ejemplo (o saber en que estado están)
+		
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
-			$crud->add_action('Postularse', '', '/home/postularse', 'fa-hand-paper-o');
-		}
+			//agregar el estado de la postulación e intervernir el dato con opciones
+			$crud->callback_column('estado',array($this,'_callback_estado_licitacion'));
+			}
 
+		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
+			// el gobierno podra cerrarla o ir a la sala
+			$crud->callback_column('estado',array($this,'_callback_estado_licitacion'));
+			}
+		
 		# si es un observador aceptado o gobierno titular dale la posibilidad de ir a la sala
 		if ($this->user_model->hasRole('OBS_ADMIN') || $this->user_model->hasRole('GOV_ADMIN')) {
-			$crud->add_action('Ir a la sala', '', '/home/sala', 'fa-users');
-			$crud->add_action('Documento de cierre', '', '/home/cierre_observador', 'fa-file');
+			// el observador puede ir a la sala o crear el documento de cierre
+			$crud->callback_column('estado',array($this,'_callback_estado_licitacion'));
 		}
 
 		$crud_table = $crud->render();
@@ -830,6 +839,58 @@ class Home extends CI_Controller {
 				return "$value <a href='".site_url('/home/aceptar_postulacion/'.$row->licitacion_id)."'>Aceptar</a>";
 			}
 		}
+		
+		// else all
+		return $value;
+	}
+
+	/* en la lista de postulaciones, el campo estado es Aceptado | Rechazado | Solicitado 
+	Segun el perfil del usuario puede haber varias opciones*/
+	function _callback_estado_licitacion($value, $row){
+
+		/* si es una empresa ver en que estado esta su postulacion si existiera */
+		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
+			$this->load->model('postulaciones_model');
+			$empresas = $this->user_model->empresas();
+			#TODO permitir a los usuarios si tienen mas de n perfil elegirlo y que esto sea fijo
+			$vali = $this->postulaciones_model->validate_empresa($row->id, $empresas[0]);
+			if ($vali->status == -1) { # no esta ni postulado
+				return "<a href='".site_url('/home/postularse/'.$row->id)."'>Postularse</a>";
+			}
+			else if ($vali->status == 3) { # ya fue aceptado
+				return "<a href='".site_url('/home/procesar_licitacion/'.$row->id)."'>Procesar postulacion</a>";
+			}
+			else if ($vali->status == 2) { # no esta ni postulado
+				return "Postulacion rechazada";
+			}
+			else if ($vali->status == 1) { # no respondida aún
+				return "Postulacion en análisis, espere";
+			}
+			return "ERROR";
+		}
+
+		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
+			$gobiernos =  $this->user_model->gobiernos();
+			if ($row->gobierno_id != $gobiernos[0]) {
+				return "No es una licitación de tu gobierno";
+			}
+
+			$cerrar = "<a href='".site_url('/home/cerrar_licitacion/'.$row->id)."'>Cerrar</a>";
+			$sala = "<a href='".site_url('/home/sala/'.$row->id)."'>Ir a la sala</a>";
+			return $cerrar . ' - ' . $sala;
+			
+		}
+
+		if ($this->user_model->hasRole('OBS_ADMIN') || $this->user_model->hasRole('GOV_ADMIN')) {
+			$observadores =  $this->user_model->observadores();
+			if ($row->observador_id != $observadores[0]) {
+				return "No eres el observador de esta licitación";
+			}
+			$sala = "<a href='".site_url('/home/sala/'.$row->id)."'>Ir a la sala</a>";
+			$cerrar = "<a href='".site_url('/home/cierre_observador/'.$row->id)."'>Documento de cierre</a>";
+			return $cerrar . ' - ' . $sala;
+		}
+
 		
 		// else all
 		return $value;

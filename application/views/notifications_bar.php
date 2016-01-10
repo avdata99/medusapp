@@ -183,10 +183,12 @@
                                 </div>
                             </a>
                         </li>
+                        
                         <li class="divider"></li>
+
                         <li>
-                            <a class="text-center" href="#">
-                                <strong>See All Alerts</strong>
+                            <a class="text-center" href="/home/notificaciones">
+                                <strong>Ver todas las notificaciones</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>

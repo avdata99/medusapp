@@ -17,8 +17,8 @@ class Notificaciones_model extends CI_Model{
 		}
 
 	/* obtener las notificaciones de un usuario */
-	public function get_from_user($user_id){
-		$q = "SELECT * FROM notificaciones where user_id=$user_id order by id desc";
+	public function get_from_user($user_id, $limit=10){
+		$q = "SELECT * FROM notificaciones where user_id=$user_id order by id desc limit $limit";
 		$query = $this->db->query($q);
         return $query->result();
 	}

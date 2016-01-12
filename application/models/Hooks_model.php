@@ -8,7 +8,13 @@ class Hooks_model extends CI_Model{
 	# ------------- LICITACIONES ----------------------
 	function licitacion_before_insert($post){
 		# Crear la URL slug solo la primera vez que se graba
-		$post['uid'] = $this->slugify($post['nombre']);
+		$post['uid'] = $this->helper_model->slugify($post['nombre']);
+		
+		$titulo = "Nueva licitación";
+		$url = "http://medusapp.org/#licitacion/" . $post['uid'];
+		$descripcion = "Se licita: " . $post['nombre']; 
+		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
+
 		return $post;
 	}
 

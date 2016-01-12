@@ -72,6 +72,8 @@ ALTER TABLE `observador` ADD `uid` VARCHAR(120) NOT NULL AFTER `id`, ADD UNIQUE 
 ALTER TABLE `observador` ADD `foto` VARCHAR(190) NOT NULL ;
 ALTER TABLE `observador` ADD `created_at` DATETIME NOT NULL ;
 ALTER TABLE `observador` ADD `pais_id` INT NOT NULL DEFAULT '1' , ADD INDEX (`pais_id`) ;
+ALTER TABLE `observador` ADD `descripcion` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
+ALTER TABLE `observador` ADD `documento_url` VARCHAR(190) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ;
 
 -- -------------------------------------------------------
 -- 12-01-2016

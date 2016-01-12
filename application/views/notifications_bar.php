@@ -150,6 +150,12 @@
     </li>
                     <li class="divider"></li>
 <?php  } ?>
+<li>
+    <a class="text-center" href="/home/notificaciones">
+        <strong>Ver todas</strong>
+        <i class="fa fa-angle-right"></i>
+    </a>
+</li>
                         
                     </ul>
                     <!-- /.dropdown-alerts -->

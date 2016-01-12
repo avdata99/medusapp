@@ -29,7 +29,7 @@ class Home extends CI_Controller {
 		$this->parts['notifications_bar'] = $this->load->view('notifications_bar.php', $this->parts, TRUE);
 		$this->parts['navbar'] = $this->load->view('navbar.php', $this->parts, TRUE);
 		$this->parts['js_loads'] = $this->load->view('js_loads.php', $this->parts, TRUE);
-		
+
 		// sumar JSs locales
 		$this->parts['local_js'] = '';
 		if (isset($this->parts['local_jss'])) {
@@ -678,6 +678,29 @@ class Home extends CI_Controller {
 	
 	}
 
+	public function notificaciones() {
+		$crud = new grocery_CRUD();
+		$crud->set_theme('bootstrap');
+		$crud->set_table('notificaciones');
+		$crud->where('user_id = ' . $this->session->userdata('user_id'));
+		$crud->order_by('id', 'desc');
+		$crud->callback_column('url',array($this,'_callback_url_notificacion'));
+		$crud->unset_delete();
+		$crud->unset_edit();
+		$crud->unset_add();
+		$crud->columns('titulo', 'descripcion', 'fecha', 'url');
+		$crud->set_read_fields('titulo', 'descripcion', 'fecha', 'url');
+		$crud_table = $crud->render();
+		$this->parts['subtitle'] = 'Mi usuario';
+		$this->parts['active'] = '';
+		$this->parts['title_table'] = 'Notificaciones';
+		$this->parts['table'] = $crud_table->output;
+		$this->parts['css_files'] = $crud_table->css_files;
+		$this->parts['js_files'] = $crud_table->js_files;
+		$this->load_all();	
+	
+	}
+
 	public function usuarios(){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
 		
@@ -896,6 +919,10 @@ class Home extends CI_Controller {
 		
 		// else all
 		return $value;
+	}
+
+	function _callback_url_notificacion($value, $row) {
+		return "<a target='_blank' href='$value'>Ver</a>";
 	}
 }
 

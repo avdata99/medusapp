@@ -73,3 +73,6 @@ ALTER TABLE `observador` ADD `foto` VARCHAR(190) NOT NULL ;
 ALTER TABLE `observador` ADD `created_at` DATETIME NOT NULL ;
 ALTER TABLE `observador` ADD `pais_id` INT NOT NULL DEFAULT '1' , ADD INDEX (`pais_id`) ;
 
+-- -------------------------------------------------------
+-- 12-01-2016
+ALTER TABLE `notificaciones` ADD `fecha` DATETIME NOT NULL ;

@@ -30,7 +30,7 @@ class Gobiernos extends REST_Controller{
     public function load_get($uid){
         $this->load->model('gov_model');
         $gov = $this->gov_model->load($uid);
-
+        
         if($gov)
             {$this->response($gov, 200);}
         else

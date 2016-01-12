@@ -9,9 +9,9 @@ class Notificaciones_model extends CI_Model{
 	/* Agregar una notificacion para un usuario especifico */
 	public function add($user_id, $titulo='', $descripcion='', $url=''){
 		$q = "INSERT INTO notificaciones 
-	        (user_id, titulo, descripcion, url, status) 
+	        (user_id, titulo, descripcion, url, status, fecha) 
 	        VALUES 
-	        ($user_id, '$titulo', '$descripcion', '$url', 1);";
+	        ($user_id, '$titulo', '$descripcion', '$url', 1, '".date("Y-m-d H:i:s")."');";
 	    $query = $this->db->query($q);
         return $this->db->insert_id();
 		}

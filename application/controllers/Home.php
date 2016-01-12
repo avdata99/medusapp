@@ -25,9 +25,11 @@ class Home extends CI_Controller {
 		if (isset($this->parts['subtitle'])) $this->parts['title'] = $this->parts['title'] . ' - ' . $this->parts['subtitle'];
 		$this->parts['headers'] = $this->load->view('headers.php', $this->parts, TRUE);
 		$this->parts['menu_principal'] = $this->load->view('menu_principal.php', $this->parts, TRUE);
+		$this->parts['notificaciones'] = $this->notificaciones_model->get_from_user($this->session->userdata('user_id'));
 		$this->parts['notifications_bar'] = $this->load->view('notifications_bar.php', $this->parts, TRUE);
 		$this->parts['navbar'] = $this->load->view('navbar.php', $this->parts, TRUE);
 		$this->parts['js_loads'] = $this->load->view('js_loads.php', $this->parts, TRUE);
+		
 		// sumar JSs locales
 		$this->parts['local_js'] = '';
 		if (isset($this->parts['local_jss'])) {

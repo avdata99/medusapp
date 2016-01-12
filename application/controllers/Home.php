@@ -302,8 +302,8 @@ class Home extends CI_Controller {
 		$crud->change_field_type('cierre_observador_txt','invisible');
 		$crud->change_field_type('cierre_observador_url','invisible');
 
-		$crud->callback_before_insert(array($this->hooks_model,'licitacion_before_inter')); # solo en el insert, la primera vez
-		$crud->callback_after_insert(array($this->hooks_model,'licitacion_after_inter')); # solo en el insert, la primera vez
+		$crud->callback_before_insert(array($this->hooks_model,'licitacion_before_insert')); # solo en el insert, la primera vez
+		$crud->callback_after_insert(array($this->hooks_model,'licitacion_after_insert')); # solo en el insert, la primera vez
 
 		$crud->columns('nombre', 'gobierno_id', 'observador_id', 'estado');
 		$crud->display_as('gobierno_id','Gobierno');

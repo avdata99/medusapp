@@ -6,13 +6,13 @@ Los eventos en el sistema que sean relevantes se procesan aquí
 class Hooks_model extends CI_Model{
 
 	# ------------- LICITACIONES ----------------------
-	function licitacion_before_inter($post){
+	function licitacion_before_insert($post){
 		# Crear la URL slug solo la primera vez que se graba
 		$post['uid'] = $this->slugify($post['nombre']);
 		return $post;
 	}
 
-	function licitacion_after_inter($post, $pk){
+	function licitacion_after_insert($post, $pk){
 		# guardar el evento
 		$this->eventos_model->add($pk, "Se creó la licitacion");
 		return TRUE;

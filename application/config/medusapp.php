@@ -1,9 +1,17 @@
 <?php
 /* my config values */
+# se usa como $this->config->item('app_url_web')
 
 # nombre de la app para titulos
 $config['app_name_short'] = 'MedusApp';
-
+if (ENVIRONMENT == "production") {
+	$config['app_url_admin'] = 'http://MedusApp.org/home';
+	$config['app_url_web'] = 'http://MedusApp.org';
+	}
+else {
+	$config['app_url_admin'] = 'http://MedusApp/home';
+	$config['app_url_web'] = 'http://MedusApp';
+}
 # carpeta donde se almacenan los documentos principales de cada licitacion
 # asegurarse permisos
 $config['upload_documents'] = 'static/documents'; # documentos de info de las licitaciones 

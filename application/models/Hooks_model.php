@@ -11,7 +11,7 @@ class Hooks_model extends CI_Model{
 		$post['uid'] = $this->helper_model->slugify($post['nombre']);
 		
 		$titulo = "Nueva licitación";
-		$url = "http://medusapp.org/#licitacion/" . $post['uid'];
+		$url = $this->config->item('app_url_web') . "/#licitacion/" . $post['uid'];
 		$descripcion = "Se licita: " . $post['nombre']; 
 		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
 
@@ -36,7 +36,7 @@ class Hooks_model extends CI_Model{
 
 	function gov_after_insert($post, $pk) {
 		$titulo = "Nuevo gobierno";
-		$url = "http://medusapp.org/#gobierno/" . $post['uid'];
+		$url = $this->config->item('app_url_web') . "/#gobierno/" . $post['uid'];
 		$descripcion = "Se ha agregado " . $post['nombre'] . " a la plataforma MedusApp"; 
 		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
 
@@ -55,7 +55,7 @@ class Hooks_model extends CI_Model{
 
 	function obs_after_insert($post, $pk) {
 		$titulo = "Nuevo observador";
-		$url = "http://medusapp.org/#observador/" . $post['uid'];
+		$url = $this->config->item('app_url_web') . "/#observador/" . $post['uid'];
 		$descripcion = "Se ha agregado " . $post['nombre'] . " como observador a la plataforma MedusApp"; 
 		$this->notificaciones_model->addToAll($titulo, $descripcion, $url);
 

@@ -493,7 +493,8 @@ class Home extends CI_Controller {
 	/* aceptar postulaciones, solo puede hacerlo el gobierno responsable*/
 	public function aceptar_postulacion($postulacion_id){
 		if (ENVIRONMENT == 'development') $this->output->enable_profiler(TRUE);
-		if (!$this->user_model->can('EDIT_POSTULACIONES')) # no existe el permiso por lo tanto solo full admin podra
+		# no existe el permiso por lo tanto solo full admin podra
+		if (!$this->user_model->can('EDIT_POSTULACIONES')) 
 			{$this->redirecToUnauthorized();}
 
 		$this->load->model('postulaciones_model');
@@ -516,6 +517,8 @@ class Home extends CI_Controller {
 
 		//marcar como aceptada entonces
 		$this->postulaciones_model->aceptar($postulacion_id);
+		$this->hooks_model->postulacion_aceptada($postulacion);
+
 		$data = ['postulacion'=>$postulacion];
 		
 		$this->parts['title'] = 'Aceptar postulacion';
@@ -867,7 +870,7 @@ class Home extends CI_Controller {
 
 		if ($this->user_model->hasRole('GOV_ADMIN') && $this->user_model->can('EDIT_POSTULACIONES')){
 			if ($value != 'Aceptado') {
-				return "$value <a href='".site_url('/home/aceptar_postulacion/'.$row->licitacion_id)."'>Aceptar</a>";
+				return "$value <a href='".site_url('/home/aceptar_postulacion/'.$row->id)."'>Aceptar</a>";
 			}
 		}
 		

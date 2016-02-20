@@ -98,6 +98,21 @@ class Hooks_model extends CI_Model{
 		return TRUE;
 	}
 
+	function postulacion_aceptada($postulacion){
+		# guardar el evento
+		$titulo = "Postulación aceptada";
+		$descripcion = "El gobierno " . $postulacion->gobierno . 
+			' aceptó la postulación de ' . $postulacion->empresa; 
+		$this->eventos_model->add($postulacion->id_licitacion, $titulo, $descripcion);
+
+		$url = $this->config->item('app_url_web') . "/home/postulaciones";
+		$descripcion = "El gobierno " . $postulacion->gobierno . ' aceptó tu postulación'; 
+		
+		$this->notificaciones_model->addToEmp($postulacion->id_empresa, $titulo, $descripcion, $url);
+
+		return TRUE;
+	}
+
 
 }
 

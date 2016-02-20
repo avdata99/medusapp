@@ -121,7 +121,7 @@ class Postulaciones_model extends CI_Model {
 
     function load($id){
         $query = $this->db->query("SELECT lp.*, g.nombre gobierno, e.nombre empresa, 
-            lps.estado, g.id gobierno_id, l.nombre licitacion 
+            lps.estado, g.id gobierno_id, l.nombre licitacion  
             FROM licitacion_postulaciones lp 
             join licitacion l on lp.id_licitacion=l.id 
             join empresa e on lp.id_empresa = e.id 

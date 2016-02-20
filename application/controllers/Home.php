@@ -145,6 +145,8 @@ class Home extends CI_Controller {
 			
 				
 			if ($postulacion_id){
+				$postulacion = $this->postulaciones_model->load($postulacion_id);
+				$this->hooks_model->postulacion_after_insert($postulacion);
 				$this->parts['title_table'] = 'Postulación correcta';
 				$this->parts['table'] = $this->load->view('postularse.php', $this->parts, TRUE);
 			}

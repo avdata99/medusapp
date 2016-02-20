@@ -85,6 +85,20 @@ class Hooks_model extends CI_Model{
 		$this->notificaciones_model->addToLicitacion($licitacion_id, $titulo, $descripcion, $url);
 	}
 
+	# ------------- POSTULACIONES ----------------------
+	function postulacion_after_insert($postulacion){
+		# guardar el evento
+		$titulo = "Nueva postulación";
+		$descripcion = "La empresa " . $postulacion->empresa . ' se postuló'; 
+		$this->eventos_model->add($postulacion->id_licitacion, $titulo, $descripcion);
+
+		$url = $this->config->item('app_url_web') . "/home/postulaciones";
+		$this->notificaciones_model->addToGov($postulacion->gobierno_id, $titulo, $descripcion, $url);
+
+		return TRUE;
+	}
+
+
 }
 
 ?>

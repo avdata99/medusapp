@@ -62,6 +62,28 @@ class Hooks_model extends CI_Model{
 		return TRUE;
 	}
 
+	/* alguien escribe en algun chat 
+	se debe notificar (sin repetir y aumentando un contador)
+	a los participantes de esa conversación
+	*/
+	function chat_after_insert($licitacion_salas_id) {
+		$titulo = "Nuevo Chat";
+		$this->load->model('salas_model');
+		$sala = $this->salas_model->load_sala($licitacion_salas_id);
+		$licitacion_id = $sala->licitacion_id;
+		$this->load->model('licitaciones_model');
+		$licitacion = $this->licitaciones_model->load_by_id($licitacion_id);
+
+		$descripcion = "Chat en la sala " . 
+			$sala->nombre . " de la licitacion " . 
+			$licitacion->titulo;
+
+		$url = $this->config->item('app_url_web') . "/home/sala/" . $licitacion->id;
+		
+		$licitacion = $this->salas_model->get_licitacion_from_sala($licitacion_salas_id);
+		
+		$this->notificaciones_model->addToLicitacion($licitacion_id, $titulo, $descripcion, $url);
+	}
 
 }
 

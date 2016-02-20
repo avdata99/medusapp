@@ -39,6 +39,8 @@ class Salas_model extends CI_Model {
 				'$perfil_tipo', '$perfil_nombre', '".date('Y-m-d H:i:s')."');";
 		$query = $this->db->query($q);
 		
+		$this->hooks_model->chat_after_insert($licitacion_salas_id);
+
 		return $this->db->insert_id(); 
 	}
 
@@ -68,6 +70,13 @@ class Salas_model extends CI_Model {
 
 		return $ret;
         
+	}
+
+	public function get_licitacion_from_sala($licitacion_salas_id) {
+		$q = "Select licitacion_id from licitacion_salas where id=$licitacion_salas_id";
+		$query = $this->db->query($q);
+		
+		return $query->row(); 
 	}
 
 }

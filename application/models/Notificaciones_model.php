@@ -56,6 +56,29 @@ class Notificaciones_model extends CI_Model{
 		return $res;
 	}
 
+	/* enviar una notificacion a todos los que estén en una licitacion 
+	 gobierno, observador y usuarios de empresas */
+	public function addToLicitacion($licitacion_id, $titulo='', $descripcion='', $url=''){
+		$this->load->model('licitaciones_model');
+		
+		$licitacion = $this->licitaciones_model->load_by_id($licitacion_id);
+
+		$observador_id = $licitacion->observador_id;
+		$this->addToObs($observador_id, $titulo, $descripcion, $url);
+		
+		$gobierno_id = $licitacion->gobierno_id;
+		$this->addToGov($gobierno_id, $titulo, $descripcion, $url);
+		
+		// empresas que se postularton y fueron aceptadas
+		$postulaciones = $this->licitaciones_model->get_postulaciones($licitacion_id);
+		
+		foreach ($postulaciones as $postulacion) {
+			$empresa_id = $postulacion->id_empresa;
+			$this->addToEmp($empresa_id, $titulo, $descripcion, $url);
+		}
+		return TRUE;
+	}
+
 	/* agregar una notificacion para todos los usuarios del sistema */
 	public function addToAll($titulo='', $descripcion='', $url=''){
 		$this->load->model('observadores_model');

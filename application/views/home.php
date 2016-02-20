@@ -26,11 +26,11 @@
 
     <span style='display:none' id='CSRF'><?=$GUID?></span>
 
-<? if (isset($local_js)) { 
-    echo $local_js ;
-    } ?>
 
 <?= $js_loads ?>
+
+<? if (isset($local_js)) { echo $local_js; } ?>
+
 
 </body>
 

@@ -78,3 +78,7 @@ ALTER TABLE `observador` ADD `documento_url` VARCHAR(190) CHARACTER SET utf8 COL
 -- -------------------------------------------------------
 -- 12-01-2016
 ALTER TABLE `notificaciones` ADD `fecha` DATETIME NOT NULL ;
+
+-- -------------------------------------------------------
+-- listo en produccion hasta aqui
+-- -------------------------------------------------------

@@ -5,7 +5,7 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-class MedusApp(unittest.TestCase):
+class MedusAppWebsite(unittest.TestCase):
 
     def setUp(self):
         # self.driver = webdriver.Firefox()

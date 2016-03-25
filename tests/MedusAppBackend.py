@@ -1,5 +1,10 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
+
 from MedusAppTest import MedusAppTest
 
 
@@ -17,7 +22,7 @@ class MedusAppBackend(MedusAppTest):
         elem.send_keys(Keys.RETURN)
         self.assertIn(u"Acceso inválido", driver.page_source)
 
-    def test_login_ok(self):
+    def test_login_admin(self):
         driver = self.driver
         driver.get("{}/home".format(self.base_url))
 
@@ -29,8 +34,55 @@ class MedusAppBackend(MedusAppTest):
         elem.send_keys(Keys.RETURN)
         self.assertIn(u"MedusApp - Home :: Admin user (admin)", driver.page_source)
 
+    def has_gov_add_btn(self):
+        """ tiene el boton agregar gobierno? """
+        driver = self.driver
+        add_gov_link = '{}/home/gobiernos/add'.format(self.base_url)
+        xpath = "//a[@href='{}']".format(add_gov_link)
+        try:
+            add_gov_btn = driver.find_element_by_xpath(xpath)
+        except Exception, e:
+            print "no encuentra link '{}' con xpath='{}'".format(add_gov_link, xpath)
+
+            return False
+        return add_gov_btn
+        
+
     def test_create_gov(self):
-        self.test_login_ok()
+        """ crear un nuevo gobierno """
+        self.test_login_admin()
+        driver = self.driver
+        # click en "gobiernos"
+        menu_gov = driver.find_element_by_name('menu_gobiernos')
+        menu_gov.click()
+        add_gov_btn = self.has_gov_add_btn()
+
+        
+
+        if not add_gov_btn:
+            raise ValueError('Sin boton para crear Gobierno en usuaro administrador')
+
+        add_gov_btn.click()
+        # cargar el frm con el nuevo gobierno (ID=crudForm)
+        #Nombre ID:field-nombre
+        element = driver.find_element_by_id("field-nombre")
+        element.send_keys("Gobiernolandia")
+        # select PAIS: field-pais_id
+        select = Select(driver.find_element_by_id('field-pais_id'))
+        select.select_by_index(0)
+        # select.select_by_visible_text("text")
+        # select.select_by_value(value)
+
+        # texto HTML de presentacion: field-texto_presentacion
+        # INVISIBLE element = driver.find_element_by_id("field-texto_presentacion")
+        # element = driver.find_element_by_id("cke_contents_field-texto_presentacion")
+        # element.send_keys("Datos del <b>GOBIERNO NUEVO</b> <p>Hola parrafo 1</p><p>Hola parrafo 2</p>")
+        
+        sbm_button = driver.find_element_by_xpath('//button[@type="submit"]')
+        sbm_button.click()
+
+        wait = WebDriverWait(driver, 40)
+        element = wait.until(EC.element_to_be_clickable((By.ID,'someid')))
 
 if __name__ == "__main__":
     import unittest

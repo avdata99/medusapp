@@ -6,7 +6,7 @@
             
             <li><a <? if ($active=='inicio'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home"><i class="fa fa-home fa-fw"></i> Inicio</a></li>
         <? if ($this->user_model->can('VIEW_GOVS')) { ?>
-            <li><a <? if ($active=='gobiernos'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/gobiernos"><i class="fa fa-map-marker fa-fw"></i> Gobiernos</a></li>
+            <li><a name='menu_gobiernos' <? if ($active=='gobiernos'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/gobiernos"><i class="fa fa-map-marker fa-fw"></i> Gobiernos</a></li>
         <? } ?>
         <? if ($this->user_model->can('EDIT_WEBPAGE')) { ?>
             <li><a <? if ($active=='textos'){ ?>class="active"<? } ?> href="<?=$my_base_url?>home/textos"><i class="fa fa-map-marker fa-fw"></i> Textos</a></li>

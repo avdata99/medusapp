@@ -1,9 +1,9 @@
 # test all
 import unittest
 
-from website.MedusAppWebsite import *
-from backend.MedusAppBackend import *
-from api.MedusAppApi import *
+from MedusAppWebsite import *
+from MedusAppBackend import *
+from MedusAppApi import *
 
 print "****************************************"
 print "****************************************"

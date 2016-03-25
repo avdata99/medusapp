@@ -1,21 +1,13 @@
 # -*- coding: utf-8 -*-
-""" pruebas sobre el website medusapp.org en local """
-
-import unittest
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from MedusAppTest import MedusAppTest
 
-class MedusAppBackend(unittest.TestCase):
 
-    def setUp(self):
-        # self.driver = webdriver.Firefox()
-        # Chrome needs export PATH="/home/user/chromedriverpath/:$PATH"
-        self.driver = webdriver.Chrome() 
-
+class MedusAppBackend(MedusAppTest):
 
     def test_login_fail(self):
         driver = self.driver
-        driver.get("http://medusapp/home")
+        driver.get("{}/home".format(self.base_url))
 
         # BAD login
         elem = driver.find_element_by_name("user")
@@ -27,7 +19,7 @@ class MedusAppBackend(unittest.TestCase):
 
     def test_login_ok(self):
         driver = self.driver
-        driver.get("http://medusapp/home")
+        driver.get("{}/home".format(self.base_url))
 
         # login OK
         elem = driver.find_element_by_name("user")
@@ -37,10 +29,9 @@ class MedusAppBackend(unittest.TestCase):
         elem.send_keys(Keys.RETURN)
         self.assertIn(u"MedusApp - Home :: Admin user (admin)", driver.page_source)
 
-        
-    
-    def tearDown(self):
-        self.driver.close()
+    def test_create_gov(self):
+        self.test_login_ok()
 
 if __name__ == "__main__":
+    import unittest
     unittest.main(verbosity=2)

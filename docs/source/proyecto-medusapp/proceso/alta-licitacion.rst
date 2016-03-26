@@ -11,11 +11,11 @@ Aqui deben cargarse:
  - **Descrpción**: con el mayor nivel de detalles pueden describirse los productos y servicios requeridos. 
  - **Documento**: opcionalmente puede adjuntar un documento (PDF, DOC, planilla de cálculo, etc) con información complementaria.
  - **Imagen**: Una imagen descriptiva de los productos o servicios solicitados. Esta se usará en el sitio web público de la plataforma MedusApp.
- - **Observador**: Debe elegir a una persona externa al gobierno y a cualquier empresa participante. Si la persona que se decide colocar en este cargo no esta de alta en el sistema puede solicitarse a los administradores de la plataforma. `Más datos sobre los observadores <http://medusapp/manual/observadores-externos/>`_.
+ - **Observador**: Debe elegir a una persona externa al gobierno y a cualquier empresa participante. Si la persona que se decide colocar en este cargo no esta de alta en el sistema puede solicitarse a los administradores de la plataforma. `Más datos sobre los observadores <https://medusapp.org/manual/observadores-externos/>`_.
  - **Fechas**: Debe indicarse la fecha de inicio de la recepción de empresas postulantes y de cierre definitivo.
  - **Datos a solicitarse**: La plataforma MedusApp especifica previamente los documentos que los gobiernos pueden solicitar en cada licitación. Esta lista esta predefinida y puede ampliarse a pedido de los gobiernos. La empresas aceptadas a participar de la compulsa podrán completar cada una de estas solicitudes con un documento adjunto. Es importante definir con el observador. 
 
-Luego de cargada la licitación esta será visible desde el `sitio web de MedusApp <http://medusapp.org/#licitaciones>`_.
+Luego de cargada la licitación esta será visible desde el `sitio web de MedusApp <https://medusapp.org/#licitaciones>`_.
 
 .. image :: /static/medusapp-licitacion-publica.png
 

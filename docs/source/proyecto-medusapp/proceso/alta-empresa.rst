@@ -2,7 +2,7 @@ Nueva empresa
 =====================
 
 
-Despues de `registrase una empresa <http://medusapp.org/manual/medusapp-para-empresas/como-registrarse.html>`_ el administrado de la aplicacion podrá verla en su lista.
+Despues de `registrase una empresa <https://medusapp.org/manual/medusapp-para-empresas/como-registrarse.html>`_ el administrado de la aplicacion podrá verla en su lista.
 
 .. image :: /static/medusapp-empresa-nueva-lista.png
 

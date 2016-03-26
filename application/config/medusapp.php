@@ -5,8 +5,8 @@
 # nombre de la app para titulos
 $config['app_name_short'] = 'MedusApp';
 if (ENVIRONMENT == "production") {
-	$config['app_url_admin'] = 'http://MedusApp.org/home';
-	$config['app_url_web'] = 'http://MedusApp.org';
+	$config['app_url_admin'] = 'https://MedusApp.org/home';
+	$config['app_url_web'] = 'https://MedusApp.org';
 	}
 else {
 	$config['app_url_admin'] = 'http://MedusApp/home';

@@ -6,7 +6,7 @@ Desarrollado con [Sphinx](http://sphinx-doc.org/). El directorio *docs/source* g
 sphinx-build -b html docs/source manual
 ``` 
 se genera el manual en HTML. Estamos usando el template de [Read The Docs](https://readthedocs.org).  
-Esto permite que el directorio [manual](http://medusapp.org/manual) muestre al público todo el contenido.  
+Esto permite que el directorio [manual](https://medusapp.org/manual) muestre al público todo el contenido.  
 Es por esto que el directorio *manual* **nunca** debe editarse manualmente ya que es contenido auto-generado.  
 
 ![Sistema](/../master/static/img/screen-medusapp-02-manual-small.png?raw=true)

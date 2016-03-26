@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
+from random import randint
 
 from MedusAppTest import MedusAppTest
 
@@ -50,14 +51,12 @@ class MedusAppBackend(MedusAppTest):
 
     def test_create_gov(self):
         """ crear un nuevo gobierno """
-        self.test_login_admin()
+        self.test_login_admin() # LOGIN
         driver = self.driver
         # click en "gobiernos"
         menu_gov = driver.find_element_by_name('menu_gobiernos')
         menu_gov.click()
         add_gov_btn = self.has_gov_add_btn()
-
-        
 
         if not add_gov_btn:
             raise ValueError('Sin boton para crear Gobierno en usuaro administrador')
@@ -66,24 +65,30 @@ class MedusAppBackend(MedusAppTest):
         # cargar el frm con el nuevo gobierno (ID=crudForm)
         #Nombre ID:field-nombre
         element = driver.find_element_by_id("field-nombre")
-        element.send_keys("Gobiernolandia")
-        # select PAIS: field-pais_id
-        select = Select(driver.find_element_by_id('field-pais_id'))
-        select.select_by_index(0)
-        # select.select_by_visible_text("text")
-        # select.select_by_value(value)
+        element.send_keys("Gobiernolandia-{}".format(randint(10000,99999)))
+        # pais select
+        element = driver.find_element_by_id("field_pais_id_chzn")
+        element.click()
+        # select pais from list
+        element = driver.find_element_by_id("field_pais_id_chzn_o_1")
+        element.click()
 
+        # dificil de seleccionar el editor WYSIWYG
+        element = driver.find_element_by_id("field-nombre")
+        element.send_keys(Keys.TAB)
+        element = driver.switch_to.active_element
+        element.send_keys(Keys.TAB)
+        element = driver.switch_to.active_element
         # texto HTML de presentacion: field-texto_presentacion
         # INVISIBLE element = driver.find_element_by_id("field-texto_presentacion")
         # element = driver.find_element_by_id("cke_contents_field-texto_presentacion")
-        # element.send_keys("Datos del <b>GOBIERNO NUEVO</b> <p>Hola parrafo 1</p><p>Hola parrafo 2</p>")
+        element.send_keys("Datos del <b>GOBIERNO NUEVO</b> <p>Hola parrafo 1</p><p>Hola parrafo 2</p>")
         
         sbm_button = driver.find_element_by_xpath('//button[@type="submit"]')
         sbm_button.click()
 
-        wait = WebDriverWait(driver, 40)
-        element = wait.until(EC.element_to_be_clickable((By.ID,'someid')))
-
+        # self.wait_some(30)
+        
 if __name__ == "__main__":
     import unittest
     unittest.main(verbosity=2)

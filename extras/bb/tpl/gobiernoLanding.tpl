@@ -10,7 +10,9 @@
 	<h3>Licitaciones de <%= nombre %> en MedusApp</h3>
 	<% if (_.size(licitaciones) > 0) { %>
 		<% _.each(licitaciones, function(licitacion) { %>
-		<p><b><%= licitacion.titulo %></b>. <%= licitacion.descripcion %>
+		<h3><a href='/#licitacion/<%= licitacion.uid %>' target='_blank'><%= licitacion.titulo %></a></h3>. 
+		<p>
+		<%= licitacion.descripcion %>
 		<a href='/#licitacion/<%= licitacion.uid %>' target='_blank'>Ver datos de la licitación</a> </p>
 		<% }); %>
 		<% } else { %>

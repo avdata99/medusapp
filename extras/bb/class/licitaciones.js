@@ -40,7 +40,7 @@ var licitacionModel = Backbone.Model.extend({
             if (d.getDate() == 1 && d.getHours() == 1 && d.getMinutes() == 1 && d.getSeconds() == 1) {
                 meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
                     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']; 
-                evento.fecha = meses[d.getMonth() + 1] + ' de ' + d.getFullYear();
+                evento.fecha = meses[d.getMonth()] + ' de ' + d.getFullYear();
             }
         });
         self.set('eventos', data.eventos);

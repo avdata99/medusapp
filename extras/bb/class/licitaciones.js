@@ -33,7 +33,18 @@ var licitacionModel = Backbone.Model.extend({
         self.set('postulaciones', data.postulaciones);
         self.set('datos_pedidos', data.datos_pedidos);
         self.set('datos_entregados', data.datos_entregados);
+        // algunos eventos no tienen fecha especifica (cosas anteriores cargadas) y pongo el mes
+        // para esto uso una notacion especial
+        _.each(data.eventos, function(evento){
+            var d = new Date(evento.fecha);
+            if (d.getDate() == 1 && d.getHours() == 1 && d.getMinutes() == 1 && d.getSeconds() == 1) {
+                meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']; 
+                evento.fecha = meses[d.getMonth() + 1] + ' de ' + d.getFullYear();
+            }
+        });
         self.set('eventos', data.eventos);
+
         });
       xhr.fail(function(data){console.log("failed on getLicitacionLanding");});
 

@@ -864,7 +864,7 @@ class Home extends CI_Controller {
 
 		if ($this->user_model->hasRole('EMP_ADMIN') && $this->user_model->can('ADD_POSTULACIONES')){
 			if ($value == 'Aceptado') {
-				return "ACEPTADO <a href='".site_url('/home/procesar_licitacion/'.$row->licitacion_id)."'>Procesar postulacion</a>";
+				return "ACEPTADO <a href='".site_url('/home/procesar_licitacion/'.$row->id)."'>Procesar postulacion</a>";
 			}	
 		}
 

@@ -82,6 +82,8 @@
 
 <div class="row">
 	<div class="span12">
+		<h3>Inicio de la licitacion</h3>
+		<p>Fecha de inicio: <%= fecha_inicio %></p>
 		<h3>Cierre de la licitacion</h3>
 		<p>Fecha de cierre: <%= fecha_fin %></p>
 	</div>

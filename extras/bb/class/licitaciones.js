@@ -14,6 +14,7 @@ var licitacionModel = Backbone.Model.extend({
         postulaciones: [],  
         datos_pedidos: [], // documentos que el gobierno pidio
         datos_entregados: [], // documentos entregados por las empresas en el proceso
+        fecha_inicio: null, 
         fecha_fin: null,
         cierre_observador_txt: null, // texto de cierre del observador
         cierre_observador_url: null, // url del doc de cierre del observador si lo hubiera
@@ -29,19 +30,18 @@ var licitacionModel = Backbone.Model.extend({
             async: false});
         
       xhr.done(function(data){ // get licitacion info
+        data.licitacion.fecha_inicio = self.fix_date(data.licitacion.fecha_inicio);
+        data.licitacion.fecha_fin = self.fix_date(data.licitacion.fecha_fin);
+
         self.set(data.licitacion);
+
         self.set('postulaciones', data.postulaciones);
         self.set('datos_pedidos', data.datos_pedidos);
         self.set('datos_entregados', data.datos_entregados);
         // algunos eventos no tienen fecha especifica (cosas anteriores cargadas) y pongo el mes
         // para esto uso una notacion especial
         _.each(data.eventos, function(evento){
-            var d = new Date(evento.fecha);
-            if (d.getDate() == 1 && d.getHours() == 1 && d.getMinutes() == 1 && d.getSeconds() == 1) {
-                meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
-                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']; 
-                evento.fecha = meses[d.getMonth()] + ' de ' + d.getFullYear();
-            }
+            evento.fecha = self.fix_date(evento.fecha);
         });
         self.set('eventos', data.eventos);
 
@@ -51,6 +51,18 @@ var licitacionModel = Backbone.Model.extend({
       //#TODO obtener los documentos de las empresas
       //#TODO obtener el histórico de hechos
     },
+
+    fix_date: function(fecha){
+        // revisar fechas especiales de inicio y cierre
+        var ret = fecha;
+        var d = new Date(fecha);
+        if (d.getDate() == 1 && d.getHours() == 1 && d.getMinutes() == 1 && d.getSeconds() == 1) {
+            meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']; 
+            ret = meses[d.getMonth()] + ' de ' + d.getFullYear();
+        }
+        return ret;
+    }
 });
 
 var licitacionesCollection = Backbone.Collection.extend({

@@ -409,7 +409,7 @@ class Home extends CI_Controller {
 		# mostrar solo los gobiernos a los que el usuario tiene permiso
 		$where_in = $this->user_model->getWhereIn('GOVS');
 		if ($where_in){
-			$crud->where("id in ($where_in)");
+			$crud->where("gobierno.id in ($where_in)");
 		}
 
 		// notificar a todo el sistema cuando se agregue un gobierno, no es un hecho menor

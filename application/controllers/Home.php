@@ -909,9 +909,11 @@ class Home extends CI_Controller {
 				return "No es una licitación de tu gobierno";
 			}
 
-			$cerrar = "<a href='".site_url('/home/cerrar_licitacion/'.$row->id)."'>Cerrar</a>";
+			# las licitaciones no tienen un status por ahoras, se desactivarán al llegar a la fecha de cierre
+			# $cerrar = "<a href='".site_url('/home/cerrar_licitacion/'.$row->id)."'>Cerrar</a>";
 			$sala = "<a href='".site_url('/home/sala/'.$row->id)."'>Ir a la sala</a>";
-			return $cerrar . ' - ' . $sala;
+			# return $cerrar . ' - ' . $sala;
+			return $sala;
 			
 		}
 

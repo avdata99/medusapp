@@ -82,16 +82,16 @@
 
 <div class="row">
 	<div class="span12">
-		<h3>Inicio de la licitacion</h3>
+		<h3>Inicio de la licitación</h3>
 		<p>Fecha de inicio: <%= fecha_inicio %></p>
-		<h3>Cierre de la licitacion</h3>
+		<h3>Cierre de la licitación</h3>
 		<p>Fecha de cierre: <%= fecha_fin %></p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="span12">
-		<h3>Eventos de la licitacion</h3>
+		<h3>Eventos de la licitación</h3>
 		
 		<% if (_.size(eventos) > 0) { %>
 		

@@ -18,6 +18,7 @@ var licitacionModel = Backbone.Model.extend({
         fecha_fin: null,
         cierre_observador_txt: null, // texto de cierre del observador
         cierre_observador_url: null, // url del doc de cierre del observador si lo hubiera
+        preferencias: [],
         eventos: [],
     },
     getLicitacion: function(slug){
@@ -38,6 +39,7 @@ var licitacionModel = Backbone.Model.extend({
         self.set('postulaciones', data.postulaciones);
         self.set('datos_pedidos', data.datos_pedidos);
         self.set('datos_entregados', data.datos_entregados);
+        self.set('preferencias', data.preferencias);
         // algunos eventos no tienen fecha especifica (cosas anteriores cargadas) y pongo el mes
         // para esto uso una notacion especial
         _.each(data.eventos, function(evento){

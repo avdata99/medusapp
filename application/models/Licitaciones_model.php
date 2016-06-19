@@ -66,6 +66,21 @@ class Licitaciones_model extends CI_Model {
         $ret['datos_entregados'] = $datos_entregados;
         // lista de eventos de la licitacion
         $ret['eventos'] = $this->eventos_model->get_from_licitacion($licitacion->id);
+        // preferencias de la licitacion
+        $ret['preferencias'] = $this->get_preferencias($licitacion->id);
+        // cargar valores predeterminados
+            if (! array_key_exists('show_observador', $ret['preferencias'])) {
+                $ret['preferencias']['show_observador'] = TRUE;}
+            if (! array_key_exists('show_empresas_propuestas', $ret['preferencias'])) {
+                $ret['preferencias']['show_empresas_propuestas'] = TRUE;}
+            if (! array_key_exists('show_documentos_solicitados', $ret['preferencias'])) {
+                $ret['preferencias']['show_documentos_solicitados'] = TRUE;}
+            if (! array_key_exists('show_eventos_licitacion', $ret['preferencias'])) {
+                $ret['preferencias']['show_eventos_licitacion'] = TRUE;}
+            // titulo en la web de los documentos liberados
+            if (! array_key_exists('documentos_liberados_titulo', $ret['preferencias'])) {
+                $ret['preferencias']['documentos_liberados_titulo'] = 'Documentos liberados por las empresas participantes';}
+            
 
         return $ret;
     }
@@ -91,6 +106,21 @@ class Licitaciones_model extends CI_Model {
             where id_licitacion=$licitacion_id";
         $query = $this->db->query($q);
         return $query->result();
+    }
+
+    function get_preferencias($licitacion_id){
+        $q = "SELECT * FROM licitacion_preferencias
+            where licitacion_id=$licitacion_id";
+        $query = $this->db->query($q);
+        $res = $query->result();
+        // revisar las preferencias y sus valores predeterminados
+        $prefs = [];
+        foreach ($res as $preferencia) {
+            $v = $preferencia->valor;
+            if ($v == '' || $v== 'NO' || $v == '0') {$v = FALSE;}
+            $prefs[$preferencia->preferencia] = $v;
+        }
+        return $prefs;
     }
 
     function load_by_id($licitacion_id){

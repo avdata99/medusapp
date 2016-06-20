@@ -70,8 +70,7 @@
 				<li><%= datos_entregado.empresa %> entrego <%= datos_entregado.documento %></li>
 				<% if (datos_entregado.url) { %>
 				<a target='_blank' class="btn" 
-					href="/static/company_documents/<%= datos_entregado.url %>">Descargar <%= datos_entregado.documento %> de <%= datos_entregado.empresa %>  </a>
-				
+					href="/static/company_documents/<%= datos_entregado.url %>">Descargar</a>
 				<% } else { %>
 				<p><b>DOCUMENTO NO LIBERADO</b></p>
 				<% } %>

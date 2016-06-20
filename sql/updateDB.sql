@@ -1,5 +1,5 @@
 
- -- permitir preferencias para las licitaciones
+ -- 2016-06-19 permitir preferencias para las licitaciones
 
 CREATE TABLE `licitacion_preferencias` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
